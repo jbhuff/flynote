@@ -1,0 +1,30 @@
+{% extends "flynotebase.htm" %}
+
+{% block content %}
+<h3>Flights for {{ ac.name }}:<br></h3>
+<table class="table">
+	<tr>
+	<th>Date</th>
+	<th>Operator</th>
+	<th>Tach</th>
+	<th>Hours</th>
+	<th>Note</th>
+	<th>Fuel</th>
+	<th>GPH</th>
+	</tr>
+        {% for f in flights %}
+	<tr>
+	<td>{{ f.li.date }}</td>
+	<td>{{ f.li.uta.user }}</td>
+	<td>{{ f.fli.tach }}</td>
+	<td>{{ f.fli.hours }}</td>
+	<td><a href={% url 'show_fl' f.fli.id %}>{{ f.fli.note }}</a></td>
+	<td>{{ f.fli.fuel }}</td>
+	<td>{{ f.gph }}</td>
+	</tr>
+	{% endfor %}
+	</table>
+	<br>
+<a href={% url 'show_ac' ac.id %}><----Back to Aircraft</a>
+{% endblock %}
+

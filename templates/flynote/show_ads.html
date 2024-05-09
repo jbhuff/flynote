@@ -1,0 +1,51 @@
+{% extends "flynotebase.htm" %}
+
+{% block content %}
+<h3>Airworthiness Directives for {{ ac.name }}:<br></h3>
+<table class="table">
+	<tr>
+	<th>Number</th>
+	<th>Description</th>
+	<th>Complied</th>
+	<th>Due Tach</th>
+	<th>Due Date</th>
+	<th>Applies</th>
+	</tr>
+	{% for ad in ads %}
+	<tr class="table-{{ ad.level }}">
+	<td><a href={% url 'show_ad_ac' ad.ad_ac.id %}>{{ ad.ad_ac.ad.number }}</a></td>
+	<td>{{ ad.ad_ac.ad.description }}</td>
+	<td>{{ ad.ad_ac.complied }}</td>
+	<td>{{ ad.ad_ac.due_tach }}</td>
+	<td>{{ ad.ad_ac.due_date }}</td>
+	<td>{{ ad.ad_ac.applicable }}</td>
+	</tr>
+	{% endfor %}
+</table>
+<br>
+<br><h3>Unused ADs:</h3><br>
+<table class="table">
+	<tr>
+		<th>Number</th>
+		<th>Description</th>
+		<th>Add to {{ ac.name }}</th>
+	</tr>
+	{% for ad in unused_ADs %}
+	<tr>
+		<td>{{ ad.number }}</td>
+		<td>{{ ad.description }}</td>
+		<td><a href={% url 'add_ad_to_ac' ad.id ac.id %}>Add</a></td>
+	</tr>
+	{% endfor %}
+</table><br>
+<h2>Key:</h2><br>
+<ul>
+	<li class="list-group-item list-group-item-dark" >Not Applicable</li>
+	<li class="list-group-item list-group-item-danger" >Not Complied or Due Date passed</li>
+	<li class="list-group-item list-group-item-warning" >Tach due within 20 or duedate within 100</li>
+	<li class="list-group-item list-group-item-primary" >Complied and Recurring</li>
+	<li class="list-group-item list-group-item-success" >Complied</li>
+</ul>
+<a href={% url 'show_ac' ac.id %}><----Back to Aircraft</a>
+{% endblock %}
+

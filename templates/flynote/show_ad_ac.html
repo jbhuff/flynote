@@ -1,0 +1,38 @@
+{% extends "flynotebase.htm" %}
+
+{% block content %}
+<h3>Airworthiness Directive:<br></h3>
+{% if maintitem_links %}
+<h4>Logs with AD:</h4><br>
+<table class="table">
+	<tr>
+		<th>Date</th>
+		<th>Tach</th>
+		<th>TTAF</th>
+	</tr>
+	{% for mli in maintitem_links %}
+	<tr>
+		<td><a href={% url 'show_maint_item' mli.mli.maintitem.id %}>{{ mli.mli.maintitem.date }}</a></td>
+		<td>{{ mli.mli.maintitem.tach }}</td>
+		<td>{{ mli.ttaf }}</td>
+	</tr>
+	{% endfor %}
+</table>
+{% endif %}
+<br>
+<h2>AD info:</h2><br>
+<form action={% url 'show_ad_ac' ad_ac.id %} method="post">
+                        {% csrf_token %}
+                        {{ form.as_p }}
+            <input type="submit" value="Submit">
+</form>
+<br>
+<form action={% url 'update_ad' ad_ac.ad.id ad_ac.id %} method="post">
+	{% csrf_token %}
+	<table class="table">
+	{{ ad_form.as_table }}
+	</table>
+	<input type="submit" value="Update AD info"><br><br><br>
+<a href={% url 'show_ac' ad_ac.aircraft.id %}><----Back to Aircraft</a>
+{% endblock %}
+

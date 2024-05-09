@@ -1,0 +1,75 @@
+<html>
+	<h2>Dashboard for {{ user.username }}</h2><br>
+	<h3>Aircraft</h3><br>
+	<table class="table">
+		<tr>
+		<th>Name</th>
+		<th>Make</th>
+		</tr>
+	{% for r in aircraft_rs %}
+		<tr>
+			<td><a href={% url 'show_ac' r.aircraft.id %}>{{ r.aircraft.name }}</a></td>
+			<td>{{ r.aircraft.make }}</td>
+		</tr>
+		{% endfor %}
+	</table>
+	<h3>Metars:</h3>
+	{% for metar in metars %}
+	<form action="{% url 'dashboard' %}" method="get">
+               {% csrf_token %}
+               {{ airfield_form }}
+	       <input type="submit" value="Change">
+	</form>
+	<h4>Condition: {{ condition }}</h4> Field elevation: {{ field_elevation }}<br>
+        <ul>
+		{% for m in metar.metar_list %}
+		<li>{{ m }}</li>
+		{% endfor %}
+	</ul>
+	{% endfor %}
+	{% if xw %}
+	<br>
+        <ul>
+         <li>Crosswind Component: {{ xw.speed }}</li>
+	 {% if xw.direct %}
+	 <li>DIRECT</li>
+	 {% endif %}
+	 {% if xw.tailwind %}
+	 <li>TAILWIND!!</li>
+	 {% endif %}
+	</ul>
+	{% endif %}
+	<br>
+	{% if min_alerts.wind %}
+	<br><b>Below personal minimums!!</b> Wind too high!<br>
+	{% endif %}
+	{% if min_alerts.crosswind %}
+	<br><b>Below personal minimums!!</b> Crosswind component too high!<br>
+	{% endif %}
+	{% if gust_factor %}
+	<br><b>Gust Factor: {{ gust_factor }} !!</b>
+	{% endif %}
+	{% if err %}
+	<br>Error: {{ err }}
+	{% endif %}
+	<br>Night Current:{% if night_current %} True<br>
+	Night current deadline: {{ nc_deadline }}{% else %} <b>False</b>{% endif %}
+	<br>Day Current:{% if day_current %} True<br>
+	Day current deadline: {{ dc_deadline }}{% else %} <b>False</b>{% endif %}
+	<br>Pressure Altitude: {{ pressure_altitude }}
+	<br>Density Altitude: {{ density_altitude }}
+	<br>Estimated Cloudbase: {{ est_cloudbase }}
+	<br>
+	<form action={% url 'dashboard' %} method="post">
+          {% csrf_token %}
+	  {{ xwform.as_p }}
+          <input type="submit" value="Check Crosswind">
+	</form><br>
+	<ul>
+	{% for k in metar_l %}
+	<li>{{ k.key }}: {{ k.value }}</li>
+	{% endfor %}
+	</ul>
+	<p><a href={% url 'add_ad' %}>Add AD</a></p>
+	<p><a href={% url 'add_ad_ac' %}>Add AD to aircraft</a></p>
+</html>
