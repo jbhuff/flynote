@@ -1,0 +1,73 @@
+{% extends "flynotebase.htm" %}
+
+{% block content %}	
+
+<h2>{{ ac.name }}</h2><br>
+
+	<br>
+	{% if TTE %}
+	<p>Total Time Engine: <b>{{ TTE }}</b></p>
+	{% endif %}
+	<p>Total Time Airframe: {{ ttaf }}</p>
+	<p>Oil Change Due: {{ oil_due }}<br>
+	Hours remaining before Oil Change Due: <b>{{ hours_remaining }}</b></p>
+	<p>Last Annual: {{ last_annual }}<br>
+        Flying days left: <b>{{ days_remaining }}</b></p>
+	<a href={% url 'show_maint' ac.id %}>Maintenance Logs</a><br><br>
+	<p><a href={% url 'wandb' ac.id %}>Weight and Balance:</a><br>
+	<br><br><h2><a href={% url 'show_flights' ac.id %}>Flights:</a></h2><br>
+	<table class="table", border="1">
+                 <tr>
+		  <th>Date</th>
+		  <th>Operator</th>
+		  <th>Tach</th>
+		  <th>Hours</th>
+		  <th>Note</th>
+		  <th>Fuel</th>
+		  <th>GPH</th>
+		  </tr>
+		{% for f in flights %}
+		<tr>
+		<td>{{ f.li.date }}</td>
+		<td>{{ f.li.uta.user }}</td>
+		<td>{{ f.fli.tach }}</td>
+		<td>{{ f.fli.hours }}</td>
+		<td><a href={% url 'show_fl' f.fli.id %}>{{ f.fli.note }}</a></td>
+		<td>{{ f.fli.fuel }}</td>
+		<td>{{ f.gph }}</td>
+		</tr>
+		{% endfor %}
+		</table>
+         {% if snipped_flis %}
+         snipped {{ snipped_flis }} flights...<br>
+	 {% endif %}
+		<br>
+	<h3>Add Flight Log</h3>
+	<form action={% url 'show_ac' ac.id %} method="post">
+		        {% csrf_token %}
+			{{ form.as_p }}
+	    <input type="submit" value="Submit">
+	</form><br><br>
+	<p>Days Back: {{ days_back }}</p>	
+	<div>
+	<canvas id="myChart" style="width:50%"></canvas>
+        </div>
+	<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+	<script>
+	const ctx = document.getElementById('myChart');
+	new Chart(ctx, {
+	  type: 'line',
+	  data: {
+	  labels: [{% for day in tach_log %}'{{ day.date.month }}/{{ day.date.day }}',{% endfor %}],
+	  datasets: [{
+	    label: 'Tach',
+	    data: [{% for tach in tach_log %}{{ tach.hours }}, {% endfor %}],
+	    borderWidth: 1
+	    }]
+	},
+	 
+	});
+	</script>
+	<br>
+	<h3><a href={% url 'show_ads' ac.id %}>Show ADs</a><br></h3>
+{% endblock %}

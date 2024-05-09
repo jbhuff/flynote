@@ -1,0 +1,112 @@
+{% extends "flynotebase.htm" %}
+
+{% block content %}
+<h3>Maintenance Log:<br></h3>
+<p>Logitem info:<br>
+<table class="table">
+	<tr>
+		<th>Key</th>
+		<th>Value</th>
+	</tr>
+	<tr>
+		<td>Logitem Created</td>
+		<td>{{ maint_item.logitem.created_at }}</td>
+	</tr>
+	<tr>
+		<td>Logitem Updated</td>
+		<td>{{ maint_item.logitem.updated_at }}</td>
+	</tr>
+	<tr>
+		<td>Logitem Date</td>
+	        <td><b>{{ maint_item.logitem.date }}</b></td>
+	</tr>
+	<tr>
+		<td>User</td>
+		<td>{{ maint_item.logitem.uta.user }}</td>
+	</tr>
+	<tr>
+		<td>Aircraft</td>
+		<td>{{ maint_item.logitem.uta.aircraft }}</td>
+	</tr>
+	<tr>
+		<td>Logtype</td>
+		<td>{{ maint_item.logitem.logtype }}</td>
+	</tr>
+	<tr>
+		<td>Logitem Note</td>
+		<td>{{ maint_item.logitem.note }}</td>
+	</tr>
+</table></p><br>
+<p>Maintenance log info:<br>
+<table class="table">
+	<tr>
+		<th>Key</th>
+		<th>Value</th>
+	</tr>
+	<tr>
+		<td>Date</td>
+		<td>{{ maint_item.date }}</td>
+	</tr>
+	<tr>
+		<td>Tach</td>
+		<td>{{ maint_item.tach }}</td>
+	</tr>
+	<tr>
+		<td>Oil Changed</td>
+		<td>{{ maint_item.oil_changed }}</td>
+	</tr>
+	<tr>
+		<td>Annual Completed</td>
+		<td>{{ maint_item.annual_finished }}</td>
+	</tr>
+</table></p>
+<br>
+{% if files %}
+<p><h3>Files:</h3><br>
+<ul>
+	{% for f in files %}
+	<li><a href={% url 'get_file' f.file.id %}>{{ f.file.name }}</a> | {{ f.file.rel_path }}</li>
+	{% endfor %}
+</ul>
+</p>
+{% endif %}
+{% if ADs %}
+<p><h3>ADs:</h3><br>
+<table class="table">
+	<tr>
+		<th>AD Number (click to show all Maintenance Logs with AD)</th>
+		<th>Note (click to change)</th>
+	</tr>
+	{% for ad in ADs %}
+		<tr>
+			<td><a href={% url 'show_ad_ac' ad.ada.id %}>{{ ad.ada.ad.number }}</a></td>
+			<td><a href={% url 'show_ada_mli' ad.id %}>{{ ad.note }}</a></td>
+		</tr>
+	{% endfor %}
+</table></p>
+{% endif %}
+<br>
+<form action={% url 'show_maint_item' maint_item.id %} method="post">
+	{% csrf_token %}
+	{{ add_ad_form }}
+	<input type="submit" value="Add AD to Log">
+</form>
+<br>
+<p>Add File:</p>
+<form action={% url 'add_file_maint_item' maint_item.id %} method="post" enctype="multipart/form-data">
+	{% csrf_token %}
+	<table border="1">
+	{{ file_form.as_table }}
+	</table>
+	<input type="submit" value="Add File">
+</form><br><br>
+
+<p>Reset Tach:</p>
+<form action={% url 'create_ttaf_adjust' maint_item.id %} method="post">
+	{% csrf_token %}
+	{{ tach_adjust_form.as_p }}
+	<input type="submit" value="Reset tach">
+</form><br>
+<a href={% url 'show_maint' maint_item.logitem.uta.aircraft.id %}><----Back to Maintenance Logs</a>
+{% endblock %}
+

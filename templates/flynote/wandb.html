@@ -1,0 +1,62 @@
+<html>
+	<h2>Weight and balance for {{ ac }}</h2>
+	<br>
+	<form action={% url 'update_wandb' ac.id %} method="post">
+		{% csrf_token %}
+	<table class="table" border="1">
+		<tr>
+			<th>Category</th>
+			<th>Item</th>
+			<th>Weight</th>
+			<th>Arm</th>
+			<th>Moment</th>
+		</tr>
+		{% for cat in wandb %}
+		<tr>
+			<td>{{ cat.wb_category }}</td>
+			<td> </td>
+			<td> </td>
+			<td>{{ cat.wb_category.arm }}</td>
+			<td>total: {{ cat.total_moment }} </td>
+		 </tr>
+		    {% for i in cat.wb_items %}
+                        <tr>
+			        <td></td>
+				<td>{{ i.name }}</td>
+	<td><input type="text" name="wbi-{{ i.id }}-weight" value="{{ i.weight }}"></td>
+			        <td>{{ cat.wb_category.arm }}</td>
+				<td>{{ i.moment }}</td>
+			</tr>
+		    {% endfor %}
+		{% endfor %}
+	</table>
+	<input type="submit" value="Update">
+	</form>
+	Total Aircraft Weight: <b>{{ ac_weight }}</b> Gross weight: {{ gross_weight }}<br>
+	Total Aircraft Moment: {{ ac_moment }}<br>
+	Total Aircraft Arm: <b>{{ ac_arm }}</b> ({{ ac_moment }} ÷ {{ ac_weight }})<br>
+	CG Range at {{ ac_weight }}: {{ min_cg }} - {{ max_cg }}
+        <br>
+	{% if out_of_range %}
+	<h1><b>OUT OF RANGE!</b></h1>
+	{% endif %}
+	<br>
+	{% if wbf_image %}
+	{% load static %}
+	<br>
+	<p>Found {{ wbf_count }} images</p>
+	<img src="{% get_media_prefix %}{{ wbf_image.file.rel_path }}" width="500"><br>
+         <p>Replace Image:</p>
+	 {% else %}
+	 <p>Add Image:</p>
+	 {% endif %}
+      <form action={% url 'add_wandb_image' ac.id %} method="post" enctype="multipart/form-data"> 
+	       {% csrf_token %}
+	     <table border="1">
+	       {{ wbf_form.as_table }}
+	      </table>
+	  <input type="submit" value="Add File">
+	</form><br><br>
+
+</html>
+

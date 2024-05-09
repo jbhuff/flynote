@@ -1,0 +1,12 @@
+{% extends 'base.htm' %}
+{% block loginblock %}
+    <h1>Login:</h1>
+<form action="{% url 'login' %}?next={{ next_page }}" method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+       <input type="submit" value="Login" />
+    </form>
+       {% if message %}
+        {{ message }}
+	    {% endif %}
+{% endblock %}

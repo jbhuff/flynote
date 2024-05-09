@@ -1,0 +1,31 @@
+{% extends "flynotebase.htm" %}
+
+{% block content %}
+<h3>Maintenance Log Items for {{ ac.name }}:<br></h3>
+<table class="table">
+	<tr>
+	<th>Date</th>
+	<th>Tach</th>
+	<th>Note</th>
+	<th>Annual</th>
+	<th>Oil Change</th>
+	</tr>
+        {% for m in maint_items %}
+	<tr>
+		<td><a href={% url 'show_maint_item' m.id %}>{{ m.date }}</a></td>
+	<td>{{ m.tach }}</td>
+	<td>{{ m.logitem.note }}</td>
+	<td>{{ m.annual_finished }}</td>
+	<td>{{ m.oil_changed }}</td>
+	</tr>
+	{% endfor %}
+	</table>
+	<br>
+	<form action={% url 'add_maint' ac.id %} method="post">
+	{% csrf_token %}
+	    {{ maintform.as_p }}
+	    <input type="submit" value="Add Maintenance Log">
+            </form><br><br>
+<a href={% url 'show_ac' ac.id %}><----Back to Aircraft</a>
+{% endblock %}
+
