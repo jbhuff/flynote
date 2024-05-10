@@ -1,6 +1,8 @@
 from .models import Logitem, User_to_aircraft, Aircraft, AD, Maintlogitem, AD_aircraft, Ada_maintitem
 from django import forms
 
+#Eli comment
+
 class Quicklog(forms.Form):
     note = forms.CharField(max_length=2000)
 
