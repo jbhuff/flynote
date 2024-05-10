@@ -1,0 +1,123 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+	<head>
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+		{% comment %}<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+		<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css"> {% endcomment %}
+		<link rel="stylesheet" href="{% static 'css/daylog.css' %}">
+	
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<style type="text/css">
+			.sidenav {
+				height:100%;
+				width:15%;
+				position: fixed;
+				z-index:1;
+				top:0;
+				left:0;
+				background-color:#111;
+				overflow-x: hidden;
+				padding-top:20px;
+			}
+	 
+			.sidenav a {
+				padding:6px 8px 6px 16px;
+				text-decoration: none;
+				font-size:25px;
+				color: #818181;
+				display:block;
+			}
+			.nopad a {
+				padding:none;
+				width:15%;
+			}
+			.sidenav a:hover{
+				color:#f1f1f1;
+			}	
+			
+			.topbar {
+				font-size:16px;
+				margin-left:15%;
+			    padding: 0px 10px;
+			}
+			.content {
+				font-size:16px;
+				margin-left:15%;
+			    padding: 0px 10px;
+			}
+			th, td {
+				padding: 10px;
+				border: 2px;
+			}
+			.alignright {
+        		float: right;
+    		}
+			
+		</style>
+		<title>Hof {% block title %}{% endblock %}</title>
+		{% if user.is_authenticated %}
+			{% block head %}
+			{% endblock %}
+		{% endif %}
+
+	</head>
+	<body>
+		<div class='topbar'>
+			{% if user.is_authenticated %}
+					{% block topbar %}
+					{% endblock %}
+				{% endif %}
+		</div>
+		<div class='topbar alignright'>
+				
+				{% if user.is_authenticated %}
+					<h3>
+						Logged in as: {{ user.username }}  -{% comment %} <a href="{% url 'logout' %}">  Logout</a>{% endcomment %}</h3>
+					{% if user.is_staff %}
+					<p class='alignright'>Logged in as staff. {% comment %}<a href={% url 'change_to_teacher' %}>Change to student</a>{% endcomment %}</p>
+					{% else %}
+					<p class='alignright'>Logged in as non-staff. {% comment %}<a href={% url 'change_to_teacher' %}>Change to teacher</a>{% endcomment %}</p>
+					{% endif %}
+				{% else %}
+					<h3>
+					<a href="{% url 'login' %}">Login</a>
+					</h3>
+				{% endif %}
+		
+		</div>
+		<!-- <div id="sidebar" class="col s12 m4 l4"> -->
+		<div class='sidenav'>
+			<a href={% url 'dashboard' %} class="nopad"><img src={% static 'public/Piper_Pa-22_Tri_Pacer_front_300.png' %}></a>
+			{% if user.is_authenticated %}
+				{% block sidenav %}
+					{% block sidebar %}
+					{% endblock %}
+				{% endblock %}
+			{% endif %}
+
+		</div>
+
+		<div class="content">
+			{% if user.is_authenticated %}
+				{% block content %}{% endblock %}
+			{% else %}
+				<p>Hi! Please login to use Busy Kid! :)</p>
+			{% endif %}
+			{% block loginblock %}{% endblock %}
+		</div>
+		{% if log %}
+		    <div id="log">
+				<ul>
+				{% for f in log %}
+					<li>{{ f.as_p }}</li>
+				{% endfor %}
+				</ul>
+			</div>
+		{% endif %}
+
+		
+	</body>
+</html>
+	
+
