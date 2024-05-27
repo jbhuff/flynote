@@ -1,0 +1,4 @@
+__pycache__/*.pyc
+migrations/*.py
+old_migrations/*.py
+migrations/__pycache__/*.pyc

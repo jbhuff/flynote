@@ -30,9 +30,14 @@ def dash(request):
     aircraft_rs = User_to_aircraft.objects.filter(user=request.user)
     airfield_to_utas = Airfield_to_uta.objects.filter(uta__in=aircraft_rs)
     metars = []
-    mins = Minimums.objects.get(user=request.user)
+    mins = Minimums.objects.filter(user=request.user)
+    if len(mins) == 0:
+        mins = None
+    else:
+        mins = mins[0]
     get_airfield = request.GET.get('airfield', None)    
     last_metar = None
+    last_airfield = None
     for aftu in airfield_to_utas:
         #k_id = aftu.airfield.k_id
         #ms = get_metars(k_id, hours=4)
@@ -41,7 +46,10 @@ def dash(request):
         last_airfield = aftu.airfield
 
     if get_airfield == None:
-        af = last_airfield.k_id
+        if last_airfield == None:
+            af = 'KGYH'
+        else:
+            af = last_airfield.k_id
         ms = get_metars(af, hours=4)
         metars.append({'k_id':af, 'metar_list':ms})
         metar_d = decode_metar(ms[0], ret='dict')
@@ -78,7 +86,10 @@ def dash(request):
     elif 'wind' in metar_d.keys():
         wind = metar_d['wind'][0:5]
         runways = Runway.objects.filter(airfield=last_airfield)
-        rw = int(runways[0].heading)
+        if len(runways) == 0:
+            rw = None
+        else:
+            rw = int(runways[0].heading)
         wind_angle = wind[0:3]  #also available as a dict item
         angle_diff = get_angle_difference(wind_angle, rw*10)
         for r in runways:

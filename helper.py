@@ -391,7 +391,10 @@ def get_landings(user, num_days, t='day'):
     d = date.today() + timedelta(num_days)
     flights = Flightlogitem.objects.filter(logitem__uta__user=user).filter(logitem__date__gte=d)
     landings = flights.aggregate(Sum(field))
-    return landings[ret_field]
+    retval = landings[ret_field]
+    if retval == None:
+        retval = 0
+    return retval
 
 def get_currency_deadline(user, t='day'):
     landings = 0
