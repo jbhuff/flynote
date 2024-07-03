@@ -21,6 +21,8 @@ from .helper import ( get_metars, get_wandb, get_gross_weight, get_max_aft_cg,
         get_field_elevation )
 
 # Create your views here.
+#comment test
+
 
 def home(request):
     return HttpResponse("Hello flynote")
