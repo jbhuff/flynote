@@ -67,6 +67,8 @@ def get_airport_item(k_id, item):
     else:
         return resplist[0]
 
+
+
 def get_airport_all(k_id):
     if len(k_id) == 4:
         pass
@@ -79,6 +81,12 @@ def get_airport_all(k_id):
     j = json.load(resp)
     resp.close()
     return j[0]
+
+def get_airport_coords(k_id):
+    j = get_airport_all(k_id)
+    if j == None:
+        return None
+    return (j['lat'], j['lon'])
 
 def get_distance(lat1, lon1, lat2, lon2):
     lat1_rd = math.radians(lat1)
