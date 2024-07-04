@@ -88,7 +88,7 @@ def get_airport_coords(k_id):
         return None
     return (j['lat'], j['lon'])
 
-def get_distance(lat1, lon1, lat2, lon2):
+def get_distance_4(lat1, lon1, lat2, lon2):
     lat1_rd = math.radians(lat1)
     lon1_rd = math.radians(lon1)
     lat2_rd = math.radians(lat2)
@@ -97,7 +97,8 @@ def get_distance(lat1, lon1, lat2, lon2):
                             math.cos(lat1_rd)*math.cos(lat2_rd)*math.cos(lon1_rd-lon2_rd))
     return round(d, 1)
     
-
+def get_distance_tp(tp1, tp2):
+    return get_distance_4(tp1[0], tp1[1], tp2[0], tp2[1])
 
 def get_gross_weight(ptr):
     ac_items = Ac_item.objects.filter(category__name="Gross Weight").filter(aircraft__id=ptr)
