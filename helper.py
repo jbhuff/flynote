@@ -87,7 +87,7 @@ def get_distance(lat1, lon1, lat2, lon2):
     lon2_rd = math.radians(lon2)
     d = 3440.07 * math.acos(math.sin(lat1_rd)*math.sin(lat2_rd) + 
                             math.cos(lat1_rd)*math.cos(lat2_rd)*math.cos(lon1_rd-lon2_rd))
-    return d
+    return round(d, 1)
     
 
 
