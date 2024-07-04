@@ -78,7 +78,16 @@ def get_airport_all(k_id):
     resp = request.urlopen(req_url)
     j = json.load(resp)
     resp.close()
-    return j
+    return j[0]
+
+def get_distance(lat1, lon1, lat2, lon2):
+    lat1_rd = math.radians(lat1)
+    lon1_rd = math.radians(lon1)
+    lat2_rd = math.radians(lat2)
+    lon2_rd = math.radians(lon2)
+    d = 3440.07 * math.acos(math.sin(lat1_rd)*math.sin(lat2_rd) + 
+                            math.cos(lat1_rd)*math.cos(lat2_rd)*math.cos(lon1_rd-lon2_rd))
+    return d
     
 
 
