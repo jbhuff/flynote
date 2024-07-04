@@ -67,6 +67,20 @@ def get_airport_item(k_id, item):
     else:
         return resplist[0]
 
+def get_airport_all(k_id):
+    if len(k_id) == 4:
+        pass
+    elif len(k_id) == 3:
+        k_id = 'k' + k_id
+    else:
+        return None
+    req_url = fe_url + '?ids=' + k_id + '&format=json'
+    resp = request.urlopen(req_url)
+    j = json.load(resp)
+    resp.close()
+    return j
+    
+
 
 def get_gross_weight(ptr):
     ac_items = Ac_item.objects.filter(category__name="Gross Weight").filter(aircraft__id=ptr)
