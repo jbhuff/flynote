@@ -13,7 +13,7 @@ from .forms import (Quicklog, Flightlog, Ad_form, ad_aircraft_form,
                    Ada_maint_form, UploadFileForm, tach_adjust_form, Crosswind_form,
                    LoginForm, Airfield_form, gps_form )
 import datetime
-import json
+import json, re
 from .helper import ( get_metars, get_wandb, get_gross_weight, get_max_aft_cg, 
         get_tach_log, get_TTE, file_upload, get_path, get_latest_ttaf, get_cg_range,
         get_latest_tach, get_crosswind, decode_metar, get_angle_difference, get_pressure_alt,
