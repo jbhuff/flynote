@@ -188,7 +188,7 @@ class waypoint(models.Model):
     lat = models.FloatField(blank=True)
     lon = models.FloatField(blank=True)
     input_string = models.CharField(max_length=50, blank=True)
-    name = models.CharField(blank=True)
+    name = models.CharField(max_length=65, blank=True)
     updated_at = models.DateTimeField(auto_now=True)
     created_at = models.DateTimeField(auto_now_add=True)
     user = models.ForeignKey(User, on_delete=models.SET_NULL)
