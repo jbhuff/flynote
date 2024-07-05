@@ -176,7 +176,8 @@ def convert_coordinates(request):
                 lat = ""
             lonmatch = re.search(lonrx.value, coords)
             if lonmatch:
-                lon = lonmatch.group()
+                lon1 = lonmatch.group()
+                lon = lon1[1:].trim()
             else:
                 lon = ""
             wp = waypoint(name="noname", lat=lat, lon=lon, input_string=coords, user=request.user)
