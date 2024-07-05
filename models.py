@@ -193,6 +193,12 @@ class waypoint(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
 
+    def __str__(self):
+        return self.name + " created: " + str(self.created_at)
+
 class config(models.Model):
     name = models.CharField(max_length=50)
     value = models.CharField(max_length=50)
+
+    def __str__(self):
+        return self.name
