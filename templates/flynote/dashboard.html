@@ -65,12 +65,14 @@
 	  {{ xwform.as_p }}
           <input type="submit" value="Check Crosswind">
 	</form><br>
+	<h2>Add New Waypoint:</h2>
 	<form action={% url 'convert_coordinates' %} method="post">
 		{% csrf_token %}
 		{{ gps_form.as_p }}
 		<input type="submit" value="Convert Coords">
 	</form><br>
 	{% if last_waypoints %}
+	<h2>Waypoints:</h2>
 	<table>
 		<tr>
 			<th>Name</th>
@@ -78,8 +80,8 @@
 		</tr>
 		{% for wp in last_waypoints %}
 		<tr>
-			<td>wp.name</td>
-			<td>wp.created_at</td>
+			<td>{{ wp.name }}</td>
+			<td>{{ wp.created_at }}</td>
 		</tr>
 		{% endfor %}
 	</table>
