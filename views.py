@@ -182,7 +182,7 @@ def convert_coordinates(request):
                 lon = ""
             wp = waypoint(name="noname", lat=lat, lon=lon, input_string=coords, user=request.user)
             wp.save()
-    return redirect("dash")
+    return redirect("dashboard")
     
 
             
@@ -417,7 +417,7 @@ def show_ac(request, ptr):
         ttaf = get_latest_ttaf(aircraft)
     else:
         aircraft = None
-        return redirect("dash")
+        return redirect("dashboard")
     context = {'ac':aircraft, 'logitems':logitems, 'flights':flights, 'ptr':ptr,
                'nonflights':nonflights, 'form':Flightlog(),
                'oil_due':oil_due, 'hours_remaining':hours_remaining,'last_annual':last_annual,
