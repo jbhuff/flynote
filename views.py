@@ -169,12 +169,12 @@ def convert_coordinates(request):
             latrx = config.objects.get(name='latrx')
             #lonrx = ', .[0-9]{2}.[0-9]*$'
             lonrx = config.objects.get(name='lonrx')
-            latmatch = re.search(latrx, coords)
+            latmatch = re.search(latrx.value, coords)
             if latmatch:
                 lat = latmatch.group()
             else:
                 lat = ""
-            lonmatch = re.search(lonrx, coords)
+            lonmatch = re.search(lonrx.value, coords)
             if lonmatch:
                 lon = lonmatch.group()
             else:
