@@ -187,7 +187,7 @@ class Tach_adjust(models.Model):
 class waypoint(models.Model):
     lat = models.FloatField(blank=True)
     lon = models.FloatField(blank=True)
-    input_string = models.CharField(blank=True)
+    input_string = models.CharField(max_length=50, blank=True)
     name = models.CharField(blank=True)
     updated_at = models.DateTimeField(auto_now=True)
     created_at = models.DateTimeField(auto_now_add=True)
