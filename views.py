@@ -3,7 +3,7 @@ from django.http import HttpResponse, FileResponse
 from .models import (Aircraft, User_to_aircraft, Logitem, Flightlogitem, Maintlogitem,
                     Airfield, Airfield_to_uta, wandb_category, wandb_item, Ac_item, 
                     AD, AD_aircraft, Ada_maintitem, File, Maintitem_file, Tach_adjust,
-                    Ac_file, Ac_category, Minimums, Runway )
+                    Ac_file, Ac_category, Minimums, Runway, waypoint, config )
 from django.contrib.auth import authenticate
 from django.contrib.auth import login as djlogin
 from django.contrib.auth import logout as djlogout
@@ -11,7 +11,7 @@ from django.contrib.auth.decorators import login_required
 from .forms import (Quicklog, Flightlog, Ad_form, ad_aircraft_form, 
                    ad_aircraft_mform, ad_mform, Maintlogform, ad_quickpick,
                    Ada_maint_form, UploadFileForm, tach_adjust_form, Crosswind_form,
-                   LoginForm, Airfield_form )
+                   LoginForm, Airfield_form, gps_form )
 import datetime
 import json
 from .helper import ( get_metars, get_wandb, get_gross_weight, get_max_aft_cg, 
@@ -156,9 +156,35 @@ def dash(request):
             'pressure_altitude':pa, 'density_altitude':da, 'est_cloudbase': est_cloudbase,
             'night_current':night_current, 'day_current':day_current, 'nc_deadline':nc_deadline,
             'dc_deadline':dc_deadline, 'field_elevation':fe, 'condition':condition, 'err':err,
-            'airfield_form':aform, }
+            'airfield_form':aform, 'gps_form':gps_form() }
     return render(request, 'flynote/dashboard.html', context)
 
+@login_required
+def convert_coordinates(request):
+    if request.method == 'POST':
+        form = gps_form(request.POST)
+        if form.is_valid():
+            coords = form.cleaned_data['coords']
+            #latrx = '^[0-9]{2}.[0-9]*'
+            latrx = config.objects.get(name='latrx')
+            #lonrx = ', .[0-9]{2}.[0-9]*$'
+            lonrx = config.objects.get(name='lonrx')
+            latmatch = re.search(latrx, coords)
+            if latmatch:
+                lat = latmatch.group()
+            else:
+                lat = ""
+            lonmatch = re.search(lonrx, coords)
+            if lonmatch:
+                lon = lonmatch.group()
+            else:
+                lon = ""
+            wp = waypoint(name="noname", lat=lat, lon=lon, input_string=coords, user=request.user)
+            wp.save()
+    return redirect("dash")
+    
+
+            
 
 @login_required
 def show_maint(request, ptr):

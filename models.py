@@ -183,3 +183,16 @@ class Tach_adjust(models.Model):
 
     def __str__(self):
         return self.category + " " + str(self.firstlog.logitem.uta.aircraft) + " " + str(self.hours)
+
+class waypoint(models.Model):
+    lat = models.FloatField(blank=True)
+    lon = models.FloatField(blank=True)
+    input_string = models.CharField(blank=True)
+    name = models.CharField(blank=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    user = models.ForeignKey(User, on_delete=models.SET_NULL)
+
+class config(models.Model):
+    name = models.CharField(max_length=50)
+    value = models.CharField(max_length=50)

@@ -20,3 +20,5 @@ admin.site.register(models.Runway)
 #Admin site doesn't allow nulls for some reason
 admin.site.register(models.Airfield)
 admin.site.register(models.Minimums)
+admin.site.register(models.config)
+admin.site.register(models.waypoint)
