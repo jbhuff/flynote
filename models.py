@@ -191,7 +191,7 @@ class waypoint(models.Model):
     name = models.CharField(max_length=65, blank=True)
     updated_at = models.DateTimeField(auto_now=True)
     created_at = models.DateTimeField(auto_now_add=True)
-    user = models.ForeignKey(User, on_delete=models.SET_NULL)
+    user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
 
 class config(models.Model):
     name = models.CharField(max_length=50)
