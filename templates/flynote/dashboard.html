@@ -70,6 +70,20 @@
 		{{ gps_form.as_p }}
 		<input type="submit" value="Convert Coords">
 	</form><br>
+	{% if last_waypoints %}
+	<table>
+		<tr>
+			<th>Name</th>
+			<th>Created on</th>
+		</tr>
+		{% for wp in last_waypoints %}
+		<tr>
+			<td>wp.name</td>
+			<td>wp.created_at</td>
+		</tr>
+		{% endfor %}
+	</table>
+	{% endif %}
 	<ul>
 	{% for k in metar_l %}
 	<li>{{ k.key }}: {{ k.value }}</li>
