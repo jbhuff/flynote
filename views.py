@@ -18,7 +18,7 @@ from .helper import ( get_metars, get_wandb, get_gross_weight, get_max_aft_cg,
         get_tach_log, get_TTE, file_upload, get_path, get_latest_ttaf, get_cg_range,
         get_latest_tach, get_crosswind, decode_metar, get_angle_difference, get_pressure_alt,
         get_density_alt, get_cloudbase, get_dewpoint_int, get_landings, get_currency_deadline,
-        get_field_elevation )
+        get_field_elevation, get_garmin_string)
 
 # Create your views here.
 #comment test
@@ -198,7 +198,10 @@ def show_waypoint(request, wp_id):
             update_wp.save()
             wp = update_wp
     form = waypointForm(instance=wp)
-    return render(request, 'flynote/waypoint.html', {'waypoint':wp, 'form':form})
+    lat_string = get_garmin_string(wp.lat)
+    lon_string = get_garmin_string(wp.lon)
+    context = {'waypoint':wp, 'form':form, 'lat_string':lat_string, 'lon_string':lon_string}
+    return render(request, 'flynote/waypoint.html', context)
 
 @login_required
 def show_maint(request, ptr):
