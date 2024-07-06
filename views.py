@@ -193,7 +193,8 @@ def show_waypoint(request, wp_id):
         form = waypointForm(request.POST)
         if form.is_valid():
             update_wp = waypoint(id=wp_id, lat=form.cleaned_data['lat'], lon=form.cleaned_data['lon'],
-                                    name=form.cleaned_data['name'], user=wp.user)
+                                    name=form.cleaned_data['name'], user=wp.user, created_at=wp.created_at,
+                                    updated_at=datetime.now())
             update_wp.save()
             wp = update_wp
     form = waypointForm(instance=wp)
