@@ -110,7 +110,7 @@ def get_garmin_string(instr):
     assert len(splitstring) == 2, "Splitstring length > 2"
     whole_number = splitstring[0]
     decimal = splitstring[1]
-    minutes = float('.%d' % decimal) * 60
+    minutes = float('.%s' % decimal) * 60
     return "{}' {}\"".format(whole_number, minutes)
 
 def get_max_aft_cg(ptr):
