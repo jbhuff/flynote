@@ -11,7 +11,7 @@ from django.contrib.auth.decorators import login_required
 from .forms import (Quicklog, Flightlog, Ad_form, ad_aircraft_form, 
                    ad_aircraft_mform, ad_mform, Maintlogform, ad_quickpick,
                    Ada_maint_form, UploadFileForm, tach_adjust_form, Crosswind_form,
-                   LoginForm, Airfield_form, gps_form )
+                   LoginForm, Airfield_form, gps_form, waypointForm )
 import datetime
 import json, re
 from .helper import ( get_metars, get_wandb, get_gross_weight, get_max_aft_cg, 
@@ -186,7 +186,18 @@ def convert_coordinates(request):
     return redirect("dashboard")
     
 
-            
+@login_required
+def show_waypoint(request, wp_id):
+    wp = waypoint.objects.get(pk=wp_id)
+    if request.method == 'POST':
+        form = waypointForm(request.POST)
+        if form.is_valid():
+            update_wp = waypoint(id=wp_id, lat=form.cleaned_data['lat'], lon=form.cleaned_data['lon'],
+                                    name=form.cleaned_data['name'], user=wp.user)
+            update_wp.save()
+            wp = update_wp
+    form = waypointForm(instance=wp)
+    return render(request, 'flynote/waypoint.html', {'waypoint':wp, 'form':form})
 
 @login_required
 def show_maint(request, ptr):

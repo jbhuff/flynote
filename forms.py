@@ -1,4 +1,4 @@
-from .models import Logitem, User_to_aircraft, Aircraft, AD, Maintlogitem, AD_aircraft, Ada_maintitem
+from .models import Logitem, User_to_aircraft, Aircraft, AD, Maintlogitem, AD_aircraft, Ada_maintitem, waypoint
 from django import forms
 
 #Eli comment
@@ -54,6 +54,11 @@ class ad_aircraft_mform(forms.ModelForm):
     class Meta:
         model = AD_aircraft
         fields = "__all__"
+
+class waypointForm(forms.ModelForm):
+    class Meta:
+        model = waypoint
+        fields = ['name', 'lat', 'lon', ]
 
 class ad_mform(forms.ModelForm):
     class Meta:
