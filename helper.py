@@ -107,7 +107,7 @@ def get_gross_weight(ptr):
 
 def get_garmin_string(instr):
     splitstring = instr.split('.')
-    assert len(splitstring) = 2, "Splitstring length > 2"
+    assert len(splitstring) == 2, "Splitstring length > 2"
     whole_number = splitstring[0]
     decimal = splitstring[1]
     minutes = float('.%d' % decimal) * 60
