@@ -106,7 +106,7 @@ def get_gross_weight(ptr):
     return gw
 
 def get_garmin_string(instr):
-    splitstring = instr.split('.')
+    splitstring = str(instr).split('.')
     assert len(splitstring) == 2, "Splitstring length > 2"
     whole_number = splitstring[0]
     decimal = splitstring[1]
