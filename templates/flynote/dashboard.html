@@ -80,7 +80,7 @@
 		</tr>
 		{% for wp in last_waypoints %}
 		<tr>
-			<td>{{ wp.name }}</td>
+			<td><a href={% url 'show_waypoint' wp.id %}>{{ wp.name }}</a></td>
 			<td>{{ wp.created_at }}</td>
 		</tr>
 		{% endfor %}
