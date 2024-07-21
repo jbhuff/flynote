@@ -188,7 +188,7 @@ def convert_coordinates(request):
             if len(splitstring) == 2:
                 lat = splitstring[0]
                 lon = splitstring[1]
-            wp = waypoint(name="noname", lat=lat, lon=lon, input_string=coords, user=request.user)
+            wp = waypoint(name="noname", lat=float(lat), lon=float(lon), input_string=coords, user=request.user)
             wp.save()
     return redirect("dashboard")
     
