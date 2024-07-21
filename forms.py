@@ -97,3 +97,6 @@ class tach_adjust_form(forms.Form):
 class gps_form(forms.Form):
     coords = forms.RegexField(regex="^[0-9]{2}.[0-9]*, .[0-9]{2}.[0-9]*$", max_length=100, 
                               help_text='format: 32.123456, -87.123456')
+
+class gps_from_noregex(forms.Form):
+    coords = forms.CharField(max_length=60)

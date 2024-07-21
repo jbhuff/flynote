@@ -11,7 +11,7 @@ from django.contrib.auth.decorators import login_required
 from .forms import (Quicklog, Flightlog, Ad_form, ad_aircraft_form, 
                    ad_aircraft_mform, ad_mform, Maintlogform, ad_quickpick,
                    Ada_maint_form, UploadFileForm, tach_adjust_form, Crosswind_form,
-                   LoginForm, Airfield_form, gps_form, waypointForm )
+                   LoginForm, Airfield_form, gps_form, waypointForm, gps_from_noregex)
 import datetime
 import json, re
 from .helper import ( get_metars, get_wandb, get_gross_weight, get_max_aft_cg, 
@@ -157,13 +157,14 @@ def dash(request):
             'pressure_altitude':pa, 'density_altitude':da, 'est_cloudbase': est_cloudbase,
             'night_current':night_current, 'day_current':day_current, 'nc_deadline':nc_deadline,
             'dc_deadline':dc_deadline, 'field_elevation':fe, 'condition':condition, 'err':err,
-            'airfield_form':aform, 'gps_form':gps_form(), 'last_waypoints':last_waypoints}
+            'airfield_form':aform, 'gps_form':gps_from_noregex(), 'last_waypoints':last_waypoints}
     return render(request, 'flynote/dashboard.html', context)
 
 @login_required
 def convert_coordinates(request):
     if request.method == 'POST':
-        form = gps_form(request.POST)
+        #form = gps_form(request.POST)
+        form = gps_from_noregex(request.POST)
         if form.is_valid():
             coords = form.cleaned_data['coords']
             #latrx = '^[0-9]{2}.[0-9]*'
