@@ -123,7 +123,12 @@ def get_gps_regex(instr, rtype='lat'):  #type: 'lat' or 'lon'
         return None
     rs = config.objects.filter(name=filt)
     for r in rs:
-        retlist.append({'regex':r, 'group':re.search(r.value, str(instr)).group().strip()})
+        g = e.search(r.value, str(instr))
+        if g != None:
+            grp = g.strip()
+        else:
+            grp = None
+        retlist.append({'regex':r, 'group':grp})
     return retlist
 
 
