@@ -10,8 +10,18 @@
 </form>
 <br>
 <h2>Garmin Strings</h2>
-<p>Lat String: {{ lat_string }}</p>
-<p>Lon String: {{ lon_string }}</p>
+
+<ul>
+    <li>Lats</li>
+    {% for l in lat_strings %}
+    <li>regex: {{ l.regex }} group: {{ l.group }}</li>
+    {% endfor %}
+    <li>Lons:</li>
+    {% for l in lon_strings %}
+    <li>regex: {{ l.regex }} group: {{ l.group }}</li>
+    {% endfor %}
+</ul>
+<h2>Other:</h2>
 <p>Created at: {{ waypoint.created_at }}</p>
 <p>Updated at: {{ waypoint.updated_at }}</p>
 <p>Input String: {{ waypoint.input_string }}</p>

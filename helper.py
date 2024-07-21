@@ -105,13 +105,27 @@ def get_gross_weight(ptr):
     gw = Ac_value.objects.filter(ac_item__in=ac_items)[0]
     return gw
 
-def get_garmin_string(instr):
+def get_garmin_string(instr): #for going from 34.1234 to 34' 7.1234"
     splitstring = str(instr).split('.')
     assert len(splitstring) == 2, "Splitstring length > 2"
     whole_number = splitstring[0]
     decimal = splitstring[1]
     minutes = float('.%s' % decimal) * 60
     return "{}' {}\"".format(whole_number, minutes)
+
+def get_gps_regex(instr, rtype='lat'):  #type: 'lat' or 'lon'
+    retlist = []
+    if rtype == 'lat':
+        filt = 'latrx'
+    elif rtype == 'lon':
+        filt = 'lonrx'
+    else:
+        return None
+    rs = config.objects.filter(name=filt)
+    for r in rs:
+        retlist.append({'regex':r, 'group':re.search(r.value, instr).group().strip()})
+    return retlist
+
 
 def get_max_aft_cg(ptr):
     ac_items = Ac_item.objects.filter(category__name="Max Aft CG").filter(aircraft__id=ptr)
