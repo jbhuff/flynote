@@ -11,16 +11,38 @@
 <br>
 <h2>Garmin Strings</h2>
 
-<ul>
-    <li>Lats</li>
+<table>
+    <tr>
+        <th>regex</th>
+        <th>group</th>
+        <th>in-string</th>
+    </tr>
+    <tr>
+        <td>Lats</td>
+        <td></td>
+        <td></td>
+    </tr>
     {% for l in lat_strings %}
-    <li>regex: {{ l.regex }} group: {{ l.group }} in-string: {{ l.instr }}</li>
+    <tr>
+        <td>{{ l.regex }}</td>
+        <td>{{ l.group }}</td>
+        <td>{{ l.instr }}</td>
+    </tr>
     {% endfor %}
-    <li>Lons:</li>
+    <tr>
+        <td>Lons</td>
+        <td></td>
+        <td></td>
+    </tr>
     {% for l in lon_strings %}
-    <li>regex: {{ l.regex }} group: {{ l.group }} in-string: {{ l.instr }}</li>
+    <tr>
+        <td>{{ l.regex }}</td>
+        <td>{{ l.group }}</td>
+        <td>{{ l.instr }}</td>
+    </tr>
     {% endfor %}
-</ul>
+    
+</table>
 <h2>Other:</h2>
 <p>Created at: {{ waypoint.created_at }}</p>
 <p>Updated at: {{ waypoint.updated_at }}</p>
