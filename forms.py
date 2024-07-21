@@ -58,7 +58,7 @@ class ad_aircraft_mform(forms.ModelForm):
 class waypointForm(forms.ModelForm):
     class Meta:
         model = waypoint
-        fields = ['name', 'lat', 'lon', ]
+        fields = ['name', 'lat', 'lon', 'input_string', 'created_at', 'updated_at']
 
 class ad_mform(forms.ModelForm):
     class Meta:
