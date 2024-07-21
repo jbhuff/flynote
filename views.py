@@ -205,9 +205,9 @@ def show_waypoint(request, wp_id):
             wp = update_wp
     form = waypointForm(instance=wp)
     #lat_string = get_garmin_string(wp.lat)  #returns list
-    lat_strings = get_gps_regex(wp.lat, 'lat')  #returns list or dicts
+    lat_strings = get_gps_regex(wp.input_string, 'lat')  #returns list or dicts
     #lon_string = get_garmin_string(wp.lon)
-    lon_strings = get_gps_regex(wp.lon, 'lon')
+    lon_strings = get_gps_regex(wp.input_string, 'lon')
     #context = {'waypoint':wp, 'form':form, 'lat_string':lat_string, 'lon_string':lon_string}
     context = {'waypoint':wp, 'form':form, 'lat_strings':lat_strings, 'lon_strings':lon_strings}
     return render(request, 'flynote/waypoint.html', context)
