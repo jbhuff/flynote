@@ -190,7 +190,7 @@ def convert_coordinates(request):
                 except:
                     lat = None
                     lon = None
-            wp = waypoint(name="noname", lat=float(lat), lon=float(lon), input_string=coords, user=request.user)
+            wp = waypoint(name="noname", lat=lat, lon=lon, input_string=coords, user=request.user)
             wp.save()
     return redirect("dashboard")
     
