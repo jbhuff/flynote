@@ -128,7 +128,10 @@ def get_gps_regex(instr, rtype='lat'):  #type: 'lat' or 'lon'
             grp = g.group().strip()
         else:
             grp = None
-        retlist.append({'regex':r.value, 'group':grp, 'instr':instr})
+        garm = ""
+        if grp:
+            garm = get_garmin_string(grp)
+        retlist.append({'regex':r.value, 'group':grp, 'instr':instr, 'garmin':garm})
     return retlist
 
 
