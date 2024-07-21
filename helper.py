@@ -6,7 +6,7 @@ from datetime import date, timedelta
 from django.db.models import Sum
 from django.core.files.storage import default_storage
 from django.conf import settings
-import os, math
+import os, math, re
 
 metar_url = "https://aviationweather.gov/cgi-bin/data/metar.php"
 fe_url = "https://aviationweather.gov/api/data/airport"
