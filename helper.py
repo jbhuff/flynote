@@ -128,7 +128,7 @@ def get_gps_regex(instr, rtype='lat'):  #type: 'lat' or 'lon'
             grp = g.group().strip()
         else:
             grp = None
-        retlist.append({'regex':r, 'group':grp})
+        retlist.append({'regex':r.value, 'group':grp})
     return retlist
 
 
