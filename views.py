@@ -167,20 +167,26 @@ def convert_coordinates(request):
         if form.is_valid():
             coords = form.cleaned_data['coords']
             #latrx = '^[0-9]{2}.[0-9]*'
-            latrx = config.objects.get(name='latrx')
+            #latrx = config.objects.get(name='latrx')
             #lonrx = ', .[0-9]{2}.[0-9]*$'
-            lonrx = config.objects.get(name='lonrx')
-            latmatch = re.search(latrx.value, coords)
-            if latmatch:
-                lat = latmatch.group()
-            else:
-                lat = ""
-            lonmatch = re.search(lonrx.value, coords)
-            if lonmatch:
-                lon1 = lonmatch.group()
-                lon = lon1[1:].strip()
-            else:
-                lon = ""
+            #lonrx = config.objects.get(name='lonrx')
+            #latmatch = re.search(latrx.value, coords)
+            #if latmatch:
+            #    lat = latmatch.group()
+            #else:
+            #    lat = ""
+            #lonmatch = re.search(lonrx.value, coords)
+            #if lonmatch:
+            #    lon1 = lonmatch.group()
+            #    lon = lon1[1:].strip()
+            #else:
+            #    lon = ""
+            splitstring = str(coords).split(',')
+            lat = ""
+            lon = ""
+            if len(splitstring) == 2:
+                lat = splitstring[0]
+                lon = splitstring[1]
             wp = waypoint(name="noname", lat=lat, lon=lon, input_string=coords, user=request.user)
             wp.save()
     return redirect("dashboard")
@@ -194,11 +200,11 @@ def show_waypoint(request, wp_id):
         if form.is_valid():
             update_wp = waypoint(id=wp_id, lat=form.cleaned_data['lat'], lon=form.cleaned_data['lon'],
                                     name=form.cleaned_data['name'], user=wp.user, created_at=wp.created_at,
-                                    updated_at=datetime.datetime.now())
+                                    input_string=form.cleaned_data['input_string'], updated_at=datetime.datetime.now())
             update_wp.save()
             wp = update_wp
     form = waypointForm(instance=wp)
-    lat_string = get_garmin_string(wp.lat)
+    lat_string = get_garmin_string(wp.lat)  #returns list
     lon_string = get_garmin_string(wp.lon)
     context = {'waypoint':wp, 'form':form, 'lat_string':lat_string, 'lon_string':lon_string}
     return render(request, 'flynote/waypoint.html', context)
