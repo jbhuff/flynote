@@ -202,3 +202,12 @@ class config(models.Model):
 
     def __str__(self):
         return self.name
+
+class squawk(models.Model):
+    name = models.CharField(max_length=50)
+    description = models.CharField(max_length=200, blank=True)
+    aircraft = models.ForeignKey(Aircraft, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    maintenance_log = models.ForeignKey(Maintlogitem, null=True, on_delete=models.SET_NULL)
