@@ -106,12 +106,15 @@ def get_gross_weight(ptr):
     return gw
 
 def get_garmin_string(instr): #for going from 34.1234 to 34' 7.1234"
-    splitstring = str(instr).split('.')
-    assert len(splitstring) == 2, "Splitstring length > 2"
-    whole_number = splitstring[0]
-    decimal = splitstring[1]
-    minutes = float('.%s' % decimal) * 60
-    return "{}' {}\"".format(whole_number, minutes)
+    try:
+        splitstring = str(instr).split('.')
+        assert len(splitstring) == 2, "Splitstring length > 2"
+        whole_number = splitstring[0]
+        decimal = splitstring[1]
+        minutes = float('.%s' % decimal) * 60
+        return "{}' {}\"".format(whole_number, minutes)
+    except:
+        return None
 
 def get_gps_regex(instr, rtype='lat'):  #type: 'lat' or 'lon'
     retlist = []
