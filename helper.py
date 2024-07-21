@@ -123,9 +123,9 @@ def get_gps_regex(instr, rtype='lat'):  #type: 'lat' or 'lon'
         return None
     rs = config.objects.filter(name=filt)
     for r in rs:
-        g = re.search(r.value, str(instr))
+        g = re.search(r.value, str(instr))   #match
         if g != None:
-            grp = g.strip()
+            grp = g.group().strip()
         else:
             grp = None
         retlist.append({'regex':r, 'group':grp})
