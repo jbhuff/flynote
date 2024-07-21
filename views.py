@@ -183,11 +183,13 @@ def convert_coordinates(request):
             #else:
             #    lon = ""
             splitstring = str(coords).split(',')
-            lat = ""
-            lon = ""
             if len(splitstring) == 2:
-                lat = splitstring[0]
-                lon = splitstring[1]
+                try:
+                    lat = float(splitstring[0].strip())
+                    lon = float(splitstring[1].strip())
+                except:
+                    lat = None
+                    lon = None
             wp = waypoint(name="noname", lat=float(lat), lon=float(lon), input_string=coords, user=request.user)
             wp.save()
     return redirect("dashboard")
