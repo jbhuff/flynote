@@ -482,6 +482,7 @@ def squawk_quick_add(request, aircraft_id):
             sq = squawk(name=form.cleaned_data['name'], description=form.cleaned_data['description'],
                         aircraft=aircraft)
             sq.save()
+            return redirect('dashboard' + '/saved' + str(sq.name))
     return redirect('dashboard')
 
 def add_ad(request):
