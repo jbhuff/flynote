@@ -3,7 +3,7 @@ from django.http import HttpResponse, FileResponse
 from .models import (Aircraft, User_to_aircraft, Logitem, Flightlogitem, Maintlogitem,
                     Airfield, Airfield_to_uta, wandb_category, wandb_item, Ac_item, 
                     AD, AD_aircraft, Ada_maintitem, File, Maintitem_file, Tach_adjust,
-                    Ac_file, Ac_category, Minimums, Runway, waypoint, config )
+                    Ac_file, Ac_category, Minimums, Runway, waypoint, config, squawk )
 from django.contrib.auth import authenticate
 from django.contrib.auth import login as djlogin
 from django.contrib.auth import logout as djlogout
@@ -468,6 +468,16 @@ def show_ac(request, ptr):
                'days_back':days_back, 'TTE':get_TTE(aircraft), 'ADs':ADs, 'snipped_flis':lenflis, 
                'ttaf':ttaf, 'squawks':squawks, 'quick_squawk_form':quick_squawk_form}
     return render(request, 'flynote/aircraft.html', context)
+
+def add_quick_squawk(request, aircraft_id):
+    if request.method == 'POST':
+        aircraft = Aircraft.objects.get(pk=aircraft__id)
+        form = quick_squawk_form(request.POST)
+        if form.is_valid():
+            sq = squawk(name=form.cleaned_data['name'], description=form.cleaned_data['description'],
+                        aircraft=aircraft)
+            sq.save()
+    return redirect('dashboard')
 
 def add_ad(request):
     if request.method == 'POST':

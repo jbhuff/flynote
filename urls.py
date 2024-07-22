@@ -3,7 +3,7 @@ from .views import (home, dash, show_ac, wandb, show_fl, add_ad, add_ad_ac, show
                     , show_ads, update_ad, add_ad_to_ac, show_flights, show_maint, add_maint,
                     show_maint_item, show_ada_mli, add_file_maint_item, get_file, 
                     create_ttaf_adjust, update_wandb, add_wandb_image, convert_coordinates,
-                    show_waypoint, show_squawk,
+                    show_waypoint, show_squawk, add_quick_squawk
         )
 
 
@@ -14,6 +14,7 @@ urlpatterns = [
             path('convert_coordinates', convert_coordinates, name='convert_coordinates'),
             #path('check_crosswind', check_crosswind, name='check_crosswind'),
             path('aircraft/<int:ptr>', show_ac, name='show_ac'),
+            path('add_quick_squawk/<int:aircraft_id>', add_quick_squawk, name='add_quick_squawk'),
             path('wandb/<int:ptr>', wandb, name='wandb'),
             path('update_wandb/<int:ptr>', update_wandb, name='update_wandb'),
             path('add_wandb_image/<int:ptr>', add_wandb_image, name='add_wandb_image'),
