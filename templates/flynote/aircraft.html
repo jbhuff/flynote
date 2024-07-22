@@ -47,11 +47,13 @@
 		<table class="table", border="1">
 			<tr>
 				<th>Squawk</th>
+				<th>Description</th>
 				<th>Added</th>
 			</tr>
 			{% for squawk in squawks %}
 			<tr>
 				<td><a href={% url 'show_squawk' squawk.id %}>{{ squawk.name }}</a></td>
+				<td>{{ squawk.description }}</td>
 				<td>{{ squawk.created_at }}</td>
 			</tr>
 			{% endfor %}
