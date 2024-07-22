@@ -45,7 +45,9 @@
 	<h3>Add Squawk:</h3>
 	<form action={% url 'squawk_quick_add' ac.id %}>
 		{% csrf_token %}
-		{{ quick_squawk_form }}
+		<table>
+			{{ quick_squawk_form }}
+		</table>
 		<input type="submit" value="Add Squawk">
 	</form>
 	<br>
