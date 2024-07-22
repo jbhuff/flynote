@@ -483,7 +483,7 @@ def squawk_quick_add(request, aircraft_id):
                         aircraft=aircraft)
             sq.save()
             return redirect('dashboard' + '/saved' + str(sq.name))
-    return redirect('dashboard')
+    return redirect('show_ac', aircraft_id)
 
 def add_ad(request):
     if request.method == 'POST':
