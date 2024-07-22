@@ -227,6 +227,7 @@ def show_squawk(request, squawk_id):
                                aircraft=sqk.aircraft, user=request.user, created_at=sqk.created_at,
                                updated_at=datetime.datetime.now())
             update_sq.save()
+            sqk = update_sq
     form = squawkform(instance=sqk)
     context = {'squawk':sqk, 'form':form}
     return render(request, 'flynote/squawk.html', context)
