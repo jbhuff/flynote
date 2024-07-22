@@ -108,4 +108,4 @@ class squawkform(forms.ModelForm):
         fields = ['name', 'description']
 
 class quicksquawk(forms.Form):
-    name = models.CharField(max_length=50)
+    name = forms.CharField(max_length=50)
