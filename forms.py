@@ -1,4 +1,5 @@
-from .models import Logitem, User_to_aircraft, Aircraft, AD, Maintlogitem, AD_aircraft, Ada_maintitem, waypoint
+from .models import (Logitem, User_to_aircraft, Aircraft, AD, Maintlogitem, AD_aircraft, Ada_maintitem, waypoint,
+                     squawk)
 from django import forms
 
 #Eli comment
