@@ -224,7 +224,8 @@ def show_squawk(request, squawk_id):
         if form.is_valid():
             update_sq = squawk(id=squawk_id, name=form.cleaned_data['name'], 
                                description=form.cleaned_data['description'], 
-                               aircraft=sqk.aircraft, user=request.user)
+                               aircraft=sqk.aircraft, user=request.user, created_at=sqk.created_at,
+                               updated_at=datetime.datetime.now())
             update_sq.save()
     form = squawkform(instance=sqk)
     context = {'squawk':sqk, 'form':form}
