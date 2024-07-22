@@ -1,0 +1,18 @@
+{% extends "flynotebase.htm" %}
+
+{% block content %}
+<h3>Squawk:<br></h3>
+
+<form action={% url 'show_squawk' squawk.id %} method="post">
+                        {% csrf_token %}
+                        {{ form.as_p }}
+            <input type="submit" value="Submit">
+</form>
+<br>
+
+<h2>Other:</h2>
+<p>Created at: {{ squawk.created_at }}</p>
+<p>Updated at: {{ squawk.updated_at }}</p>
+<a href={% url 'dashboard' %}><----Back to Dashboard</a>
+{% endblock %}
+

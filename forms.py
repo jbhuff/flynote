@@ -100,3 +100,11 @@ class gps_form(forms.Form):
 
 class gps_from_noregex(forms.Form):
     coords = forms.CharField(max_length=60)
+
+class squawkform(forms.ModelForm):
+    class Meta:
+        model = squawk
+        fields = ['name', 'description']
+
+class quicksquawk(forms.Form):
+    name = models.CharField(max_length=50)

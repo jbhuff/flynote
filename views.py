@@ -11,7 +11,8 @@ from django.contrib.auth.decorators import login_required
 from .forms import (Quicklog, Flightlog, Ad_form, ad_aircraft_form, 
                    ad_aircraft_mform, ad_mform, Maintlogform, ad_quickpick,
                    Ada_maint_form, UploadFileForm, tach_adjust_form, Crosswind_form,
-                   LoginForm, Airfield_form, gps_form, waypointForm, gps_from_noregex)
+                   LoginForm, Airfield_form, gps_form, waypointForm, gps_from_noregex,
+                   quicksquawk, squawkform)
 import datetime
 import json, re
 from .helper import ( get_metars, get_wandb, get_gross_weight, get_max_aft_cg, 
@@ -205,7 +206,7 @@ def show_waypoint(request, wp_id):
                                     name=form.cleaned_data['name'], user=wp.user, created_at=wp.created_at,
                                     input_string=form.cleaned_data['input_string'], updated_at=datetime.datetime.now())
             update_wp.save()
-            wp = update_wp
+            wp = update_wp   #not needed. wp is already set correctly
     form = waypointForm(instance=wp)
     #lat_string = get_garmin_string(wp.lat)  #returns list
     lat_strings = get_gps_regex(wp.input_string, 'lat')  #returns list or dicts
@@ -214,6 +215,18 @@ def show_waypoint(request, wp_id):
     #context = {'waypoint':wp, 'form':form, 'lat_string':lat_string, 'lon_string':lon_string}
     context = {'waypoint':wp, 'form':form, 'lat_strings':lat_strings, 'lon_strings':lon_strings}
     return render(request, 'flynote/waypoint.html', context)
+
+@login_required
+def show_squawk(request, squawk_id):
+    squawk = squawk.objects.get(pk=squawk_id)
+    if request.method == 'POST':
+        form = squawkform(request.POST)
+        if form.is_valid():
+            update_sq = squawk(id=squawk_id, blahblahblah)
+            update_sq.save()
+    form = squawkform(instance=squawk)
+    context = {'squawk':squawk, 'form':form}
+    return render(request, 'flynote/squawk.html', context)
 
 @login_required
 def show_maint(request, ptr):
@@ -446,12 +459,14 @@ def show_ac(request, ptr):
     else:
         aircraft = None
         return redirect("dashboard")
+    squawks = squawk.objects.filter(aircraft=aircraft)
+    quick_squawk_form = quicksquawk()
     context = {'ac':aircraft, 'logitems':logitems, 'flights':flights, 'ptr':ptr,
                'nonflights':nonflights, 'form':Flightlog(),
                'oil_due':oil_due, 'hours_remaining':hours_remaining,'last_annual':last_annual,
                'days_remaining':days_remaining, 'wandb':get_wandb(ptr), 'tach_log':tach_log,
-               'days_back':days_back, 'TTE':get_TTE(aircraft), 'ADs':ADs, 
-               'snipped_flis':lenflis, 'ttaf':ttaf}
+               'days_back':days_back, 'TTE':get_TTE(aircraft), 'ADs':ADs, 'snipped_flis':lenflis, 
+               'ttaf':ttaf, 'squawks':squawks, 'quick_squawk_form':quick_squawk_form}
     return render(request, 'flynote/aircraft.html', context)
 
 def add_ad(request):

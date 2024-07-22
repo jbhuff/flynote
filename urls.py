@@ -3,7 +3,7 @@ from .views import (home, dash, show_ac, wandb, show_fl, add_ad, add_ad_ac, show
                     , show_ads, update_ad, add_ad_to_ac, show_flights, show_maint, add_maint,
                     show_maint_item, show_ada_mli, add_file_maint_item, get_file, 
                     create_ttaf_adjust, update_wandb, add_wandb_image, convert_coordinates,
-                    show_waypoint,
+                    show_waypoint, show_squawk,
         )
 
 
@@ -19,6 +19,7 @@ urlpatterns = [
             path('add_wandb_image/<int:ptr>', add_wandb_image, name='add_wandb_image'),
             path('show_fl/<int:ptr>', show_fl, name='show_fl'),
             path('show_waypoint/<int:wp_id>', show_waypoint, name='show_waypoint'),
+            path('show_squawk/<int:wp_id>', show_squawk, name='show_squawk'),
             path('add_ad/', add_ad, name='add_ad'),
             path('add_ad_ac/', add_ad_ac, name='add_ad_ac'),
             path('show_ad_ac/<int:ptr>', show_ad_ac, name='show_ad_ac'),
