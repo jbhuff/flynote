@@ -42,17 +42,9 @@
          snipped {{ snipped_flis }} flights...<br>
 	 	{% endif %}
 		<br>
-	<h3>Add Squawk:</h3>
-	<form action={% url 'squawk_quick_add' ac.id %} method="post">
-		{% csrf_token %}
-		<table>
-			{{ quick_squawk_form }}
-		</table>
-		<input type="submit" value="Add Squawk">
-	</form>
-	<br>
-	{% if squawks %}
-		<table>
+		{% if squawks %}
+		<h3>Squawks:</h3>
+		<table class="table", border="1">
 			<tr>
 				<th>Squawk</th>
 				<th>Added</th>
@@ -65,6 +57,16 @@
 			{% endfor %}
 		</table>
 	{% endif %}
+	<h3>Add Squawk:</h3>
+	<form action={% url 'squawk_quick_add' ac.id %} method="post">
+		{% csrf_token %}
+		<table>
+			{{ quick_squawk_form }}
+		</table>
+		<input type="submit" value="Add Squawk">
+	</form>
+	<br>
+	
 	<h3>Add Flight Log</h3>
 	<form action={% url 'show_ac' ac.id %} method="post">
 		        {% csrf_token %}
