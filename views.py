@@ -474,7 +474,7 @@ def show_ac(request, ptr):
                'ttaf':ttaf, 'squawks':squawks, 'quick_squawk_form':quick_squawk_form}
     return render(request, 'flynote/aircraft.html', context)
 
-def add_quick_squawk(request, aircraft_id):
+def squawk_quick_add(request, aircraft_id):
     if request.method == 'POST':
         aircraft = Aircraft.objects.get(pk=aircraft__id)
         form = quick_squawk_form(request.POST)
