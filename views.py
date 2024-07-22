@@ -477,7 +477,7 @@ def show_ac(request, ptr):
 def squawk_quick_add(request, aircraft_id):
     if request.method == 'POST':
         aircraft = Aircraft.objects.get(pk=aircraft_id)
-        form = quick_squawk_form(request.POST)
+        form = quicksquawk(request.POST)
         if form.is_valid():
             sq = squawk(name=form.cleaned_data['name'], description=form.cleaned_data['description'],
                         aircraft=aircraft)
