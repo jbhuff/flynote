@@ -479,8 +479,7 @@ def squawk_quick_add(request, aircraft_id):
         aircraft = Aircraft.objects.get(pk=aircraft_id)
         form = quicksquawk(request.POST)
         if form.is_valid():
-            sq = squawk(name=form.cleaned_data['name'], description=form.cleaned_data['description'],
-                        aircraft=aircraft)
+            sq = squawk(name=form.cleaned_data['name'], description='quick entry', aircraft=aircraft)
             sq.save()
 
     return redirect('show_ac', aircraft_id)
