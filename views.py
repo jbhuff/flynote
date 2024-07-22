@@ -483,7 +483,9 @@ def squawk_quick_add(request, aircraft_id):
                         aircraft=aircraft)
             sq.save()
             return redirect('show_ac', aircraft_id, 'saved')
-    return redirect('show_ac', aircraft_id)
+        return redirect('show_ac', aircraft_id, 'notvalid')
+
+    return redirect('show_ac', aircraft_id, 'notpost')
 
 def add_ad(request):
     if request.method == 'POST':
