@@ -218,14 +218,19 @@ def show_waypoint(request, wp_id):
 
 @login_required
 def show_squawk(request, squawk_id):
-    squawk = squawk.objects.get(pk=squawk_id)
+    sqk = squawk.objects.get(pk=squawk_id)
+    aircraft_rs = User_to_aircraft.objects.filter(user=request.user)
+    if ptr in [acr.aircraft.id for acr in aircraft_rs]:
+        aircraft = Aircraft.objects.get(pk=ptr)
     if request.method == 'POST':
         form = squawkform(request.POST)
         if form.is_valid():
-            update_sq = squawk(id=squawk_id, blahblahblah)
+            update_sq = squawk(id=squawk_id, name=form.cleaned_data['name'], 
+                               description=form.cleaned_data['description'], 
+                               aircraft=aircraft, user=request.user)
             update_sq.save()
-    form = squawkform(instance=squawk)
-    context = {'squawk':squawk, 'form':form}
+    form = squawkform(instance=sqk)
+    context = {'squawk':sqk, 'form':form}
     return render(request, 'flynote/squawk.html', context)
 
 @login_required
