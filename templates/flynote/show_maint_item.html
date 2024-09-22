@@ -85,6 +85,14 @@
 	{% endfor %}
 </table></p>
 {% endif %}
+{% if squawklist %}
+<p><h3>Resolve Squawk:</h3></p>
+<form action={% url 'attach_mlog_to_squawk' maint_item.id %} method="post">
+	{% csrf_token %}
+	{{ squawklist }}
+	<input type="submit" value="Resolve">
+</form>
+{% endif %}
 <br>
 <form action={% url 'show_maint_item' maint_item.id %} method="post">
 	{% csrf_token %}

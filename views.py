@@ -12,7 +12,7 @@ from .forms import (Quicklog, Flightlog, Ad_form, ad_aircraft_form,
                    ad_aircraft_mform, ad_mform, Maintlogform, ad_quickpick,
                    Ada_maint_form, UploadFileForm, tach_adjust_form, Crosswind_form,
                    LoginForm, Airfield_form, gps_form, waypointForm, gps_from_noregex,
-                   quicksquawk, squawkform)
+                   quicksquawk, squawkform, squawklistform)
 import datetime
 import json, re
 from .helper import ( get_metars, get_wandb, get_gross_weight, get_max_aft_cg, 
@@ -233,6 +233,16 @@ def show_squawk(request, squawk_id):
     return render(request, 'flynote/squawk.html', context)
 
 @login_required
+def attach_mlog_to_squawk(request, mlog_id):
+    mlog = Maintlogitem.objects.get(pk=mlog_id)
+    sqform = squawklistform(request.POST)
+    if sqform.is_valid():
+        sq = sqform.cleaned_data['squawk_item']
+        sq.maintenance_log = mlog
+        sq.save()
+    return redirect('show_maint_item', mlog.id)
+
+@login_required
 def show_maint(request, ptr):
     aircraft_rs = User_to_aircraft.objects.filter(user=request.user)
     search_adm = request.GET.get('search_adm','')
@@ -265,9 +275,10 @@ def show_maint_item(request, ptr):
     ada_mlis = Ada_maintitem.objects.filter(maintitem=mli)
     add_ad_form = ad_quickpick()
     ta_form = tach_adjust_form()
+    squawklist = squawklistform()
     context = {'maint_item':mli, 'ADs':ada_mlis, 'add_ad_form':add_ad_form, 
             'file_form':UploadFileForm(), 'files':Maintitem_file.objects.filter(maintitem=mli),
-                'tach_adjust_form':ta_form}
+                'tach_adjust_form':ta_form, 'squawklist':squawklist}
     return render(request, 'flynote/show_maint_item.html', context)
 
 @login_required

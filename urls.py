@@ -3,7 +3,7 @@ from .views import (home, dash, show_ac, wandb, show_fl, add_ad, add_ad_ac, show
                     , show_ads, update_ad, add_ad_to_ac, show_flights, show_maint, add_maint,
                     show_maint_item, show_ada_mli, add_file_maint_item, get_file, 
                     create_ttaf_adjust, update_wandb, add_wandb_image, convert_coordinates,
-                    show_waypoint, show_squawk, squawk_quick_add
+                    show_waypoint, show_squawk, squawk_quick_add, attach_mlog_to_squawk
         )
 
 
@@ -35,6 +35,7 @@ urlpatterns = [
             path('add_maint/<int:ptr>', add_maint, name='add_maint'),
             path('update_ad/<int:ad_ptr>/<int:ad_ac_ptr>', update_ad, name='update_ad'),
             path('add_ad_to_ac/<int:ad_ptr>/<int:ac_ptr>', add_ad_to_ac, name='add_ad_to_ac'),
+            path('attach_mlog_to_squawk/<int:mlog_id>', attach_mlog_to_squawk, name='attach_mlog_to_squawk'),
 
             
             ]
