@@ -111,5 +111,5 @@ class quicksquawk(forms.Form):
     name = forms.CharField(max_length=50)
 
 class squawklistform(forms.Form):
-    squawk_item = forms.ModelChoiceField(qs=squawk.objects.all())
-    
+    squawk_item = forms.ModelChoiceField(queryset=squawk.objects.all())
+
