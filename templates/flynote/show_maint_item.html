@@ -92,6 +92,7 @@
 	<li>{{ s }}</li>
 	{% endfor %}
 </ul>
+{% endif %}
 {% if squawklist %}
 <p><h3>Resolve Squawk:</h3></p>
 <form action={% url 'attach_mlog_to_squawk' maint_item.id %} method="post">
