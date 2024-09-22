@@ -463,7 +463,7 @@ def show_ac(request, ptr):
     else:
         aircraft = None
         return redirect("dashboard")
-    squawks = squawk.objects.filter(aircraft=aircraft)
+    squawks = squawk.objects.filter(aircraft=aircraft).filter(maintenance_log=None)
     quick_squawk_form = quicksquawk()
     context = {'ac':aircraft, 'logitems':logitems, 'flights':flights, 'ptr':ptr,
                'nonflights':nonflights, 'form':Flightlog(),
