@@ -211,3 +211,6 @@ class squawk(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
     created_at = models.DateTimeField(auto_now_add=True)
     maintenance_log = models.ForeignKey(Maintlogitem, null=True, on_delete=models.SET_NULL)
+
+    def __str__(self):
+        return str(self.aircraft) + " " + self.name
