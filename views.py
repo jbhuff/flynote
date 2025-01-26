@@ -549,7 +549,7 @@ def show_ads(request, ptr):
                 ad_dict['level'] = 'success'
         ads.append(ad_dict)
     unused_ADs = AD.objects.exclude(id__in=[ad_ac.ad.id for ad_ac in ad_acs])
-    context = {'ac':aircraft, 'ads':ads, 'unused_ADs':unused_ADs}
+    context = {'ac':aircraft, 'ads':ads, 'unused_ADs':unused_ADs, 'last_tach': last_tach}
     return render(request, 'flynote/show_ads.html', context)
 
 @login_required
