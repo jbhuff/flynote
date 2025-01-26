@@ -3,6 +3,14 @@
 {% block content %}
 <h3>Airworthiness Directives for {{ ac.name }}:<br></h3>
 Last Tach: {{ last_tach }}<br>
+<h2>Key:</h2><br>
+<ul>
+	<li class="list-group-item list-group-item-dark" >Not Applicable</li>
+	<li class="list-group-item list-group-item-danger" >Not Complied or Due Date passed</li>
+	<li class="list-group-item list-group-item-warning" >Tach due within 20 or duedate within 100</li>
+	<li class="list-group-item list-group-item-primary" >Complied and Recurring</li>
+	<li class="list-group-item list-group-item-success" >Complied</li>
+</ul>
 <table class="table">
 	<tr>
 	<th>Number</th>
