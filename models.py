@@ -146,7 +146,7 @@ class AD_aircraft(models.Model):
     note = models.CharField(max_length=400, null=True, blank=True)
     #applicable = models.BooleanField(default=True, blank=True)
     applicable = models.BooleanField()
-
+    warning = models.BooleanField(default=False, blank=True)
     def __str__(self):
         return self.ad.number
 

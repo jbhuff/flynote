@@ -531,15 +531,19 @@ def show_ads(request, ptr):
                 rem = ad.due_tach - float(last_tach)
                 if rem < 20: #make configurable?
                     level = 2
+                    ad.warning = True
                 if rem < 0:
                     level += 10
+                    ad.warning = True
             if ad.due_date != None:
                 td = ad.due_date - date.today()
                 days = td.days
                 if days < 0:
                     level += 10
+                    ad.warning = True
                 elif days < 100:
                     level += 2
+                    ad.warning = True
             if not ad.complied:
                 level += 100
             if level >= 10:
