@@ -550,6 +550,8 @@ def show_ads(request, ptr):
                 elif days < 100:
                     level += 2
                     ad.warning = True
+            if level > 0:
+                ad.save()
             if not ad.complied:
                 level += 100
             if level >= 10:
