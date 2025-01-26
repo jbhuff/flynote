@@ -472,6 +472,11 @@ def show_ac(request, ptr):
         days_back = len(tach_log)
         ADs = AD_aircraft.objects.filter(aircraft=aircraft).order_by('ad__number')
         ttaf = get_latest_ttaf(aircraft)
+        AD_warnings = []
+        for ad in ADs:
+            if ad.warning:
+                AD_warnings.append(ad)
+        AD_warning = len(AD_warnings) > 0
     else:
         aircraft = None
         return redirect("dashboard")
@@ -482,7 +487,8 @@ def show_ac(request, ptr):
                'oil_due':oil_due, 'hours_remaining':hours_remaining,'last_annual':last_annual,
                'days_remaining':days_remaining, 'wandb':get_wandb(ptr), 'tach_log':tach_log,
                'days_back':days_back, 'TTE':get_TTE(aircraft), 'ADs':ADs, 'snipped_flis':lenflis, 
-               'ttaf':ttaf, 'squawks':squawks, 'quick_squawk_form':quick_squawk_form}
+               'ttaf':ttaf, 'squawks':squawks, 'quick_squawk_form':quick_squawk_form, 
+               'AD_warning':AD_warning, 'AD_warnings':AD_warnings}
     return render(request, 'flynote/aircraft.html', context)
 
 def squawk_quick_add(request, aircraft_id):
