@@ -8,6 +8,14 @@
 	{% if TTE %}
 	<p>Total Time Engine: <b>{{ TTE }}</b></p>
 	{% endif %}
+	{% if AD_warning %}
+	<p>AD(s) DUE:</p>
+    <ul>
+	{% for ad in AD_warnings %}
+		<li>{{ ad }}</li>
+	{% endfor %}
+	</ul>
+	{% endif %}
 	<p>Total Time Airframe: {{ ttaf }}</p>
 	<p>Oil Change Due: {{ oil_due }}<br>
 	Hours remaining before Oil Change Due: <b>{{ hours_remaining }}</b></p>
