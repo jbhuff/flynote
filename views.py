@@ -528,8 +528,11 @@ def show_ads(request, ptr):
         else:
             level = 0
             if ad.due_tach != None:
-                if (ad.due_tach - float(last_tach)) < 20: #make configurable?
+                rem = ad.due_tach - float(last_tach)
+                if rem < 20: #make configurable?
                     level = 2
+                if rem < 0:
+                    level += 10
             if ad.due_date != None:
                 td = ad.due_date - date.today()
                 days = td.days
