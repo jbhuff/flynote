@@ -332,7 +332,7 @@ def add_maint(request, ptr):
 
 @login_required
 def delete_squawk(request, sq_ptr):   #ptr is for aircraft
-    sq = squawk_item.objects.get(pk=sq_ptr)
+    sq = squawk.objects.get(pk=sq_ptr)
     aircraft_rs = User_to_aircraft.objects.filter(user=request.user)
     if sq.aircraft.id in [acr.aircraft.id for acr in aircraft_rs]:
         aircraft = Aircraft.objects.get(pk=ptr)
