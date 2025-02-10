@@ -232,6 +232,7 @@ def show_squawk(request, squawk_id):
     context = {'squawk':sqk, 'form':form}
     return render(request, 'flynote/squawk.html', context)
 
+
 @login_required
 def attach_mlog_to_squawk(request, mlog_id):
     mlog = Maintlogitem.objects.get(pk=mlog_id)
@@ -342,7 +343,7 @@ def delete_squawk(request, sq_ptr):   #ptr is for aircraft
                 break
     li = Logitem(date=datetime.date.today(), note="Deleted Squawk %d" % sq_ptr, uta=this_uta)
     li.save()
-    mli = Maintlogitem(tach=get_latest_tach(sq.aircraft), oil_changed=False, annual_finished=False, logitem=li, date=li.date)
+    mli = Maintlogitem(tach=get_latest_tach(sq.aircraft)[0], oil_changed=False, annual_finished=False, logitem=li, date=li.date)
     mli.save()
     sq = squawk.objects.get(pk=sq_ptr)
     sq.maintenance_log = mli
