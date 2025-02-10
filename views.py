@@ -340,7 +340,7 @@ def delete_squawk(request, sq_ptr):   #ptr is for aircraft
             if uta.aircraft == aircraft:
                 this_uta = uta
                 break
-    li = Logitem(date=date.today(), note="Deleted Squawk %d" % sq_ptr, uta=this_uta)
+    li = Logitem(date=datetime.date.today(), note="Deleted Squawk %d" % sq_ptr, uta=this_uta)
     li.save()
     mli = Maintlogitem(tach=get_latest_tach, oil_changed=False, annual_finished=False, logitem=li, date=li.date)
     mli.save()
