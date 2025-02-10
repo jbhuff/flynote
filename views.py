@@ -335,7 +335,7 @@ def delete_squawk(request, sq_ptr):   #ptr is for aircraft
     sq = squawk.objects.get(pk=sq_ptr)
     aircraft_rs = User_to_aircraft.objects.filter(user=request.user)
     if sq.aircraft.id in [acr.aircraft.id for acr in aircraft_rs]:
-        aircraft = Aircraft.objects.get(pk=ptr)
+        aircraft = sq.aircraft
         for uta in aircraft_rs:
             if uta.aircraft == aircraft:
                 this_uta = uta
