@@ -344,7 +344,7 @@ def delete_squawk(request, sq_ptr):   #ptr is for aircraft
     li.save()
     mli = Maintlogitem(tach=get_latest_tach, oil_changed=False, annual_finished=False, logitem=li, date=li.date)
     mli.save()
-    sq = squawk_item.objects.get(pk=sq_ptr)
+    sq = squawk.objects.get(pk=sq_ptr)
     sq.maintenance_log = mli
     sq.save()
     return redirect('show_ac', sq.aircraft.id)
