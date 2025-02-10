@@ -331,6 +331,26 @@ def add_maint(request, ptr):
     return redirect('show_maint', ptr)
 
 @login_required
+def delete_squawk(request, sq_ptr):   #ptr is for aircraft
+    sq = squawk_item.objects.get(pk=sq_ptr)
+    aircraft_rs = User_to_aircraft.objects.filter(user=request.user)
+    if sq.aircraft.id in [acr.aircraft.id for acr in aircraft_rs]:
+        aircraft = Aircraft.objects.get(pk=ptr)
+        for uta in aircraft_rs:
+            if uta.aircraft == aircraft:
+                this_uta = uta
+                break
+    li = Logitem(date=datetime.today(), note="Deleted Squawk %d" % sq_ptr, uta=this_uta)
+    li.save()
+    mli = Maintlogitem(tach=get_latest_tach, oil_changed=False, annual_finished=False, logitem=li, date=li.date)
+    mli.save()
+    sq = squawk_item.objects.get(pk=sq_ptr)
+    sq.maintenance_log = mli
+    sq.save()
+    return redirect('show_ac', sq.aircraft.id)
+
+
+@login_required
 def add_file_maint_item(request, ptr):
     maintitem = Maintlogitem.objects.get(pk=ptr)
     if request.method == 'POST':
