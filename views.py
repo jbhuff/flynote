@@ -342,7 +342,7 @@ def delete_squawk(request, sq_ptr):   #ptr is for aircraft
                 break
     li = Logitem(date=datetime.date.today(), note="Deleted Squawk %d" % sq_ptr, uta=this_uta)
     li.save()
-    mli = Maintlogitem(tach=get_latest_tach, oil_changed=False, annual_finished=False, logitem=li, date=li.date)
+    mli = Maintlogitem(tach=get_latest_tach(sq.aircraft), oil_changed=False, annual_finished=False, logitem=li, date=li.date)
     mli.save()
     sq = squawk.objects.get(pk=sq_ptr)
     sq.maintenance_log = mli
