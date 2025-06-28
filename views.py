@@ -189,7 +189,7 @@ def dash(request):
         da = None
         est_cloudbase = None
         err = fe
-    err += ' af: ' + str(af)
+    #err += ' af: ' + str(af)
     last_waypoints = waypoint.objects.all().order_by("created_at")[:5]
     context = {'aircraft_rs':aircraft_rs, 'metars':metars, 'xwform':xwform, 'xw':xw,
             'min_alerts':min_alerts, 'metar_l':decode_metar(last_metar), 'gust_factor':gf,
@@ -197,7 +197,7 @@ def dash(request):
             'night_current':night_current, 'day_current':day_current, 'nc_deadline':nc_deadline,
             'dc_deadline':dc_deadline, 'field_elevation':fe, 'condition':condition, 'err':err,
             'airfield_form':aform, 'gps_form':gps_from_noregex(), 'last_waypoints':last_waypoints,
-            'pilot_items':pilot_items, }
+            'pilot_items':pilot_items, 'airfield':af, }
     return render(request, 'flynote/dashboard.html', context)
 
 @login_required
