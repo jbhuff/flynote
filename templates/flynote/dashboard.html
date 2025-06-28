@@ -16,7 +16,17 @@
 		{% endfor %}
 	</table>
 	<p><h2>Airport info for {{ airfield }}</h2></p>
-
+    <table class="table">
+		<tr>
+			<th>Item</th>
+			<th>Value</th>
+		</tr>
+		{% for i in af_items %}
+		<tr class="{{ i.color }}">
+			<td>{{ i.name }}</td>
+			<td>{{ i.value }}</td>
+		</tr>
+		{% endfor %}
 	<h3>Metars:</h3>
 	{% for metar in metars %}
 	<form action="{% url 'dashboard' %}" method="get">

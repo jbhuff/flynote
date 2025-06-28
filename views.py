@@ -164,19 +164,33 @@ def dash(request):
         gf = int(metar_d['gusts']) - int(metar_d['wind_speed'])
     #fe = int(last_airfield.field_elevation)
     fe = get_field_elevation(af)
+
     dp = get_dewpoint_int(metar_d['dewpoint'])
+    af_items.append(add_color({'name':"Dewpoint", 'value':dp}))
+
     condition = "UNKNOWN"
     if isinstance(fe, int):
+        af_items.append(add_color({'name':"Field Elevation", 'value':fe}))
         pa = get_pressure_alt(fe, metar_d['altimeter'][1:])
+        af_items.append(add_color({'name':"Pressure Altitude", 'value':pa}))
+
         da = get_density_alt(pa, metar_d['temp'])
+        af_items.append(add_color({'name':"Density Altitude", 'value':da}))
+
         est_cloudbase = get_cloudbase(metar_d['temp'], dp) + fe
+        af_items.append(add_color({'name':"Estimated Cloudbase", 'value':est_cloudbase}))
+
         cb = metar_d['lowest_ceiling']
+        af_items.append(add_color({'name':"Metar Cloudbase", 'value':cb}))
+
         vis = metar_d['visibility'][:-2]
         err = ''
         if '/' in vis:
             vis = (int(vis[0]) / int(vis[2]))  # 1/2SM
         else:
             vis = int(vis)
+        af_items.append(add_color({'name':"Visibility", 'value':vis}))
+
         if cb > 3000 and vis > 5:
             condition = 'VFR'
         elif cb >= 1000 and vis >= 3:
@@ -187,6 +201,8 @@ def dash(request):
             condition = 'LIFR'
         else:
             condition = "UNKNOWN"
+        af_items.append(add_color({'name':"Condition", 'value':condition}))
+
     else:
         pa = None
         da = None
@@ -200,7 +216,7 @@ def dash(request):
             'night_current':night_current, 'day_current':day_current, 'nc_deadline':nc_deadline,
             'dc_deadline':dc_deadline, 'field_elevation':fe, 'condition':condition, 'err':err,
             'airfield_form':aform, 'gps_form':gps_from_noregex(), 'last_waypoints':last_waypoints,
-            'pilot_items':pilot_items, 'airfield':af, }
+            'pilot_items':pilot_items, 'airfield':af, 'af_items':af_items}
     return render(request, 'flynote/dashboard.html', context)
 
 @login_required
