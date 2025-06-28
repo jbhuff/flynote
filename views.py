@@ -175,7 +175,7 @@ def dash(request):
         af_items.append(add_color({'name':"Pressure Altitude", 'value':pa}))
 
         da = get_density_alt(pa, metar_d['temp'])
-        color = get_da_color(da, request.user)
+        color = get_da_color(da, request.USER)
         af_items.append(add_color({'name':"Density Altitude", 'value':da}, color))
 
         est_cloudbase = get_cloudbase(metar_d['temp'], dp) + fe
