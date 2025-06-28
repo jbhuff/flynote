@@ -592,16 +592,16 @@ def get_metar_hours_back(user):
 
 def get_da_color(da, user):
     try:
-        obj = user_config.objects.get(name='density alt warning', user=request.user)
+        obj = user_config.objects.get(name='density alt warning', user=user)
     except user_config.DoesNotExist:
-        obj = user_config(name='density alt warning', value=3000, user=request.user)
+        obj = user_config(name='density alt warning', value=3000, user=user)
         obj.save()
     w = int(obj.value)
 
     try:
-        obj = user_config.objects.get(name='density alt red', user=request.user)
+        obj = user_config.objects.get(name='density alt red', user=user)
     except user_config.DoesNotExist:
-        obj = user_config(name='density alt red', value=w+3000, user=request.user)
+        obj = user_config(name='density alt red', value=w+3000, user=user)
         obj.save()
     r = int(obj.value)
     
