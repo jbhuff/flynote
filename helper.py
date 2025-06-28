@@ -568,7 +568,7 @@ def get_metar_hours_back(user):
             j.delete()
         i.save()
         val = [i]
-    return int(val.value)
+    return int(val[0].value)
 
 
 
