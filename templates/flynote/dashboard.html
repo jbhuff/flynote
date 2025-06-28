@@ -16,6 +16,11 @@
 		{% endfor %}
 	</table>
 	<p><h2>Airport info for {{ airfield }}</h2></p>
+	<form action="{% url 'dashboard' %}" method="get">
+		{% csrf_token %}
+		{{ airfield_form }}
+	<input type="submit" value="Change">
+    </form>
     <table class="table">
 		<tr>
 			<th>Item</th>
@@ -28,15 +33,10 @@
 		</tr>
 		{% endfor %}
 		</table>
-		
+
 	<h3>Metars:</h3>
 	{% for metar in metars %}
-	<form action="{% url 'dashboard' %}" method="get">
-               {% csrf_token %}
-               {{ airfield_form }}
-	       <input type="submit" value="Change">
-	</form>
-	<h4>Condition: {{ condition }}</h4> Field elevation: {{ field_elevation }}<br>
+	
         <ul>
 		{% for m in metar.metar_list %}
 		<li>{{ m }}</li>
