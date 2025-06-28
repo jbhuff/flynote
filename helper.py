@@ -371,7 +371,10 @@ def decode_metar(metar, ret='list'):
     cb = lowest_ceiling
     vis = d['visibility'][:-2]
     if '/' in vis:
-        vis = (int(vis[0]) / int(vis[2]))  # 1/2SM
+        if vis[0] == 'M':   # M1/4SM
+            vis = (int(vis[1]) / int(vis[3]))
+        else:
+            vis = (int(vis[0]) / int(vis[2]))  # 1/2SM
     else:
         vis = int(vis)
     condition = ""
