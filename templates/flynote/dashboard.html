@@ -64,16 +64,8 @@
 		</tr>
 		{% endfor %}
 		
-		<tr>
-			<td>Pressure Altitude</td>
-			<td>{{ pressure_altitude }}</td>
-		</tr>
-		
 	</table>
 	
-	
-	<br>Density Altitude: {{ density_altitude }}
-	<br>Estimated Cloudbase: {{ est_cloudbase }}
 	<br>
 	<form action={% url 'dashboard' %} method="post">
           {% csrf_token %}
