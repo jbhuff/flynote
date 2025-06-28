@@ -1,6 +1,6 @@
 {% extends "flynotebase.htm" %}
+{% block content %}	
 
-<html>
 	<h2>Dashboard for {{ user.username }}</h2><br>
 	<h3>Aircraft</h3><br>
 	<table class="table">
@@ -108,4 +108,4 @@
 	</ul>
 	<p><a href={% url 'add_ad' %}>Add AD</a></p>
 	<p><a href={% url 'add_ad_ac' %}>Add AD to aircraft</a></p>
-</html>
+	{% endblock %}
