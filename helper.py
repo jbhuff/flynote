@@ -1,7 +1,7 @@
 import json
 from urllib import request
 from .models import ( Aircraft, wandb_item, wandb_category, Ac_item, Ac_value, Flightlogitem,
-                    File, Tach_adjust, Maintlogitem, wandb_box_segment, config )
+                    File, Tach_adjust, Maintlogitem, wandb_box_segment, config, user_config )
 from datetime import date, timedelta, datetime
 from django.db.models import Sum
 from django.core.files.storage import default_storage
@@ -555,6 +555,22 @@ def get_med_item(qs):
         return None
     else:
         return retobj
+
+def get_metar_hours_back(user):
+    val = user_config.objects.filter(name="metar hours back", user=user)
+    if len(val) == 0:
+        i = user_config(name="metar hours back", value=4, user=user)
+        i.save()
+        val = [i]
+    if len(val) > 1:
+        i = val[0]
+        for j in val:
+            j.delete()
+        i.save()
+        val = [i]
+    return int(val.value)
+
+
 
 
     

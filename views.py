@@ -20,7 +20,8 @@ from .helper import ( get_metars, get_wandb, get_gross_weight, get_max_aft_cg,
         get_tach_log, get_TTE, file_upload, get_path, get_latest_ttaf, get_cg_range,
         get_latest_tach, get_crosswind, decode_metar, get_angle_difference, get_pressure_alt,
         get_density_alt, get_cloudbase, get_dewpoint_int, get_landings, get_currency_deadline,
-        get_field_elevation, get_garmin_string, get_gps_regex, add_color, get_med_item,)
+        get_field_elevation, get_garmin_string, get_gps_regex, add_color, get_med_item, 
+        get_metar_hours_back,)
 
 # Create your views here.
 #comment test
@@ -41,6 +42,7 @@ def dash(request):
         mins = mins[0]
 
     pilot_items = [] #passed to template
+    af_items = []
 
     user_items = user_config.objects.filter(user=request.user)
     if len(user_items) == 0:
@@ -78,7 +80,7 @@ def dash(request):
             af = 'KCEU'
         else:
             af = last_airfield.k_id
-        ms = get_metars(af, hours=4)
+        ms = get_metars(af, hours=get_metar_hours_back(request.user))
         metars.append({'k_id':af, 'metar_list':ms})
         metar_d = decode_metar(ms[0], ret='dict')
     else:
