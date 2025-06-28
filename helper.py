@@ -369,7 +369,11 @@ def decode_metar(metar, ret='list'):
     l.append({'key':'lowest_ceiling', 'value':lowest_ceiling})
     d['lowest_ceiling'] = lowest_ceiling
     cb = lowest_ceiling
-    vis = d['visibility']
+    vis = d['visibility'][:-2]
+    if '/' in vis:
+        vis = (int(vis[0]) / int(vis[2]))  # 1/2SM
+    else:
+        vis = int(vis)
     condition = ""
     if cb > 3000 and vis > 5:
         condition = 'VFR'
