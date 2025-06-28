@@ -201,7 +201,7 @@ def dash(request):
             condition = 'LIFR'
         else:
             condition = "UNKNOWN"
-        af_items.append(add_color({'name':"Condition", 'value':condition}))
+        af_items.append(add_color({'name':"Condition", 'value':metar_d['condition']}))
 
     else:
         pa = None
