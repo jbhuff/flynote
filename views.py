@@ -210,6 +210,7 @@ def dash(request):
         err = fe
     #err += ' af: ' + str(af)
     for m in ms:
+        m_d = decode_metar(m, ret='dict')
         color = 1
         if m['condition'] == 'VFR':
             color = 4
