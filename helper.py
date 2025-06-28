@@ -2,7 +2,7 @@ import json
 from urllib import request
 from .models import ( Aircraft, wandb_item, wandb_category, Ac_item, Ac_value, Flightlogitem,
                     File, Tach_adjust, Maintlogitem, wandb_box_segment, config )
-from datetime import date, timedelta
+from datetime import date, timedelta, datetime
 from django.db.models import Sum
 from django.core.files.storage import default_storage
 from django.conf import settings
@@ -534,5 +534,28 @@ def add_color(data, level=3):
     data["color"] = color_class
     
     return data
+
+def get_med_item(qs)
+    med_items = []
+    name_list = ['Basic Med Complete']
+    for i in qs:
+        if i.name in name_list:
+            med_items.append(i)
+    if len(med_items) == 0:
+        return None
+    if len(med_items) == 1:
+        return med_items[0]
+    
+    retobj = {'name':None, 'value':"1900-01-01"}
+    for i in med_items:
+        this_date = datetime.strptime(i.value, "%Y-%m-%d").date()
+        if this_date > datetime.strptime(retobj['value'], "%Y-%m-%d").date():
+            retobj = i
+    if retobj['name'] == None:
+        return None
+    else:
+        return retobj
+
+
     
 

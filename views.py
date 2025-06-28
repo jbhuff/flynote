@@ -20,7 +20,7 @@ from .helper import ( get_metars, get_wandb, get_gross_weight, get_max_aft_cg,
         get_tach_log, get_TTE, file_upload, get_path, get_latest_ttaf, get_cg_range,
         get_latest_tach, get_crosswind, decode_metar, get_angle_difference, get_pressure_alt,
         get_density_alt, get_cloudbase, get_dewpoint_int, get_landings, get_currency_deadline,
-        get_field_elevation, get_garmin_string, get_gps_regex, add_color)
+        get_field_elevation, get_garmin_string, get_gps_regex, add_color, get_med_item,)
 
 # Create your views here.
 #comment test
