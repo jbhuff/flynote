@@ -189,7 +189,7 @@ def dash(request):
             'night_current':night_current, 'day_current':day_current, 'nc_deadline':nc_deadline,
             'dc_deadline':dc_deadline, 'field_elevation':fe, 'condition':condition, 'err':err,
             'airfield_form':aform, 'gps_form':gps_from_noregex(), 'last_waypoints':last_waypoints,
-            'medical_due':medical_due, 'pilot_items':pilot_items, }
+            'pilot_items':pilot_items, }
     return render(request, 'flynote/dashboard.html', context)
 
 @login_required
