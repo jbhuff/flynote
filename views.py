@@ -175,7 +175,16 @@ def dash(request):
         af_items.append(add_color({'name':"Pressure Altitude", 'value':pa}))
 
         da = get_density_alt(pa, metar_d['temp'])
-        af_items.append(add_color({'name':"Density Altitude", 'value':da}))
+        try:
+            obj = user_config.objects.get(name='density alt warning', user=request.user)
+            obj = int(obj.value)
+        except user_config.DoesNotExist:
+            obj = 3000
+        if int(da) > obj:
+            color = 2
+        else:
+            color = 4
+        af_items.append(add_color({'name':"Density Altitude", 'value':da}, color))
 
         est_cloudbase = get_cloudbase(metar_d['temp'], dp) + fe
         af_items.append(add_color({'name':"Estimated Cloudbase", 'value':est_cloudbase}))
@@ -190,17 +199,6 @@ def dash(request):
         else:
             vis = int(vis)
         af_items.append(add_color({'name':"Visibility", 'value':vis}))
-
-        if cb > 3000 and vis > 5:
-            condition = 'VFR'
-        elif cb >= 1000 and vis >= 3:
-            condition = 'MVFR'
-        elif cb >= 500 and vis >= 1:
-            condition = 'IFR'
-        elif cb < 500 or vis < 1:
-            condition = 'LIFR'
-        else:
-            condition = "UNKNOWN"
         af_items.append(add_color({'name':"Condition", 'value':metar_d['condition']}))
 
     else:
