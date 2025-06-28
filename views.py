@@ -563,7 +563,7 @@ def show_ads(request, ptr):
                     level += 10
                     ad.warning = True
             if ad.due_date != None:
-                td = ad.due_date - date.today()
+                td = ad.due_date - datetime.date.today()
                 days = td.days
                 if days < 0:
                     level += 10
