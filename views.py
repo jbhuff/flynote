@@ -212,13 +212,13 @@ def dash(request):
     for m in ms:
         m_d = decode_metar(m, ret='dict')
         color = 1
-        if m['condition'] == 'VFR':
+        if m_d['condition'] == 'VFR':
             color = 4
-        elif m['condition'] == 'MVFR':
+        elif m_d['condition'] == 'MVFR':
             color = 5
-        elif m['condition'] == 'IFR':
+        elif m_d['condition'] == 'IFR':
             color = 3
-        elif m['condition'] == 'LIFR':
+        elif m_d['condition'] == 'LIFR':
             color = 2
         af_items.append(add_color({'name':"Metar", 'value':m}, color))
 
