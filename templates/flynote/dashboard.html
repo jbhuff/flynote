@@ -35,10 +35,9 @@
 		</table>
 
 	<h3>Metars:</h3>
-	{% for metar in metars %}
 	
         <ul>
-		{% for m in metar.metar_list %}
+		{% for m in metars %}
 		<li>{{ m }}</li>
 		{% endfor %}
 	</ul>

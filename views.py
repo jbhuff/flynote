@@ -82,12 +82,12 @@ def dash(request):
         else:
             af = last_airfield.k_id
         ms = get_metars(af, hours=hours_back)
-        metars.append({'k_id':af, 'metar_list':ms})
+        #metars.append({'k_id':af, 'metar_list':ms})
         metar_d = decode_metar(ms[0], ret='dict')
     else:
         af = get_airfield
         ms = get_metars(af, hours=hours_back)
-        metars.append({'k_id':af, 'metar_list':ms})
+        #metars.append({'k_id':af, 'metar_list':ms})
         metar_d = decode_metar(ms[0], ret='dict')
     last_metar = ms[0]
     xwform = Crosswind_form()
@@ -209,8 +209,11 @@ def dash(request):
         est_cloudbase = None
         err = fe
     #err += ' af: ' + str(af)
+    for m in ms:
+        af_items.append(add_color({'name':"Metar", 'value':m}))
+
     last_waypoints = waypoint.objects.all().order_by("created_at")[:5]
-    context = {'aircraft_rs':aircraft_rs, 'metars':metars, 'xwform':xwform, 'xw':xw,
+    context = {'aircraft_rs':aircraft_rs, 'metars':ms, 'xwform':xwform, 'xw':xw,
             'min_alerts':min_alerts, 'metar_l':decode_metar(last_metar), 'gust_factor':gf,
             'pressure_altitude':pa, 'density_altitude':da, 'est_cloudbase': est_cloudbase,
             'night_current':night_current, 'day_current':day_current, 'nc_deadline':nc_deadline,
