@@ -46,13 +46,14 @@ def dash(request):
     if len(user_items) == 0:
         user_items = None
 
-    medical_due = None
     if user_items is not None:
-        for i in user_items:
-            if i.name == "Medical Due":
-                medical_due = i.value
-                d = {'name':"Medical Due", 'value':medical_due, 'notes':""}
-                pilot_items.append(add_color(d))
+        i = get_med_item(user_items)
+    
+    if i is not None:
+        if i.name == "Basic Med Complete":    #Add more Med options here!!
+            notes = "Renewal due in 48 calendar months after completion"
+        d = {'name':i.name, 'value':i.value, 'notes':notes}
+        pilot_items.append(add_color(d))
 
     get_airfield = request.GET.get('airfield', None)    
     last_metar = None
