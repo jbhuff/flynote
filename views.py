@@ -166,6 +166,10 @@ def dash(request):
         color = 1
     af_items.append(add_color({'name':"Crosswind", 'value':int(xw['speed'])}, color))
 
+    if xw['direct']:
+        af_items.append(add_color({'name':"Crosswind", 'value':"DIRECT"}, 2))
+
+
     if 'gusts' in metar_d.keys():
         if int(metar_d['gusts']) >= mins.wind:
             min_alerts['wind'] = True
