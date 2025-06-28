@@ -210,7 +210,16 @@ def dash(request):
         err = fe
     #err += ' af: ' + str(af)
     for m in ms:
-        af_items.append(add_color({'name':"Metar", 'value':m}))
+        color = 1
+        if m['condition'] == 'VFR':
+            color = 4
+        elif m['condition'] == 'MVFR':
+            color = 5
+        elif m['condition'] == 'IFR':
+            color = 3
+        elif m['condition'] == 'LIFR':
+            color = 2
+        af_items.append(add_color({'name':"Metar", 'value':m}, color))
 
     last_waypoints = waypoint.objects.all().order_by("created_at")[:5]
     context = {'aircraft_rs':aircraft_rs, 'metars':ms, 'xwform':xwform, 'xw':xw,
