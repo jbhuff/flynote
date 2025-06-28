@@ -45,9 +45,10 @@ def dash(request):
         user_items = None
 
     medical_due = None
-    for i in user_items:
-        if i.name == "Medical Due":
-            medical_due = i.value
+    if user_items is not None:
+        for i in user_items:
+            if i.name == "Medical Due":
+                medical_due = i.value
 
     get_airfield = request.GET.get('airfield', None)    
     last_metar = None
