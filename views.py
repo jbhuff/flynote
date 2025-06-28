@@ -20,7 +20,7 @@ from .helper import ( get_metars, get_wandb, get_gross_weight, get_max_aft_cg,
         get_tach_log, get_TTE, file_upload, get_path, get_latest_ttaf, get_cg_range,
         get_latest_tach, get_crosswind, decode_metar, get_angle_difference, get_pressure_alt,
         get_density_alt, get_cloudbase, get_dewpoint_int, get_landings, get_currency_deadline,
-        get_field_elevation, get_garmin_string, get_gps_regex)
+        get_field_elevation, get_garmin_string, get_gps_regex, add_color)
 
 # Create your views here.
 #comment test
@@ -40,6 +40,8 @@ def dash(request):
     else:
         mins = mins[0]
 
+    pilot_items = [] #passed to template
+
     user_items = user_config.objects.filter(user=request.user)
     if len(user_items) == 0:
         user_items = None
@@ -49,6 +51,8 @@ def dash(request):
         for i in user_items:
             if i.name == "Medical Due":
                 medical_due = i.value
+                d = {'name':"Medical Due", 'value':medical_due, 'notes':""}
+                pilot_items.append(add_color(d))
 
     get_airfield = request.GET.get('airfield', None)    
     last_metar = None
@@ -83,15 +87,28 @@ def dash(request):
     dl = get_landings(request.user, 90, 'day')
     night_current =  (nl >= 3)
     day_current = (dl >= 3)
+
+    d = {'name':"Night Current", 'value':night_current}
     if night_current:
         nc_deadline = get_currency_deadline(request.user, 'night')
+        d['notes'] = "deadline: {}".format(nc_deadline)
+        d_level = 5
     else:
         nc_deadline = None
+        d['notes'] = "deadline passed"
+        d_level = 1
+    pilot_items.append(add_color(d, d_level))
+
+    d = {'name':"Day Current", 'value':day_current}
     if day_current:
         dc_deadline = get_currency_deadline(request.user, 'day')
+        d['notes'] = "deadline: {}".format(dc_deadline)
+        d_level = 5
     else:
         dc_deadline = None
-    
+        d_level = 1
+    pilot_items.append(add_color(d, d_level))
+
     min_alerts = {}
     if request.method == 'POST':
         form = Crosswind_form(request.POST)
@@ -171,7 +188,7 @@ def dash(request):
             'night_current':night_current, 'day_current':day_current, 'nc_deadline':nc_deadline,
             'dc_deadline':dc_deadline, 'field_elevation':fe, 'condition':condition, 'err':err,
             'airfield_form':aform, 'gps_form':gps_from_noregex(), 'last_waypoints':last_waypoints,
-            'medical_due':medical_due, }
+            'medical_due':medical_due, 'pilot_items':pilot_items, }
     return render(request, 'flynote/dashboard.html', context)
 
 @login_required

@@ -61,17 +61,22 @@
 			<th>Value</th>
 			<th>Notes</th>
 		</tr>
+		{% for i in pilot_items %}
 		<tr>
-			<td>Night Current</td>
-			<td>{% if night_current %} True</td>
-			<td>Night current deadline: {{ nc_deadline }}{% else %} <b>False</b></td><td>{% endif %}</td>
+			<td>{{ i.name }}</td>
+			<td>{{ i.value }}</td>
+			<td>{{ i.notes }}</td>
 		</tr>
+		{% endfor %}
+		
+		<tr>
+			<td>Pressure Altitude</td>
+			<td>{{ pressure_altitude }}</td>
+		</tr>
+		
 	</table>
-	<br>Night Current:{% if night_current %} True<br>
-	Night current deadline: {{ nc_deadline }}{% else %} <b>False</b>{% endif %}
-	<br>Day Current:{% if day_current %} True<br>
-	Day current deadline: {{ dc_deadline }}{% else %} <b>False</b>{% endif %}
-	<br>Pressure Altitude: {{ pressure_altitude }}
+	
+	
 	<br>Density Altitude: {{ density_altitude }}
 	<br>Estimated Cloudbase: {{ est_cloudbase }}
 	<br>

@@ -517,3 +517,22 @@ def get_ttaf_at_date(date):
     last_adjust = adjusts.last()
     return float(last_tach) + float(last_adjust.hours)
 
+def add_color(data, level=3):
+    # Map of numeric levels to Bootstrap table row classes
+    bootstrap_color_map = {
+        1: "table-danger",   # Red — often used for errors, warnings, or urgent items
+        2: "table-warning",  # Yellow — cautionary, signals something that needs attention
+        3: "table-info",     # Light blue — typically used for informational content
+        4: "table-success",  # Green — denotes success, completion, or positive status
+        5: "table-primary"   # Blue — a strong, general-purpose highlight
+    }
+    
+    # Use "table-secondary" (gray) as a fallback for unknown levels
+    color_class = bootstrap_color_map.get(level, "table-secondary")
+    
+    # Add the selected Bootstrap color class to the dictionary
+    data["color"] = color_class
+    
+    return data
+    
+
