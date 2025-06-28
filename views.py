@@ -92,7 +92,7 @@ def dash(request):
     if night_current:
         nc_deadline = get_currency_deadline(request.user, 'night')
         d['notes'] = "deadline: {}".format(nc_deadline)
-        d_level = 5
+        d_level = 4
     else:
         nc_deadline = None
         d['notes'] = "deadline passed"
@@ -103,7 +103,7 @@ def dash(request):
     if day_current:
         dc_deadline = get_currency_deadline(request.user, 'day')
         d['notes'] = "deadline: {}".format(dc_deadline)
-        d_level = 5
+        d_level = 4
     else:
         dc_deadline = None
         d_level = 1
