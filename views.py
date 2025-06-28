@@ -156,8 +156,13 @@ def dash(request):
     gf = None
     if int(wind[-2:]) >= mins.wind:
         min_alerts['wind'] = True
+
+    color = 4
     if int(xw['speed']) > mins.crosswind:
         min_alerts['crosswind'] = True
+        color = 2
+    af_items.append(add_color({'name':"Crosswind", 'value':int(xw['speed'])}, color))
+    
     if 'gusts' in metar_d.keys():
         if int(metar_d['gusts']) >= mins.wind:
             min_alerts['wind'] = True
@@ -569,7 +574,7 @@ def show_ac(request, ptr):
                'oil_due':oil_due, 'hours_remaining':hours_remaining,'last_annual':last_annual,
                'days_remaining':days_remaining, 'wandb':get_wandb(ptr), 'tach_log':tach_log,
                'days_back':days_back, 'TTE':get_TTE(aircraft), 'ADs':ADs, 'snipped_flis':lenflis, 
-               'ttaf':ttaf, 'squawks':squawks, 'quick_squawk_form':quick_squawk_form, 
+               'ttaf':round(ttaf, 1), 'squawks':squawks, 'quick_squawk_form':quick_squawk_form, 
                'AD_warning':AD_warning, 'AD_warnings':AD_warnings}
     return render(request, 'flynote/aircraft.html', context)
 
