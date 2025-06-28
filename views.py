@@ -21,7 +21,7 @@ from .helper import ( get_metars, get_wandb, get_gross_weight, get_max_aft_cg,
         get_latest_tach, get_crosswind, decode_metar, get_angle_difference, get_pressure_alt,
         get_density_alt, get_cloudbase, get_dewpoint_int, get_landings, get_currency_deadline,
         get_field_elevation, get_garmin_string, get_gps_regex, add_color, get_med_item, 
-        get_metar_hours_back,)
+        get_metar_hours_back, get_da_color,)
 
 # Create your views here.
 #comment test
@@ -175,15 +175,7 @@ def dash(request):
         af_items.append(add_color({'name':"Pressure Altitude", 'value':pa}))
 
         da = get_density_alt(pa, metar_d['temp'])
-        try:
-            obj = user_config.objects.get(name='density alt warning', user=request.user)
-            obj = int(obj.value)
-        except user_config.DoesNotExist:
-            obj = 3000
-        if int(da) > obj:
-            color = 2
-        else:
-            color = 4
+        color = get_da_color(da, request.user)
         af_items.append(add_color({'name':"Density Altitude", 'value':da}, color))
 
         est_cloudbase = get_cloudbase(metar_d['temp'], dp) + fe
