@@ -215,9 +215,9 @@ def dash(request):
         elif m_d['condition'] == 'MVFR':
             color = 5
         elif m_d['condition'] == 'IFR':
-            color = 3
-        elif m_d['condition'] == 'LIFR':
             color = 2
+        elif m_d['condition'] == 'LIFR':
+            color = 1
         af_items.append(add_color({'name':"Metar", 'value':m}, color))
 
     last_waypoints = waypoint.objects.all().order_by("created_at")[:5]
