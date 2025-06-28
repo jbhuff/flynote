@@ -52,6 +52,19 @@
 	{% if err %}
 	<br>Error: {{ err }}
 	{% endif %}
+	<p><h2>Pilot info for {{ user.username }}</h2></p>
+	<table class="table">
+		<tr>
+			<th>Item</th>
+			<th>Value</th>
+			<th>Notes</th>
+		</tr>
+		<tr>
+			<td>Night Current</td>
+			<td>{% if night_current %} True</td>
+			<td>Night current deadline: {{ nc_deadline }}{% else %} <b>False</b></td><td>{% endif %}</td>
+		</tr>
+	</table>
 	<br>Night Current:{% if night_current %} True<br>
 	Night current deadline: {{ nc_deadline }}{% else %} <b>False</b>{% endif %}
 	<br>Day Current:{% if day_current %} True<br>

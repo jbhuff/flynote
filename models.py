@@ -217,3 +217,11 @@ class squawk(models.Model):
 
     def __str__(self):
         return str(self.aircraft) + " " + self.name
+
+class user_config(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    name = models.CharField(max_length=50)
+    value = models.CharField(max_length=50)
+
+    def __str__(self):
+        return "{} {}: {}".format(str(self.user), self.name, self.value)

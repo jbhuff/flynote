@@ -3,7 +3,8 @@ from django.http import HttpResponse, FileResponse
 from .models import (Aircraft, User_to_aircraft, Logitem, Flightlogitem, Maintlogitem,
                     Airfield, Airfield_to_uta, wandb_category, wandb_item, Ac_item, 
                     AD, AD_aircraft, Ada_maintitem, File, Maintitem_file, Tach_adjust,
-                    Ac_file, Ac_category, Minimums, Runway, waypoint, config, squawk )
+                    Ac_file, Ac_category, Minimums, Runway, waypoint, config, squawk,
+                    user_config, )
 from django.contrib.auth import authenticate
 from django.contrib.auth import login as djlogin
 from django.contrib.auth import logout as djlogout
@@ -38,6 +39,16 @@ def dash(request):
         mins = None
     else:
         mins = mins[0]
+
+    user_items = user_config.objects.filter(user=request.user)
+    if len(user_items) == 0:
+        user_items = None
+
+    medical_due = None
+    for i in user_items:
+        if i.name == "Medical Due":
+            medical_due = i.value
+
     get_airfield = request.GET.get('airfield', None)    
     last_metar = None
     last_airfield = None
@@ -158,7 +169,8 @@ def dash(request):
             'pressure_altitude':pa, 'density_altitude':da, 'est_cloudbase': est_cloudbase,
             'night_current':night_current, 'day_current':day_current, 'nc_deadline':nc_deadline,
             'dc_deadline':dc_deadline, 'field_elevation':fe, 'condition':condition, 'err':err,
-            'airfield_form':aform, 'gps_form':gps_from_noregex(), 'last_waypoints':last_waypoints}
+            'airfield_form':aform, 'gps_form':gps_from_noregex(), 'last_waypoints':last_waypoints,
+            'medical_due':medical_due, }
     return render(request, 'flynote/dashboard.html', context)
 
 @login_required
