@@ -535,7 +535,7 @@ def add_color(data, level=3):
     
     return data
 
-def get_med_item(qs)
+def get_med_item(qs):
     med_items = []
     name_list = ['Basic Med Complete']
     for i in qs:
