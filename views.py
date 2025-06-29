@@ -532,6 +532,8 @@ def show_ac(request, ptr):
         ac_items = []
         ac_items.append(add_color({'name':"Total Time Engine", 'value':get_TTE(aircraft)}))
 
+        ttaf = get_latest_ttaf(aircraft)
+        ac_items.append(add_color({'name':"Total Time Airframe", 'value':round(ttaf, 1)}))
         flights = []
         last_tach = 0.0
         for fli in flis:
@@ -568,7 +570,6 @@ def show_ac(request, ptr):
         tach_log = get_tach_log(aircraft,request.GET.get('days_back',30))
         days_back = len(tach_log)
         ADs = AD_aircraft.objects.filter(aircraft=aircraft).order_by('ad__number')
-        ttaf = get_latest_ttaf(aircraft)
         AD_warnings = []
         for ad in ADs:
             if ad.warning:
