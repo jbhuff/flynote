@@ -573,7 +573,7 @@ def show_ac(request, ptr):
         days_remaining = (annual_due - datetime.date.today()).days
         ac_items.append(add_color({'name':"Annual Due", 'value':annual_due}))
         ac_items.append(add_color({'name':"Days Remaining before annual", 'value':days_remaining}))
-        
+
         tach_log = get_tach_log(aircraft,request.GET.get('days_back',30))
         days_back = len(tach_log)
         ADs = AD_aircraft.objects.filter(aircraft=aircraft).order_by('ad__number')
@@ -591,7 +591,7 @@ def show_ac(request, ptr):
                'nonflights':nonflights, 'form':Flightlog(),
                'oil_due':oil_due, 'hours_remaining':hours_remaining,'last_annual':last_annual,
                'days_remaining':days_remaining, 'wandb':get_wandb(ptr), 'tach_log':tach_log,
-               'days_back':days_back, 'TTE':get_TTE(aircraft), 'ADs':ADs, 'snipped_flis':lenflis, 
+               'days_back':days_back, 'TTE':get_TTE(aircraft), 'ADs':ADs, 'snipped_flis':snipped_flis, 
                'ttaf':round(ttaf, 1), 'squawks':squawks, 'quick_squawk_form':quick_squawk_form, 
                'AD_warning':AD_warning, 'AD_warnings':AD_warnings, 'ac_items':ac_items}
     return render(request, 'flynote/aircraft.html', context)
