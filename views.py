@@ -486,7 +486,7 @@ def show_flights(request, ptr):
                 if float(fli.tach) > last_tach:
                     last_tach = float(fli.tach)
             flights.append({'li':fli.logitem, 'fli':fli, 'gph':gph})
-        context = {'ac':aircraft, 'flights':flights,}
+        context = {'ac':aircraft, 'flights':flights, 'title':"{} Flights".format(request.user)}
         return render(request, 'flynote/show_flights.html', context)
 
 @login_required
