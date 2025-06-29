@@ -3,7 +3,19 @@
 {% block content %}	
 
 <h2>{{ ac.name }}</h2><br>
-
+<p><h3>Aircraft Info:</h3></p>
+<table class="table">
+	<tr>
+		<th>Name</th>
+		<th>Value</th>
+	</tr>
+	{% for i in ac_items %}
+	<tr class="{{ i.color }}">
+		<td>{{ i.name }}</td>
+		<td>{{ i.value }}</td>
+	</tr>
+	{% endfor %}
+</table>
 	<br>
 	{% if TTE %}
 	<p>Total Time Engine: <b>{{ TTE }}</b></p>

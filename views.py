@@ -524,11 +524,14 @@ def show_ac(request, ptr):
         nonflights = logitems.exclude(logtype="flight")
         flis = Flightlogitem.objects.filter(logitem__uta__in=all_users_utas).order_by('-logitem__date', '-tach')
         lenflis = len(flis)
-        show_number = 7
+        show_number = get_log_item_num()
         if lenflis > show_number:
             flis = flis[:show_number]
             snipped_flis = lenflis - show_number
-            
+        
+        ac_items = []
+        ac_items.append(add_color({'name':"Total Time Engine", 'value':get_TTE(aircraft)}))
+
         flights = []
         last_tach = 0.0
         for fli in flis:
@@ -582,7 +585,7 @@ def show_ac(request, ptr):
                'days_remaining':days_remaining, 'wandb':get_wandb(ptr), 'tach_log':tach_log,
                'days_back':days_back, 'TTE':get_TTE(aircraft), 'ADs':ADs, 'snipped_flis':lenflis, 
                'ttaf':round(ttaf, 1), 'squawks':squawks, 'quick_squawk_form':quick_squawk_form, 
-               'AD_warning':AD_warning, 'AD_warnings':AD_warnings}
+               'AD_warning':AD_warning, 'AD_warnings':AD_warnings, 'ac_items':ac_items}
     return render(request, 'flynote/aircraft.html', context)
 
 def squawk_quick_add(request, aircraft_id):
