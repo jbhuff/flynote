@@ -615,8 +615,13 @@ def get_da_color(da, user):
         color = 1
     return color
 
-
-
-
+def get_log_item_num(user):
+    try:
+        obj = user_config.objects.get(name='log item num', user=user)
+    except user_config.DoesNotExist:
+        obj = user_config(name='log item num', value=7, user=user)
+        obj.save()
+    w = int(obj.value)
+    return w
     
 

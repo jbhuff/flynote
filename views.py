@@ -21,7 +21,7 @@ from .helper import ( get_metars, get_wandb, get_gross_weight, get_max_aft_cg,
         get_latest_tach, get_crosswind, decode_metar, get_angle_difference, get_pressure_alt,
         get_density_alt, get_cloudbase, get_dewpoint_int, get_landings, get_currency_deadline,
         get_field_elevation, get_garmin_string, get_gps_regex, add_color, get_med_item, 
-        get_metar_hours_back, get_da_color,)
+        get_metar_hours_back, get_da_color, get_log_item_num,)
 
 # Create your views here.
 #comment test
@@ -524,7 +524,7 @@ def show_ac(request, ptr):
         nonflights = logitems.exclude(logtype="flight")
         flis = Flightlogitem.objects.filter(logitem__uta__in=all_users_utas).order_by('-logitem__date', '-tach')
         lenflis = len(flis)
-        show_number = get_log_item_num()
+        show_number = get_log_item_num(request.user)
         if lenflis > show_number:
             flis = flis[:show_number]
             snipped_flis = lenflis - show_number
