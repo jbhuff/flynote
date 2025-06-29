@@ -593,7 +593,7 @@ def show_ac(request, ptr):
                'days_remaining':days_remaining, 'wandb':get_wandb(ptr), 'tach_log':tach_log,
                'days_back':days_back, 'TTE':get_TTE(aircraft), 'ADs':ADs, 'snipped_flis':snipped_flis, 
                'ttaf':round(ttaf, 1), 'squawks':squawks, 'quick_squawk_form':quick_squawk_form, 
-               'AD_warning':AD_warning, 'AD_warnings':AD_warnings, 'ac_items':ac_items}
+               'AD_warning':AD_warning, 'AD_warnings':AD_warnings, 'ac_items':ac_items, 'title':aircraft.name}
     return render(request, 'flynote/aircraft.html', context)
 
 def squawk_quick_add(request, aircraft_id):
