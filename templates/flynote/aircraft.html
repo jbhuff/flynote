@@ -27,8 +27,6 @@
 	</ul>
 	{% endif %}
 	
-	<p>Last Annual: {{ last_annual }}<br>
-        Flying days left: <b>{{ days_remaining }}</b></p>
 	<a href={% url 'show_maint' ac.id %}>Maintenance Logs</a><br><br>
 	<p><a href={% url 'wandb' ac.id %}>Weight and Balance:</a><br>
 	<br><br><h2><a href={% url 'show_flights' ac.id %}>Flights:</a></h2><br>

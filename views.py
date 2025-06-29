@@ -567,10 +567,13 @@ def show_ac(request, ptr):
 
         hours_remaining = round(oil_due - last_tach, 1)
         ac_items.append(add_color({'name':"Oil change hours remaining", 'value':hours_remaining}))
-        
+
         #annual_due = datetime.date(last_annual.year + 1, last_annual.month, last_annual.day)
         annual_due = datetime.date(last_annual.year + 1, last_annual.month + 1, 1)
         days_remaining = (annual_due - datetime.date.today()).days
+        ac_items.append(add_color({'name':"Annual Due", 'value':annual_due}))
+        ac_items.append(add_color({'name':"Days Remaining before annual", 'value':days_remaining}))
+        
         tach_log = get_tach_log(aircraft,request.GET.get('days_back',30))
         days_back = len(tach_log)
         ADs = AD_aircraft.objects.filter(aircraft=aircraft).order_by('ad__number')
