@@ -26,8 +26,7 @@
 	{% endfor %}
 	</ul>
 	{% endif %}
-	<p>Oil Change Due: {{ oil_due }}<br>
-	Hours remaining before Oil Change Due: <b>{{ hours_remaining }}</b></p>
+	
 	<p>Last Annual: {{ last_annual }}<br>
         Flying days left: <b>{{ days_remaining }}</b></p>
 	<a href={% url 'show_maint' ac.id %}>Maintenance Logs</a><br><br>

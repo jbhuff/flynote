@@ -563,7 +563,11 @@ def show_ac(request, ptr):
                 if mi.date > last_annual:
                     last_annual = mi.date
         oil_due = last_oil + 50
+        ac_items.append(add_color({'name':"Oil Due", 'value':oil_due}))
+
         hours_remaining = round(oil_due - last_tach, 1)
+        ac_items.append(add_color({'name':"Oil change hours remaining", 'value':hours_remaining}))
+        
         #annual_due = datetime.date(last_annual.year + 1, last_annual.month, last_annual.day)
         annual_due = datetime.date(last_annual.year + 1, last_annual.month + 1, 1)
         days_remaining = (annual_due - datetime.date.today()).days
