@@ -21,7 +21,7 @@ from .helper import ( get_metars, get_wandb, get_gross_weight, get_max_aft_cg,
         get_latest_tach, get_crosswind, decode_metar, get_angle_difference, get_pressure_alt,
         get_density_alt, get_cloudbase, get_dewpoint_int, get_landings, get_currency_deadline,
         get_field_elevation, get_garmin_string, get_gps_regex, add_color, get_med_item, 
-        get_metar_hours_back, get_da_color, get_log_item_num,)
+        get_metar_hours_back, get_da_color, get_log_item_num, get_oil_color,)
 
 # Create your views here.
 #comment test
@@ -566,7 +566,8 @@ def show_ac(request, ptr):
         ac_items.append(add_color({'name':"Oil Due", 'value':oil_due}))
 
         hours_remaining = round(oil_due - last_tach, 1)
-        ac_items.append(add_color({'name':"Oil change hours remaining", 'value':hours_remaining}))
+        c = get_oil_color(hours_remaining, request.user)
+        ac_items.append(add_color({'name':"Oil change hours remaining", 'value':hours_remaining}, c))
 
         #annual_due = datetime.date(last_annual.year + 1, last_annual.month, last_annual.day)
         annual_due = datetime.date(last_annual.year + 1, last_annual.month + 1, 1)

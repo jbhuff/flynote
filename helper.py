@@ -579,34 +579,47 @@ def get_med_item(qs):
     else:
         return retobj
 
-def get_metar_hours_back(user):
-    val = user_config.objects.filter(name="metar hours back", user=user)
-    if len(val) == 0:
-        i = user_config(name="metar hours back", value=4, user=user)
-        i.save()
-        val = [i]
-    if len(val) > 1:
-        i = val[0]
-        for j in val:
-            j.delete()
-        i.save()
-        val = [i]
-    return int(val[0].value)
-
-def get_da_color(da, user):
+def get_or_create_user_item(item_name, default_value, user):
     try:
-        obj = user_config.objects.get(name='density alt warning', user=user)
+        obj = user_config.objects.get(name=item_name, user=user)
     except user_config.DoesNotExist:
-        obj = user_config(name='density alt warning', value=3000, user=user)
+        obj = user_config(name=item_name, value=default_value, user=user)
         obj.save()
     w = int(obj.value)
+    return w
 
-    try:
-        obj = user_config.objects.get(name='density alt red', user=user)
-    except user_config.DoesNotExist:
-        obj = user_config(name='density alt red', value=w+3000, user=user)
-        obj.save()
-    r = int(obj.value)
+def get_metar_hours_back(user):
+    val = get_or_create_user_item('metar hours back', 4, user)
+    # val = user_config.objects.filter(name="metar hours back", user=user)
+    return val
+    # if len(val) == 0:
+    #     i = user_config(name="metar hours back", value=4, user=user)
+    #     i.save()
+    #     val = [i]
+    # if len(val) > 1:
+    #     i = val[0]
+    #     for j in val:
+    #         j.delete()
+    #     i.save()
+    #     val = [i]
+    # return int(val[0].value)
+
+def get_da_color(da, user):
+    w = get_or_create_user_item('density alt warning', 3000, user)
+    # try:
+    #     obj = user_config.objects.get(name='density alt warning', user=user)
+    # except user_config.DoesNotExist:
+    #     obj = user_config(name='density alt warning', value=3000, user=user)
+    #     obj.save()
+    # w = int(obj.value)
+
+    r = get_or_create_user_item('density alt red', w+3000, user)
+    # try:
+    #     obj = user_config.objects.get(name='density alt red', user=user)
+    # except user_config.DoesNotExist:
+    #     obj = user_config(name='density alt red', value=w+3000, user=user)
+    #     obj.save()
+    # r = int(obj.value)
     
     color = 4
     if int(da) > w:
@@ -615,13 +628,23 @@ def get_da_color(da, user):
         color = 1
     return color
 
+def get_oil_color(h_r, user):
+    w = get_or_create_user_item('oil hours warning', 15, user)  #create the value if it doesn't exist
+    if h_r < w:
+        color = 2
+    if h_r < 0:
+        color = 1
+    return color
+    
+
 def get_log_item_num(user):
-    try:
-        obj = user_config.objects.get(name='log item num', user=user)
-    except user_config.DoesNotExist:
-        obj = user_config(name='log item num', value=7, user=user)
-        obj.save()
-    w = int(obj.value)
-    return w
+    return get_or_create_user_item('log item num', 7, user)
+    # try:
+    #     obj = user_config.objects.get(name='log item num', user=user)
+    # except user_config.DoesNotExist:
+    #     obj = user_config(name='log item num', value=7, user=user)
+    #     obj.save()
+    # w = int(obj.value)
+    # return w
     
 
