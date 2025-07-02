@@ -228,7 +228,7 @@ def dash(request):
             color = 1
         name = "Metar"
         td = get_td(m_d['time'])
-        name += " {}:{} ago".format(td.seconds//3600, (td.seconds//60)%60)
+        name += " {}:{:02} ago".format(td.seconds//3600, (td.seconds//60)%60)
         af_items.append(add_color({'name':name, 'value':m}, color))
 
     last_waypoints = waypoint.objects.all().order_by("created_at")[:5]
