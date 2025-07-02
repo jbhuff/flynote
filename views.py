@@ -225,7 +225,11 @@ def dash(request):
             color = 2
         elif m_d['condition'] == 'LIFR':
             color = 1
-        af_items.append(add_color({'name':"Metar", 'value':m}, color))
+        name = "Metar"
+        #td = datetime.datetime.now()- m_d['datetime']
+        #name += " {}:{} ago".format(td.seconds//3600, (td.seconds//60)%60)
+        name += " {}".format(m_d['time'])
+        af_items.append(add_color({'name':name, 'value':m}, color))
 
     last_waypoints = waypoint.objects.all().order_by("created_at")[:5]
     context = {'aircraft_rs':aircraft_rs, 'metars':ms, 'xwform':xwform, 'xw':xw,
