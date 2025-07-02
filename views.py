@@ -21,7 +21,7 @@ from .helper import ( get_metars, get_wandb, get_gross_weight, get_max_aft_cg,
         get_latest_tach, get_crosswind, decode_metar, get_angle_difference, get_pressure_alt,
         get_density_alt, get_cloudbase, get_dewpoint_int, get_landings, get_currency_deadline,
         get_field_elevation, get_garmin_string, get_gps_regex, add_color, get_med_item, 
-        get_metar_hours_back, get_da_color, get_log_item_num, get_oil_color,)
+        get_metar_hours_back, get_da_color, get_log_item_num, get_oil_color, get_freezing_level, )
 
 # Create your views here.
 #comment test
@@ -204,6 +204,9 @@ def dash(request):
             vis = int(vis)
         af_items.append(add_color({'name':"Visibility", 'value':vis}))
         af_items.append(add_color({'name':"Condition", 'value':metar_d['condition']}))
+        
+        fl = get_freezing_level(fe, metar_d['temp'])
+        af_items.append(add_color({'name':"Freezing Altitude", 'value':fl}, 4))
 
     else:
         pa = None

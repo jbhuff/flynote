@@ -648,4 +648,7 @@ def get_log_item_num(user):
     # w = int(obj.value)
     # return w
     
+def get_freezing_level(fe, t)
+    ths = round((t / 2) * 1000, 0)
+    return fe + ths
 
