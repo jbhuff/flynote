@@ -630,6 +630,7 @@ def get_da_color(da, user):
 
 def get_oil_color(h_r, user):
     w = get_or_create_user_item('oil hours warning', 15, user)  #create the value if it doesn't exist
+    color = 3
     if h_r < w:
         color = 2
     if h_r < 0:
