@@ -21,7 +21,8 @@ from .helper import ( get_metars, get_wandb, get_gross_weight, get_max_aft_cg,
         get_latest_tach, get_crosswind, decode_metar, get_angle_difference, get_pressure_alt,
         get_density_alt, get_cloudbase, get_dewpoint_int, get_landings, get_currency_deadline,
         get_field_elevation, get_garmin_string, get_gps_regex, add_color, get_med_item, 
-        get_metar_hours_back, get_da_color, get_log_item_num, get_oil_color, get_freezing_level, )
+        get_metar_hours_back, get_da_color, get_log_item_num, get_oil_color, get_freezing_level, 
+        get_td, )
 
 # Create your views here.
 #comment test
@@ -226,9 +227,8 @@ def dash(request):
         elif m_d['condition'] == 'LIFR':
             color = 1
         name = "Metar"
-        #td = datetime.datetime.now()- m_d['datetime']
-        #name += " {}:{} ago".format(td.seconds//3600, (td.seconds//60)%60)
-        name += " {}".format(m_d['time'])
+        td = get_td(m_d['time'])
+        name += " {}:{} ago".format(td.seconds//3600, (td.seconds//60)%60)
         af_items.append(add_color({'name':name, 'value':m}, color))
 
     last_waypoints = waypoint.objects.all().order_by("created_at")[:5]

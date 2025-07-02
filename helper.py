@@ -2,7 +2,7 @@ import json
 from urllib import request
 from .models import ( Aircraft, wandb_item, wandb_category, Ac_item, Ac_value, Flightlogitem,
                     File, Tach_adjust, Maintlogitem, wandb_box_segment, config, user_config )
-from datetime import date, timedelta, datetime
+from datetime import date, timedelta, datetime, timezone
 from django.db.models import Sum
 from django.core.files.storage import default_storage
 from django.conf import settings
@@ -651,4 +651,25 @@ def get_log_item_num(user):
 def get_freezing_level(fe, t):
     ths = (int(t) / 2) * 1000
     return round(round(int(fe) + ths, -2))
+
+def get_td(metar_timestamp):
+    now = datetime.now(timezone.utc)
+    
+    # Parse METAR timestamp
+    day = int(metar_timestamp[:2])
+    hour = int(metar_timestamp[2:4])
+    minute = int(metar_timestamp[4:6])
+    
+    # Start with today's UTC date
+    metar_time = now.replace(day=day, hour=hour, minute=minute, second=0, microsecond=0)
+
+    # Handle situations where METAR day is in the past month
+    if metar_time > now:
+        # Assume METAR was from the previous month
+        if metar_time.month == 1:
+            metar_time = metar_time.replace(year=metar_time.year - 1, month=12)
+        else:
+            metar_time = metar_time.replace(month=metar_time.month - 1)
+
+    return now - metar_time
 
