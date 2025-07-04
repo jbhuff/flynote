@@ -262,6 +262,12 @@ def show_configs(request):
     context = {'user_items':user_items}
     return render(request, 'flynote/show_configs.html', context)
 
+@login_required
+def show_ac_items(request, ptr):
+    ac = aircraft.objects.get(pk=ptr)
+    ac_values = Ac_value.objects.filter(ac_item__aircraft=ac)
+    context = {"ac":ac, "ac_values":ac_values}
+    return render(request, 'flynote/show_ac_items.html', context)
 
 @login_required
 def convert_coordinates(request):
