@@ -246,10 +246,20 @@ def show_configs(request):
     user_items = user_config.objects.filter(user=request.user)
 
     if request.method == 'POST':
-        pass
-    else:
-        context = {'user_items':user_items}
-        return render(request, 'flynote/show_configs.html', context)
+        submitted_items = []
+        for i in user_items:
+            try:
+                si = request.POST.get("ui-{}".format(i.id))
+                if si:
+                    submitted_items.append({'id':i.id, 'si':si})
+            except:
+                continue
+        for i in submitted_items:
+            this_item = user_items.get(pk=i['id'])
+            this_item.value = si
+            this_item.save()
+    context = {'user_items':user_items}
+    return render(request, 'flynote/show_configs.html', context)
 
 
 @login_required

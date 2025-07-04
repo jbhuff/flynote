@@ -8,7 +8,7 @@
             {% for i in user_items %}
             <tr>
                 <th><label for="{{ i.id }}">{{ i.name }}:</label></th>
-                <td><input type="text" name="{{ i.name }}" value="{{ i.value }}" maxlength="50" required id="{{ i.id }}"></td>
+                <td><input type="text" name="ui-{{ i.id }}" value="{{ i.value }}" maxlength="50" required id="{{ i.id }}"></td>
             </tr>
             {% endfor %}
            </table>
