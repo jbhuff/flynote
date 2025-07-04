@@ -548,10 +548,8 @@ def show_ac(request, ptr):
             snipped_flis = lenflis - show_number
         
         ac_items = []
-        ac_items.append(add_color({'name':"Total Time Engine", 'value':get_TTE(aircraft)}))
 
         ttaf = get_latest_ttaf(aircraft)
-        ac_items.append(add_color({'name':"Total Time Airframe", 'value':round(ttaf, 1)}))
         flights = []
         last_tach = 0.0
         for fli in flis:
@@ -568,6 +566,9 @@ def show_ac(request, ptr):
                 if float(fli.tach) > last_tach:
                     last_tach = float(fli.tach)
             flights.append({'li':fli.logitem, 'fli':fli, 'gph':gph})
+        ac_items.append(add_color({'name':"Last Tach", 'value':last_tach}))
+        ac_items.append(add_color({'name':"Total Time Engine", 'value':get_TTE(aircraft)}))
+        ac_items.append(add_color({'name':"Total Time Airframe", 'value':round(ttaf, 1)}))
         maint_items = Maintlogitem.objects.filter(logitem__in=logitems)
         last_oil = 0.0
         last_annual = datetime.date(1900, 1, 1) 
