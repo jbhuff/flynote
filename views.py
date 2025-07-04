@@ -266,7 +266,7 @@ def show_configs(request):
 def show_ac_items(request, ptr):
     ac = Aircraft.objects.get(pk=ptr)
     ac_values = Ac_value.objects.filter(ac_item__aircraft=ac)
-    context = {"ac":ac, "ac_values":ac_values}
+    context = {'ac':ac, 'ac_values':ac_values, 'len_values':len(ac_values)}
     return render(request, 'flynote/show_ac_items.html', context)
 
 @login_required
