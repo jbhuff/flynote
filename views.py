@@ -4,7 +4,7 @@ from .models import (Aircraft, User_to_aircraft, Logitem, Flightlogitem, Maintlo
                     Airfield, Airfield_to_uta, wandb_category, wandb_item, Ac_item, 
                     AD, AD_aircraft, Ada_maintitem, File, Maintitem_file, Tach_adjust,
                     Ac_file, Ac_category, Minimums, Runway, waypoint, config, squawk,
-                    user_config, )
+                    user_config, Ac_value)
 from django.contrib.auth import authenticate
 from django.contrib.auth import login as djlogin
 from django.contrib.auth import logout as djlogout
