@@ -681,7 +681,7 @@ def get_one_ac_item(ac, cat):
         return None
 
 def get_or_put_one_ac_item(ac, cat, val):
-    this_item_value = Ac_value.objects.filter(ac_item__category__name=cat).filter(aircraft=ac)
+    this_item_value = Ac_value.objects.filter(ac_item__category__name=cat).filter(ac_item__aircraft=ac)
     if len(this_item_value) >= 1:
         return this_item_value[0].value
     else:
