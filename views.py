@@ -255,7 +255,7 @@ def show_configs(request):
             except:
                 continue
         for i in submitted_items:
-            this_item = user_items.get(pk=i['id'])
+            this_item = user_items.objects.get(pk=i['id'])
             this_item.value = si
             this_item.save()
     context = {'user_items':user_items}
