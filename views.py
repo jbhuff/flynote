@@ -250,7 +250,7 @@ def show_configs(request):
         for i in user_items:
             try:
                 si = request.POST.get("ui-{}".format(i.id))
-                if si:
+                if si != i.value:
                     submitted_items.append({'id':i.id, 'si':si})
             except:
                 continue
