@@ -694,9 +694,9 @@ def get_or_put_one_ac_item(ac, cat, val):
             this_cat = this_cat[0]
         else:
             return None
-        this_item = Ac_item.objects.filter(Ac_category=this_cat).filter(aircraft=ac)
+        this_item = Ac_item.objects.filter(category=this_cat).filter(aircraft=ac)
         if len(this_item) < 1:
-            this_item = Ac_item(Ac_categor=this_cat, aircraft=ac)
+            this_item = Ac_item(category=this_cat, aircraft=ac)
             this_item.save()
         else:
             this_item = this_item[0]
