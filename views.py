@@ -254,6 +254,7 @@ def show_configs(request):
                     submitted_items.append({'id':i.id, 'si':si})
             except:
                 continue
+        assert 1==0,"STOP"
         for i in submitted_items:
             this_item = user_config.objects.get(pk=i['id'])
             this_item.value = si
