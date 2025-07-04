@@ -257,7 +257,7 @@ def show_configs(request):
         assert 1==0,"STOP"
         for i in submitted_items:
             this_item = user_config.objects.get(pk=i['id'])
-            this_item.value = si
+            this_item.value = i['si']
             this_item.save()
     user_items = user_config.objects.filter(user=request.user)
     context = {'user_items':user_items}
