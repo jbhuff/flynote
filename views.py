@@ -259,7 +259,7 @@ def show_configs(request):
             this_item.value = i['si']
             this_item.save()
     user_items = user_config.objects.filter(user=request.user)
-    context = {'user_items':user_items, 'title':"{} User Items".format(request.user.firstname)}
+    context = {'user_items':user_items, 'title':"{} User Items".format(request.user.username)}
     return render(request, 'flynote/show_configs.html', context)
 
 @login_required
