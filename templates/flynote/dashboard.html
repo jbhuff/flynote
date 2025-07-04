@@ -76,7 +76,9 @@
 	<h2>Add New Waypoint:</h2>
 	<form action={% url 'convert_coordinates' %} method="post">
 		{% csrf_token %}
-		{{ gps_form.as_table }}
+		<table class="table">
+			{{ gps_form.as_table }}
+		</table>
 		<input type="submit" value="Convert Coords">
 	</form><br>
 	{% if last_waypoints %}

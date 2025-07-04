@@ -242,6 +242,17 @@ def dash(request):
     return render(request, 'flynote/dashboard.html', context)
 
 @login_required
+def show_configs(request):
+    user_items = user_config.objects.filter(user=request.user)
+
+    if request.method == 'POST':
+        pass
+    else:
+        context = {'user_items':user_items}
+        return render(request, 'flynote/show_configs.html', context)
+
+
+@login_required
 def convert_coordinates(request):
     if request.method == 'POST':
         #form = gps_form(request.POST)

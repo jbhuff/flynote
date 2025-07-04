@@ -1,0 +1,21 @@
+{% extends "flynotebase.htm" %}
+
+{% block content %}
+<h3>User Config Items:<br></h3>
+	<form action={% url 'show_configs' %} method="post">
+           {% csrf_token %}
+           <table class="table">
+            {% for i in user_items %}
+            <tr>
+                <th><label for="id_airfield">Airfield:</label></th>
+                <td><input type="text" name="{{ i.name }}" value="{{ i.value }}" maxlength="50" required id="{{ i.id }}"></td>
+            </tr>
+            {% endfor %}
+           </table>
+           
+            <input type="submit" value="Update">
+	</form>
+<br>
+<a href={% url 'dashboard' %}><----Back to Dashboard</a>
+{% endblock %}
+
