@@ -258,6 +258,7 @@ def show_configs(request):
             this_item = user_config.objects.get(pk=i['id'])
             this_item.value = si
             this_item.save()
+    user_items = user_config.objects.filter(user=request.user)
     context = {'user_items':user_items}
     return render(request, 'flynote/show_configs.html', context)
 
