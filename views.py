@@ -259,7 +259,7 @@ def show_configs(request):
             this_item.value = i['si']
             this_item.save()
     user_items = user_config.objects.filter(user=request.user)
-    context = {'user_items':user_items}
+    context = {'user_items':user_items, 'title':"{} User Items".format(request.user.firstname)}
     return render(request, 'flynote/show_configs.html', context)
 
 @login_required
@@ -268,7 +268,7 @@ def show_ac_items(request, ptr):
     ac = Aircraft.objects.get(pk=ptr)
     ac_values = Ac_value.objects.filter(ac_item__aircraft=ac)
     len_vals += len(ac_values)
-    context = {'ac':ac, 'ac_values':ac_values, 'len_values':len_vals}
+    context = {'ac':ac, 'ac_values':ac_values, 'len_values':len_vals, 'title':"{} Config Items".format(str(ac))}
     return render(request, 'flynote/show_ac_items.html', context)
 
 @login_required
