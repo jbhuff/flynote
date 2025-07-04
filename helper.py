@@ -1,7 +1,8 @@
 import json
 from urllib import request
 from .models import ( Aircraft, wandb_item, wandb_category, Ac_item, Ac_value, Flightlogitem,
-                    File, Tach_adjust, Maintlogitem, wandb_box_segment, config, user_config )
+                    File, Tach_adjust, Maintlogitem, wandb_box_segment, config, user_config,
+                    Ac_category, )
 from datetime import date, timedelta, datetime, timezone
 from django.db.models import Sum
 from django.core.files.storage import default_storage
