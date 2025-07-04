@@ -673,3 +673,34 @@ def get_td(metar_timestamp):
 
     return now - metar_time
 
+def get_one_ac_item(ac, cat):
+    this_item_value = Ac_value.objects.filter(Ac_item__Ac_category__name=cat).filter(aircraft=ac)
+    if len(this_item_value) == 1:
+        return this_item_value.value
+    else:
+        return None
+
+def get_or_put_one_ac_item(ac, cat, val):
+    this_item_value = Ac_value.objects.filter(Ac_item__Ac_category__name=cat).filter(aircraft=ac)
+    if len(this_item_value) >= 1:
+        return this_item_value[0].value
+    else:
+        this_cat = Ac_category.objects.filter(name=cat)
+        if len(this_cat) < 1:
+            this_cat = Ac_category(name=cat)
+            this_cat.save()
+        elif len(this_cat) == 1:
+            this_cat = this_cat[0]
+        else:
+            return None
+        this_item = Ac_item.objects.filter(Ac_category=this_cat).filter(aircraft=ac)
+        if len(this_item) < 1:
+            this_item = Ac_item(Ac_categor=this_cat, aircraft=ac)
+            this_item.save()
+        else:
+            this_item = this_item[0]
+        this_val = Ac_value(ac_item=this_item, value=val)
+        this_val.save()
+        return this_val.value
+        
+

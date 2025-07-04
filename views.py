@@ -22,7 +22,7 @@ from .helper import ( get_metars, get_wandb, get_gross_weight, get_max_aft_cg,
         get_density_alt, get_cloudbase, get_dewpoint_int, get_landings, get_currency_deadline,
         get_field_elevation, get_garmin_string, get_gps_regex, add_color, get_med_item, 
         get_metar_hours_back, get_da_color, get_log_item_num, get_oil_color, get_freezing_level, 
-        get_td, )
+        get_td, get_or_put_one_ac_item, )
 
 # Create your views here.
 #comment test
@@ -580,7 +580,7 @@ def show_ac(request, ptr):
             if mi.annual_finished:
                 if mi.date > last_annual:
                     last_annual = mi.date
-        oil_due = last_oil + 50
+        oil_due = last_oil + get_or_put_one_ac_item(aircraft, "oil frequency", 25)
         ac_items.append(add_color({'name':"Oil Due", 'value':oil_due}))
 
         hours_remaining = round(oil_due - last_tach, 1)
