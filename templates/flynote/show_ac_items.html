@@ -2,7 +2,7 @@
 
 {% block content %}
 <h3>{{ ac }} Config Items:<br></h3>
-	<form action={% url 'show_ac_items' %} method="post">
+	<form action={% url 'show_ac_items' ac.id %} method="post">
            {% csrf_token %}
            <table class="table">
             {% for i in ac_items %}
