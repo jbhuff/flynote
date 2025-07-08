@@ -226,8 +226,10 @@ def dash(request):
         err = ''
         if '/' in vis:
             vis = (int(vis[0]) / int(vis[2]))  # 1/2SM
-        elif is_numeric(vis):
+        elif vis.isnumeric():
             vis = int(vis)
+        else:
+            vis = 0
         af_items.append(add_color({'name':"Visibility", 'value':vis}))
         af_items.append(add_color({'name':"Condition", 'value':metar_d['condition']}))
         
