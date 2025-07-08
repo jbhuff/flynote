@@ -297,7 +297,7 @@ def get_crosswind(wind, runway):
 
 def decode_metar(metar, ret='list'):
     if metar == None:
-        if ret == 'list'
+        if ret == 'list':
             return []
         else:
             return {}
