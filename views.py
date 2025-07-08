@@ -184,7 +184,10 @@ def dash(request):
     #fe = int(last_airfield.field_elevation)
     fe = get_field_elevation(af)
 
-    dp = get_dewpoint_int(metar_d['dewpoint'])
+    if 'dewpoint' in metar_d.keys():
+        dp = get_dewpoint_int(metar_d['dewpoint'])
+    else:
+        dp = None
     af_items.append(add_color({'name':"Dewpoint", 'value':dp}))
 
     condition = "UNKNOWN"
