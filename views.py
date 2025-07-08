@@ -87,7 +87,7 @@ def dash(request):
         if len(ms) > 0:
             metar_d = decode_metar(ms[0], ret='dict')
         else:
-            metar_d = None
+            metar_d = {}}
     else:
         af = get_airfield
         ms = get_metars(af, hours=hours_back)
