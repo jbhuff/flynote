@@ -204,20 +204,19 @@ def dash(request):
         if 'temp' in metar_d.keys():
             da = get_density_alt(pa, metar_d['temp'])
             est_cloudbase = get_cloudbase(metar_d['temp'], dp) + fe
+            fl = get_freezing_level(fe, metar_d['temp'])
+            cb = metar_d['lowest_ceiling']
         else:
             da = 0
             est_cloudbase = None
+            cb = None
+            fl = 0
 
         color = get_da_color(da, request.user)
         af_items.append(add_color({'name':"Density Altitude", 'value':da}, color))
-
         af_items.append(add_color({'name':"Estimated Cloudbase", 'value':est_cloudbase}))
-
-        if 'temp' in metar_d.keys():
-            cb = metar_d['lowest_ceiling']
-        else:
-            cb = None
         af_items.append(add_color({'name':"Metar Cloudbase", 'value':cb}))
+        af_items.append(add_color({'name':"Freezing Altitude", 'value':fl}, 4))
 
         if 'visibility' in metar_d.keys():
             vis = metar_d['visibility'][:-2]
@@ -231,10 +230,12 @@ def dash(request):
         else:
             vis = 0
         af_items.append(add_color({'name':"Visibility", 'value':vis}))
-        af_items.append(add_color({'name':"Condition", 'value':metar_d['condition']}))
         
-        fl = get_freezing_level(fe, metar_d['temp'])
-        af_items.append(add_color({'name':"Freezing Altitude", 'value':fl}, 4))
+        if 'condition' in metar_d.keys():
+            af_items.append(add_color({'name':"Condition", 'value':metar_d['condition']}))
+        else:
+            af_items.append(add_color({'name':"Condition", 'value':'UNKNOWN'}))
+        
 
     else:
         pa = None
