@@ -205,7 +205,7 @@ def dash(request):
             da = get_density_alt(pa, metar_d['temp'])
             est_cloudbase = get_cloudbase(metar_d['temp'], dp) + fe
         else:
-            da = None
+            da = 0
             est_cloudbase = None
 
         color = get_da_color(da, request.user)
@@ -213,10 +213,16 @@ def dash(request):
 
         af_items.append(add_color({'name':"Estimated Cloudbase", 'value':est_cloudbase}))
 
-        cb = metar_d['lowest_ceiling']
+        if 'temp' in metar_d.keys():
+            cb = metar_d['lowest_ceiling']
+        else:
+            cb = None
         af_items.append(add_color({'name':"Metar Cloudbase", 'value':cb}))
 
-        vis = metar_d['visibility'][:-2]
+        if 'visibility' in metar_d.keys():
+            vis = metar_d['visibility'][:-2]
+        else:
+            vis = None
         err = ''
         if '/' in vis:
             vis = (int(vis[0]) / int(vis[2]))  # 1/2SM
