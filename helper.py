@@ -296,6 +296,11 @@ def get_crosswind(wind, runway):
     return {'speed': xw, 'tailwind':tailwind, 'direction':'unknown', 'direct':direct}
 
 def decode_metar(metar, ret='list'):
+    if metar == None:
+        if ret == 'list'
+            return []
+        else:
+            return {}
     ml = metar.split(" ")
     ml.reverse()
     d = {'other':[], 'ceiling':[]}
