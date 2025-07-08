@@ -222,7 +222,7 @@ def dash(request):
         if 'visibility' in metar_d.keys():
             vis = metar_d['visibility'][:-2]
         else:
-            vis = None
+            vis = ''
         err = ''
         if '/' in vis:
             vis = (int(vis[0]) / int(vis[2]))  # 1/2SM
