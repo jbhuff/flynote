@@ -84,13 +84,19 @@ def dash(request):
             af = last_airfield.k_id
         ms = get_metars(af, hours=hours_back)
         #metars.append({'k_id':af, 'metar_list':ms})
-        metar_d = decode_metar(ms[0], ret='dict')
+        if len(ms) > 0:
+            metar_d = decode_metar(ms[0], ret='dict')
+        else:
+            metar_d = None
     else:
         af = get_airfield
         ms = get_metars(af, hours=hours_back)
         #metars.append({'k_id':af, 'metar_list':ms})
         metar_d = decode_metar(ms[0], ret='dict')
-    last_metar = ms[0]
+    if len(ms) > 0:
+        last_metar = ms[0]
+    else:
+        last_metar = None
     xwform = Crosswind_form()
     xw = None
     aform = Airfield_form(initial={'airfield':af})
