@@ -193,14 +193,24 @@ def dash(request):
     condition = "UNKNOWN"
     if isinstance(fe, int):
         af_items.append(add_color({'name':"Field Elevation", 'value':fe}))
-        pa = get_pressure_alt(fe, metar_d['altimeter'][1:])
+            
+        if 'altimeter' in metar_d.keys():
+            pa = get_pressure_alt(fe, metar_d['altimeter'][1:])
+        else:
+            pa = None
+
         af_items.append(add_color({'name':"Pressure Altitude", 'value':pa}))
 
-        da = get_density_alt(pa, metar_d['temp'])
+        if 'temp' in metar_d.keys():
+            da = get_density_alt(pa, metar_d['temp'])
+            est_cloudbase = get_cloudbase(metar_d['temp'], dp) + fe
+        else:
+            da = None
+            est_cloudbase = None
+
         color = get_da_color(da, request.user)
         af_items.append(add_color({'name':"Density Altitude", 'value':da}, color))
 
-        est_cloudbase = get_cloudbase(metar_d['temp'], dp) + fe
         af_items.append(add_color({'name':"Estimated Cloudbase", 'value':est_cloudbase}))
 
         cb = metar_d['lowest_ceiling']
