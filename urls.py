@@ -33,6 +33,7 @@ urlpatterns = [
             path('get_file/<int:ptr>', get_file, name='get_file'),
             path('add_file_maint_item/<int:ptr>', add_file_maint_item, name='add_file_maint_item'),
             path('show_maint_item/<int:ptr>', show_maint_item, name='show_maint_item'),
+            path('new_ada/<int:ptr>', new_ada, name='new_ada'),
             path('show_ads/<int:ptr>', show_ads, name='show_ads'),
             path('show_flights/<int:ptr>', show_flights, name='show_flights'),
             path('add_maint/<int:ptr>', add_maint, name='add_maint'),
