@@ -63,7 +63,9 @@
 <br>
 <form action={% url 'show_maint_item' maint_item.id %} method="post">
 	{% csrf_token %}
-	{{ maintform }}
+	<table class="table">
+		{{ maintform.as_table }}
+	</table>
 	<input type="submit" value="Submit">
 </form>
 {% if files %}
