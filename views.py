@@ -427,10 +427,10 @@ def new_ada(request, ptr):
     mli = Maintlogitem.objects.get(pk=ptr)
     assert request.method == 'POST', "Should be POST"
     form = ad_quickpick(request.POST)
-        if form.is_valid():
-            ada = form.cleaned_data['ada']
-            adm = Ada_maintitem(maintitem=mli, ada=ada, note="Added to Maint log")
-            adm.save()
+    if form.is_valid():
+        ada = form.cleaned_data['ada']
+        adm = Ada_maintitem(maintitem=mli, ada=ada, note="Added to Maint log")
+        adm.save()
     return redirect('show_maint_item', ptr)
 
 @login_required
