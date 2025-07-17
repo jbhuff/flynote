@@ -651,8 +651,8 @@ def show_ac(request, ptr):
             txpndr_color = 2
         if days_remaining < 0:
             txpndr_color = 1
-        ac_items.append(add_color({'name':"Transponder Cert Due", 'value':txpndr_due}), txpndr_color)
-        ac_items.append(add_color({'name':"Days Remaining before Transponder Due", 'value':days_remaining}), txpndr_color)
+        ac_items.append(add_color({'name':"Transponder Cert Due", 'value':txpndr_due}, txpndr_color)
+        ac_items.append(add_color({'name':"Days Remaining before Transponder Due", 'value':days_remaining}, txpndr_color)
 
         tach_log = get_tach_log(aircraft,request.GET.get('days_back',30))
         days_back = len(tach_log)
