@@ -20,12 +20,17 @@ class logform(forms.Form):
     date = forms.DateField()
     note = forms.CharField(widget=forms.Textarea)
 
-class Maintlogform(logform):
+class Maintlogform_v1(logform):
     tach = forms.CharField(max_length=10)
     oil_changed = forms.BooleanField(required=False)
     annual_finished = forms.BooleanField(required=False)
     transponder_certified = forms.BooleanField(required=False)
-    
+
+class Maintlogform(forms.ModelForm):
+    class Meta:
+        model = Maintlogitem
+        fields = [ 'tach', 'logitem', 'oil_changed', 'date', 'annual_finished', 'transponder_certified' ]
+
 class Ad_form(forms.Form):
     number = forms.CharField()
     description = forms.CharField(widget=forms.Textarea)
