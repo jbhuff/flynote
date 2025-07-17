@@ -419,7 +419,7 @@ def show_maint_item(request, ptr):
     context = {'maint_item':mli, 'ADs':ada_mlis, 'add_ad_form':add_ad_form, 
             'file_form':UploadFileForm(), 'files':Maintitem_file.objects.filter(maintitem=mli),
                 'tach_adjust_form':ta_form, 'squawklist':squawklist, 'resolved_squawks':resolved_squawks,
-                'maintform':Maintlogform(instance=mli)'}
+                'maintform':Maintlogform(instance=mli)}
     return render(request, 'flynote/show_maint_item.html', context)
 
 @login_required
