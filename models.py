@@ -39,7 +39,7 @@ class Logitem(models.Model):
     note = models.CharField(max_length=2000)
 
     def __str__(self):
-        return str(self.created_at) + ' ' + self.logtype + ' ' + self.note[:14] + '...'
+        return str(self.created_at.date) + ' ' + self.logtype + ' ' + self.note[:14] + '...'
 
 class Flightlogitem(models.Model):
     tach = models.CharField(max_length=10)
