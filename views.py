@@ -406,7 +406,7 @@ def show_maint_item(request, ptr):
 
     mli = Maintlogitem.objects.get(pk=ptr)
     if request.method == 'POST':
-        form = ad_quickpick(request.POST)
+        form = Maintlogform(request.POST)
         if form.is_valid():
             mli = form.save()
     ada_mlis = Ada_maintitem.objects.filter(maintitem=mli)
