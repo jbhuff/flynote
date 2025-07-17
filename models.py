@@ -59,6 +59,7 @@ class Maintlogitem(models.Model):
     oil_changed = models.BooleanField(default=False)
     date = models.DateField()
     annual_finished = models.BooleanField(default=False)
+    transponder_certified = models.BooleanField(default=False)
 
     def __str__(self):
         return str(self.date) + ' ' + self.tach 
