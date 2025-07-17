@@ -463,9 +463,11 @@ def add_maint(request, ptr):
                 tach = cd['tach']
                 oc = cd['oil_changed']
                 af = cd['annual_finished']
+                txpndr = cd['transponder_certified']
                 li = Logitem(date=date, note=note, uta=this_uta)
                 li.save()
-                mli = Maintlogitem(tach=tach, oil_changed=oc, annual_finished=af, logitem=li, date=date)
+                mli = Maintlogitem(tach=tach, oil_changed=oc, annual_finished=af, logitem=li, 
+                                   transponder_certified=txpndr, date=date)
                 mli.save()
     return redirect('show_maint', ptr)
 

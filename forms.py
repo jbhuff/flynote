@@ -24,7 +24,8 @@ class Maintlogform(logform):
     tach = forms.CharField(max_length=10)
     oil_changed = forms.BooleanField(required=False)
     annual_finished = forms.BooleanField(required=False)
-
+    transponder_certified = forms.BooleanField(required=False)
+    
 class Ad_form(forms.Form):
     number = forms.CharField()
     description = forms.CharField(widget=forms.Textarea)
