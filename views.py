@@ -408,9 +408,7 @@ def show_maint_item(request, ptr):
     if request.method == 'POST':
         form = ad_quickpick(request.POST)
         if form.is_valid():
-            ada = form.cleaned_data['ada']
-            adm = Ada_maintitem(maintitem=mli, ada=ada, note="Added to Maint log")
-            adm.save()
+            mli = form.save()
     ada_mlis = Ada_maintitem.objects.filter(maintitem=mli)
     add_ad_form = ad_quickpick()
     ta_form = tach_adjust_form()
