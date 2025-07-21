@@ -136,7 +136,7 @@ def dash(request):
         color = 1
     elif days_remaining < get_or_create_user_item("BFR Warning", 20, request.user):
         color = 2
-    pilot_items.append(add_color({'name':"Biannual Flight Review Deadline", 'value':}, color))
+    pilot_items.append(add_color({'name':"Biannual Flight Review Deadline", 'value':bfr_deadline}, color))
 
     min_alerts = {}
     if request.method == 'POST':
