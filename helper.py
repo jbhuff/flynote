@@ -511,7 +511,7 @@ def get_bfr_deadline(user):
         if f.bfr_complete:
             if f.logitem.date > last_bfr_date:
                 last_bfr_date = f.logitem.date
-    bfr_deadline = datetime.date(last_bfr_date.year + 2, last_annual.month + 1, 1)
+    bfr_deadline = datetime.date(last_bfr_date.year + 2, last_bfr_date.month + 1, 1)
     return bfr_deadline
 
 def get_latest_ttaf(aircraft, date=date.today()):
