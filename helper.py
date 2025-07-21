@@ -506,7 +506,7 @@ def get_currency_deadline(user, t='day'):
     
 def get_bfr_deadline(user):
     flights = Flightlogitem.objects.filter(logitem__uta__user=user).order_by('-logitem__date')
-    last_bfr_date = datetime.date(1900, 1, 1)
+    last_bfr_date = date(1900, 1, 1)
     for f in flights:
         if f.bfr_complete:
             if f.logitem.date > last_bfr_date:
