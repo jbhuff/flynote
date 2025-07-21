@@ -504,6 +504,15 @@ def get_currency_deadline(user, t='day'):
             last_day = f.logitem.date + timedelta(90)
             return last_day
     
+def get_bfr_deadline(user):
+    flights = Flightlogitem.objects.filter(logitem__uta__user=user).order_by('-logitem__date')
+    last_bfr_date = datetime.date(1900, 1, 1)
+    for f in flights:
+        if f.bfr_complete:
+            if f.logitem.date > last_bfr_date:
+                last_bfr_date = f.logitem.date
+    bfr_deadline = datetime.date(last_bfr_date.year + 2, last_annual.month + 1, 1)
+    return bfr_deadline
 
 def get_latest_ttaf(aircraft, date=date.today()):
     adjusts = Tach_adjust.objects.filter(firstlog__logitem__uta__aircraft=aircraft, category='airframe').filter(firstlog__logitem__date__lte=date).order_by('firstlog__date')

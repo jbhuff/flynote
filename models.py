@@ -49,7 +49,7 @@ class Flightlogitem(models.Model):
     logitem = models.ForeignKey(Logitem, on_delete=models.CASCADE)
     night_landings = models.IntegerField(default=0)
     day_landings = models.IntegerField(default=1)
-
+    bfr_complete = models.BooleanField(default=False)
     def __str__(self):
         return str(self.logitem.date) + ' ' + str(self.note)
 

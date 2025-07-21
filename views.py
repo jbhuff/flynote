@@ -22,7 +22,7 @@ from .helper import ( get_metars, get_wandb, get_gross_weight, get_max_aft_cg,
         get_density_alt, get_cloudbase, get_dewpoint_int, get_landings, get_currency_deadline,
         get_field_elevation, get_garmin_string, get_gps_regex, add_color, get_med_item, 
         get_metar_hours_back, get_da_color, get_log_item_num, get_oil_color, get_freezing_level, 
-        get_td, get_or_put_one_ac_item, )
+        get_td, get_or_put_one_ac_item, get_bfr_deadline, )
 
 # Create your views here.
 #comment test
@@ -127,6 +127,8 @@ def dash(request):
         dc_deadline = None
         d_level = 1
     pilot_items.append(add_color(d, d_level))
+
+    pilot_items.append(add_color({'name':"Biannual Flight Review Deadline", 'value':get_bfr_deadline(request.user)}))
 
     min_alerts = {}
     if request.method == 'POST':
