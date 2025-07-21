@@ -129,7 +129,7 @@ def dash(request):
     pilot_items.append(add_color(d, d_level))
     
     bfr_deadline = get_bfr_deadline(request.user)
-    days_remaining_td = bfr_deadline - date.today()
+    days_remaining_td = bfr_deadline - datetime.date.today()
     days_remaining = days_remaining_td.days
     color = 3
     if days_remaining < 0:
