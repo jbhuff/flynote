@@ -609,7 +609,8 @@ def get_or_create_min_obj(user):
         min_obj = Minimums(user=user)
         min_obj.save()
         return min_obj
-    else return mins[0]
+    else:
+        return mins[0]
     
 
 def get_metar_hours_back(user):
