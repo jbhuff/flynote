@@ -13,7 +13,7 @@ from .forms import (Quicklog, Flightlog, Ad_form, ad_aircraft_form,
                    ad_aircraft_mform, ad_mform, Maintlogform, ad_quickpick,
                    Ada_maint_form, UploadFileForm, tach_adjust_form, Crosswind_form,
                    LoginForm, Airfield_form, gps_form, waypointForm, gps_from_noregex,
-                   quicksquawk, squawkform, squawklistform)
+                   quicksquawk, squawkform, squawklistform, mins_form)
 import datetime
 import json, re
 from .helper import ( get_metars, get_wandb, get_gross_weight, get_max_aft_cg, 
@@ -305,6 +305,13 @@ def show_ac_items(request, ptr):
     len_vals += len(ac_values)
     context = {'ac':ac, 'ac_values':ac_values, 'len_values':len_vals, 'title':"{} Config Items".format(str(ac))}
     return render(request, 'flynote/show_ac_items.html', context)
+
+# @login_required
+# def show_mins_item(request, ptr):
+#     item = Minimums.objects.get(pk=ptr)
+#     form = mins_form(instance=item)
+#     context = {'form':form}
+#     return render(request, "/", context)
 
 @login_required
 def convert_coordinates(request):

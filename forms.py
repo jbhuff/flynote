@@ -1,5 +1,5 @@
 from .models import (Logitem, User_to_aircraft, Aircraft, AD, Maintlogitem, AD_aircraft, Ada_maintitem, waypoint,
-                     squawk)
+                     squawk, Minimums)
 from django import forms
 
 #Eli comment
@@ -81,6 +81,11 @@ class ad_quickpick(forms.Form):
 class Ada_maint_form(forms.ModelForm):
     class Meta:
         model = Ada_maintitem
+        fields = "__all__"
+
+class mins_form(forms.ModelForm):
+    class Meta:
+        model = Minimums
         fields = "__all__"
 
 class Crosswind_form(forms.Form):
