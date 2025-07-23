@@ -22,7 +22,7 @@ from .helper import ( get_metars, get_wandb, get_gross_weight, get_max_aft_cg,
         get_density_alt, get_cloudbase, get_dewpoint_int, get_landings, get_currency_deadline,
         get_field_elevation, get_garmin_string, get_gps_regex, add_color, get_med_item, 
         get_metar_hours_back, get_da_color, get_log_item_num, get_oil_color, get_freezing_level, 
-        get_td, get_or_put_one_ac_item, get_bfr_deadline, get_or_create_user_item, )
+        get_td, get_or_put_one_ac_item, get_bfr_deadline, get_or_create_user_item, get_or_create_min_obj, )
 
 # Create your views here.
 #comment test
@@ -36,11 +36,8 @@ def dash(request):
     aircraft_rs = User_to_aircraft.objects.filter(user=request.user)
     airfield_to_utas = Airfield_to_uta.objects.filter(uta__in=aircraft_rs)
     metars = []
-    mins = Minimums.objects.filter(user=request.user)
-    if len(mins) == 0:
-        mins = None
-    else:
-        mins = mins[0]
+    mins = get_or_create_min_obj(user=request.user)
+    
 
     pilot_items = [] #passed to template
     af_items = []

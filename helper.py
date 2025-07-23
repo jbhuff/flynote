@@ -2,7 +2,7 @@ import json
 from urllib import request
 from .models import ( Aircraft, wandb_item, wandb_category, Ac_item, Ac_value, Flightlogitem,
                     File, Tach_adjust, Maintlogitem, wandb_box_segment, config, user_config,
-                    Ac_category, )
+                    Ac_category, Minimums, )
 from datetime import date, timedelta, datetime, timezone
 from django.db.models import Sum
 from django.core.files.storage import default_storage
@@ -602,6 +602,15 @@ def get_or_create_user_item(item_name, default_value, user):
         obj.save()
     w = int(obj.value)
     return w
+
+def get_or_create_min_obj(user):
+    mins = Minimums.objects.filter(user=user)
+    if len(mins) == 0:
+        min_obj = Minimums(user=user)
+        min_obj.save()
+        return min_obj
+    else return mins[0]
+    
 
 def get_metar_hours_back(user):
     val = get_or_create_user_item('metar hours back', 4, user)
