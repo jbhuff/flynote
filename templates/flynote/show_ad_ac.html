@@ -2,6 +2,24 @@
 
 {% block content %}
 <h3>Airworthiness Directive:<br></h3>
+
+<br>
+<h2>AD info:</h2><br>
+<form action={% url 'show_ad_ac' ad_ac.id %} method="post">
+                        {% csrf_token %}
+                        {{ form.as_p }}
+            <input type="submit" value="Submit">
+</form>
+<br>
+{% if ad_ac.ad.url %}
+<a href="{{ ad_ac.ad.url }}">FAA DRS Link</a><br>
+{% endif %}
+<form action={% url 'update_ad' ad_ac.ad.id ad_ac.id %} method="post">
+	{% csrf_token %}
+	<table class="table">
+	{{ ad_form.as_table }}
+	</table>
+	<input type="submit" value="Update AD info"><br><br><br>
 {% if maintitem_links %}
 <h4>Logs with AD:</h4><br>
 <table class="table">
@@ -19,20 +37,6 @@
 	{% endfor %}
 </table>
 {% endif %}
-<br>
-<h2>AD info:</h2><br>
-<form action={% url 'show_ad_ac' ad_ac.id %} method="post">
-                        {% csrf_token %}
-                        {{ form.as_p }}
-            <input type="submit" value="Submit">
-</form>
-<br>
-<form action={% url 'update_ad' ad_ac.ad.id ad_ac.id %} method="post">
-	{% csrf_token %}
-	<table class="table">
-	{{ ad_form.as_table }}
-	</table>
-	<input type="submit" value="Update AD info"><br><br><br>
 <a href={% url 'show_ac' ad_ac.aircraft.id %}><----Back to Aircraft</a>
 {% endblock %}
 
