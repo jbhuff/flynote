@@ -738,6 +738,11 @@ def show_ads(request, ptr):
     last_tach = glt[0]
     ad_acs = AD_aircraft.objects.filter(aircraft=aircraft).order_by("ad__number")
     ads = []
+    show_nons = get_or_create_user_item('Show N/A ADs', 1, request.user)
+    if show_nons:
+        pass
+    else:
+        ad_acs = ad_acs.filter(applicable=True)
     for ad in ad_acs:
         ad_dict = {'ad_ac':ad}
         if not ad.applicable:
