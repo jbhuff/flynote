@@ -736,7 +736,7 @@ def show_ads(request, ptr):
     ttaf = get_latest_ttaf(aircraft)
     glt = get_latest_tach(aircraft)
     last_tach = glt[0]
-    ad_acs = AD_aircraft.objects.filter(aircraft=aircraft).order_by("ad__number")
+    ad_acs = AD_aircraft.objects.filter(aircraft=aircraft).order_by("complied-", "ad__number")
     ads = []
     show_nons = get_or_create_user_item('Show N/A ADs', 1, request.user)
     if show_nons:
