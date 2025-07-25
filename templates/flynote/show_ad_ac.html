@@ -7,7 +7,9 @@
 <h2>AD info:</h2><br>
 <form action={% url 'show_ad_ac' ad_ac.id %} method="post">
                         {% csrf_token %}
-                        {{ form.as_p }}
+						<table class="table">
+							{{ form.as_table }}
+						</table>
             <input type="submit" value="Submit">
 </form>
 <br>
