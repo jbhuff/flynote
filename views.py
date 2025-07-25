@@ -742,7 +742,7 @@ def show_ads(request, ptr):
     if show_nons:
         pass
     else:
-        ad_acs = ad_acs.filter(applicable=True).order_by("complied", "ad__number")
+        ad_acs = ad_acs.filter(applicable=True).order_by("complied", "recurring", "ad__number")
     for ad in ad_acs:
         ad_dict = {'ad_ac':ad}
         if not ad.applicable:
