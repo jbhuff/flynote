@@ -135,7 +135,7 @@ class AD(models.Model):
     number = models.CharField(max_length=50)
     description = models.CharField(max_length=500)
     superseded_by = models.ForeignKey("self", on_delete=models.SET_NULL, null=True, blank=True)
-
+    url = models.CharField(max_length=500, null=True, blank=True)
     def __str__(self):
         return self.number
 

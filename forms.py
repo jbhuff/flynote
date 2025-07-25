@@ -31,10 +31,15 @@ class Maintlogform(forms.ModelForm):
         model = Maintlogitem
         fields = [ 'tach', 'logitem', 'oil_changed', 'date', 'annual_finished', 'transponder_certified' ]
 
-class Ad_form(forms.Form):
+class Ad_form_v1(forms.Form):
     number = forms.CharField()
     description = forms.CharField(widget=forms.Textarea)
     superseded_by = forms.ModelChoiceField(queryset=AD.objects.all(), required=False)
+
+class Ad_form(forms.ModelForm):
+    class Meta:
+        model = AD
+        fields = "__all__"
 
 class ad_aircraft_form(forms.Form):
     ad = forms.ModelChoiceField(queryset=AD.objects.all())
