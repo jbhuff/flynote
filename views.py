@@ -76,7 +76,7 @@ def dash(request):
                         notes = 'Medical reverted to Class III. Expires: %s' % due_date
                         color = 2
                 else:
-                    notes = 'Medical reverted to Class II.  Goes to Class III on %s' % due_date
+                    notes = '<b>Medical reverted to Class II.</b>  Goes to Class III on %s' % due_date
                     color = 3
             else:
                 notes = 'Class I Medical expires on %s and reverts to Class II' % due_date
