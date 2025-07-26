@@ -50,7 +50,7 @@ def dash(request):
         i = get_med_item(user_items)
     
     if i is not None:
-        if i.name == "Basic Med Complete":    
+        if i.name == 'Basic Med Complete':    
             notes = "Renewal due in 48 calendar months after completion"
             d = {'name':i.name, 'value':i.value, 'notes':notes}
             pilot_items.append(add_color(d))
@@ -59,6 +59,10 @@ def dash(request):
                     notes = "Course retake due in 24 months"
                     d = {'name':i.name, 'value':i.value, 'notes':notes}
                     pilot_items.append(add_color(d))
+        elif i.name == 'Class I Complete':
+            notes = "Renewal due in 12 calendar months after completion"
+            d = {'name':i.name, 'value':i.value, 'notes':notes}
+            pilot_items.append(add_color(d))
         #Add more Med options here!!
 
 
