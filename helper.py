@@ -575,7 +575,7 @@ def add_color(data, level=3):
 
 def get_med_item(qs):
     med_items = []
-    name_list = ['Basic Med Complete']
+    name_list = ['Basic Med Complete', 'Class I Complete', 'Class II Complete', 'Class III Complete']
     for i in qs:
         if i.name in name_list:
             med_items.append(i)
