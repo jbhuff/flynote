@@ -11,6 +11,12 @@ Last Tach: {{ last_tach }}<br>
 	<li class="list-group-item list-group-item-primary" >Complied and Recurring</li>
 	<li class="list-group-item list-group-item-success" >Complied</li>
 </ul>
+<br>
+{% if show_nons %}
+<a href={% url 'change_na_ads' '0' ad_ac.id %}>Disable Not Applicable ADs</a>
+{% else %}
+<a href={% url 'change_na_ads' '1' ad_ac.id %}>Enable Not Applicable ADs</a>
+{% endif %}<br>
 <table class="table">
 	<tr>
 	<th>Number</th>
