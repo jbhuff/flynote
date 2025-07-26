@@ -728,4 +728,7 @@ def get_or_put_one_ac_item(ac, cat, val):
         this_val.save()
         return this_val.value
         
-
+def add_cal_months(start_date, months):
+    years = months/12
+    return_date = date(start_date.year + int(years), start_date.month + 1, 1)
+    return return_date

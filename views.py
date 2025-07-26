@@ -22,7 +22,8 @@ from .helper import ( get_metars, get_wandb, get_gross_weight, get_max_aft_cg,
         get_density_alt, get_cloudbase, get_dewpoint_int, get_landings, get_currency_deadline,
         get_field_elevation, get_garmin_string, get_gps_regex, add_color, get_med_item, 
         get_metar_hours_back, get_da_color, get_log_item_num, get_oil_color, get_freezing_level, 
-        get_td, get_or_put_one_ac_item, get_bfr_deadline, get_or_create_user_item, get_or_create_min_obj, )
+        get_td, get_or_put_one_ac_item, get_bfr_deadline, get_or_create_user_item, get_or_create_min_obj,
+        add_cal_months, )
 
 # Create your views here.
 #comment test
@@ -61,6 +62,24 @@ def dash(request):
                     pilot_items.append(add_color(d))
         elif i.name == 'Class I Complete':
             notes = "Renewal due in 12 calendar months after completion"
+            complete_date = datetime.strptime(i.value, "%Y-%m-%d").date()
+            due_date = add_cal_months(complete_date, 12)
+            today = datetime.date.today()
+            if today > due_date:  #Class I expired.  Now Class II
+                due_date = add_cal_months(complete_date, 24)
+                if today > due_date:  #Class II expired.  Now Class III
+                    due_date = add_cal_months(complete_date, 60)
+                    if today > due_date:
+                        notes = 'Medical FULLY expired on %s' % due_date
+                        color = 1
+                    else:
+                        notes = 'Medical reverted to Class III. Expires: %s' % due_date
+                        color = 2
+                else:
+                    notes = 'Medical reverted to Class II.  Goes to Class III on %s' % due_date
+                    color = 3
+            else:
+                notes = 'Class I Medical expires on %s and reverts to Class II' % due_date
             d = {'name':i.name, 'value':i.value, 'notes':notes}
             pilot_items.append(add_color(d))
         #Add more Med options here!!

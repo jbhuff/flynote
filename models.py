@@ -226,3 +226,6 @@ class user_config(models.Model):
 
     def __str__(self):
         return "{} {}: {}".format(str(self.user), self.name, self.value)
+    
+    def __getitem__(self, key):
+        return getattr(self, key)
