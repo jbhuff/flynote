@@ -75,7 +75,7 @@ def dash(request):
             else:
                 notes = 'Class I Medical expires on %s and reverts to non-commercial use (except CFI) at ' % due_date
             d = {'name':i.name, 'value':i.value, 'notes':notes}
-            pilot_items.append(add_color(d), color)
+            pilot_items.append(add_color(d, color))
         #Add more Med options here!!
 
 
