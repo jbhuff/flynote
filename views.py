@@ -66,20 +66,14 @@ def dash(request):
             due_date = add_cal_months(complete_date, 12)
             today = datetime.date.today()
             if today > due_date:  #Class I expired.  Now Class II
-                due_date = add_cal_months(complete_date, 24)
+                due_date = add_cal_months(complete_date, 60)
+                notes = 'Medical expired for commercial use. Can still use for PPL and CFI until %s' % due_date
+                color = 2
                 if today > due_date:  #Class II expired.  Now Class III
-                    due_date = add_cal_months(complete_date, 60)
-                    if today > due_date:
-                        notes = 'Medical FULLY expired on %s' % due_date
-                        color = 1
-                    else:
-                        notes = 'Medical reverted to Class III. Expires: %s' % due_date
-                        color = 2
-                else:
-                    notes = '<b>Medical reverted to Class II.</b>  Goes to Class III on %s' % due_date
-                    color = 3
+                    notes = 'Medical FULLY expired on %s' % due_date
+                    color = 1
             else:
-                notes = 'Class I Medical expires on %s and reverts to Class II' % due_date
+                notes = 'Class I Medical expires on %s and reverts to non-commercial use (except CFI) at ' % due_date
             d = {'name':i.name, 'value':i.value, 'notes':notes}
             pilot_items.append(add_color(d))
         #Add more Med options here!!
