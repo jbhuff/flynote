@@ -62,7 +62,7 @@ def dash(request):
                     pilot_items.append(add_color(d))
         elif i.name == 'Class I Complete':
             notes = "Renewal due in 12 calendar months after completion"
-            complete_date = datetime.strptime(i.value, "%Y-%m-%d").date()
+            complete_date = datetime.datetime.strptime(i.value, "%Y-%m-%d").date()
             due_date = add_cal_months(complete_date, 12)
             today = datetime.date.today()
             if today > due_date:  #Class I expired.  Now Class II
