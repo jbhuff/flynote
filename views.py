@@ -780,7 +780,8 @@ def show_ads(request, ptr):
                 ad_dict['level'] = 'success'
         ads.append(ad_dict)
     unused_ADs = AD.objects.exclude(id__in=[ad_ac.ad.id for ad_ac in ad_acs])
-    context = {'ac':aircraft, 'ads':ads, 'unused_ADs':unused_ADs, 'last_tach': last_tach}
+    context = {'ac':aircraft, 'ads':ads, 'unused_ADs':unused_ADs, 'last_tach': last_tach,
+                'show_nons':show_nons}
     return render(request, 'flynote/show_ads.html', context)
 
 @login_required
@@ -796,6 +797,17 @@ def add_ad_to_ac(request, ad_ptr, ac_ptr):
     adac.save()
     return redirect('show_ads', ac.id)
 
+@login_required
+def change_na_ads(request, show_nons, ptr_ad_ac)
+    current_value = get_or_create_user_item('Show N/A ADs', 1, request.user)
+    i = user_config.objects.filter(user=request.user).filter(name='Show N/A ADs')
+    if len(i) == 1:
+        i[0].value = str(show_nons)
+        i[0].save()
+    return redirect('show_ad_ac', ptr_ad_ac)
+
+
+@login_required
 def show_ad_ac(request, ptr):
     ad_ac = AD_aircraft.objects.get(pk=ptr)
     if request.method == 'POST':

@@ -4,6 +4,12 @@
 <h3>Airworthiness Directive:<br></h3>
 
 <br>
+{% if show_nons %}
+<a href={% url 'change_na_ads' '0' ad_ac.id %}>Disable Not Applicable ADs</a>
+{% else %}
+<a href={% url 'change_na_ads' '1' ad_ac.id %}>Enable Not Applicable ADs</a>
+{% endif %}
+<br>
 <h2>AD info:</h2><br>
 <form action={% url 'show_ad_ac' ad_ac.id %} method="post">
                         {% csrf_token %}
