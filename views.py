@@ -798,13 +798,13 @@ def add_ad_to_ac(request, ad_ptr, ac_ptr):
     return redirect('show_ads', ac.id)
 
 @login_required
-def change_na_ads(request, show_nons, ptr_ad_ac):
+def change_na_ads(request, show_nons, ptr_ac):
     current_value = get_or_create_user_item('Show N/A ADs', 1, request.user)
     i = user_config.objects.filter(user=request.user).filter(name='Show N/A ADs')
     if len(i) == 1:
         i[0].value = str(show_nons)
         i[0].save()
-    return redirect('show_ad_ac', ptr_ad_ac)
+    return redirect('show_ads', ptr_ac)
 
 
 @login_required

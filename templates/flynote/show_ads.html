@@ -13,9 +13,9 @@ Last Tach: {{ last_tach }}<br>
 </ul>
 <br>
 {% if show_nons %}
-<a href={% url 'change_na_ads' '0' ad_ac.id %}>Disable Not Applicable ADs</a>
+<a href={% url 'change_na_ads' '0' ac.id %}>Disable Not Applicable ADs</a>
 {% else %}
-<a href={% url 'change_na_ads' '1' ad_ac.id %}>Enable Not Applicable ADs</a>
+<a href={% url 'change_na_ads' '1' ac.id %}>Enable Not Applicable ADs</a>
 {% endif %}<br>
 <table class="table">
 	<tr>

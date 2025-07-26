@@ -41,6 +41,6 @@ urlpatterns = [
             path('add_ad_to_ac/<int:ad_ptr>/<int:ac_ptr>', add_ad_to_ac, name='add_ad_to_ac'),
             path('attach_mlog_to_squawk/<int:mlog_id>', attach_mlog_to_squawk, name='attach_mlog_to_squawk'),
             path('delete_squawk/<int:sq_ptr>', delete_squawk, name='delete_squawk'),
-            path('change_na_ads/<int:show_nons>/<int:ptr_ad_ac>', change_na_ads, name='change_na_ads'),
+            path('change_na_ads/<int:show_nons>/<int:ptr_ac>', change_na_ads, name='change_na_ads'),
             
             ]
