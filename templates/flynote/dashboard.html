@@ -60,7 +60,7 @@
 		<tr class="{{ i.color }}">
 			<td>{{ i.name }}</td>
 			<td>{{ i.value }}</td>
-			<td>{{ i.notes }}</td>
+			<td>{{ i.notes|safe }}</td>
 		</tr>
 		{% endfor %}
 		
