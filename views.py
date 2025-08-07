@@ -10,7 +10,7 @@ from django.contrib.auth import login as djlogin
 from django.contrib.auth import logout as djlogout
 from django.contrib.auth.decorators import login_required
 from .forms import (Quicklog, Flightlog, Ad_form, ad_aircraft_form, 
-                   ad_aircraft_mform, ad_mform, Maintlogform, ad_quickpick,
+                   ad_aircraft_mform, ad_mform, Maintlogform, Maintlogform_v1, ad_quickpick,
                    Ada_maint_form, UploadFileForm, tach_adjust_form, Crosswind_form,
                    LoginForm, Airfield_form, gps_form, waypointForm, gps_from_noregex,
                    quicksquawk, squawkform, squawklistform, mins_form)
@@ -428,7 +428,7 @@ def show_maint(request, ptr):
             maint_items = Maintlogitem.objects.filter(logitem__in=logitems).filter(logitem__note__contains=search_note).order_by("-date")
         else:
             maint_items = Maintlogitem.objects.filter(logitem__in=logitems).order_by("-date")
-        maintform = Maintlogform()
+        maintform = Maintlogform_v1()
     context = {'maint_items':maint_items, 'ac':aircraft, 'maintform':maintform}
     return render(request, 'flynote/show_maint.html', context)
 
@@ -496,7 +496,7 @@ def add_maint(request, ptr):
                 break
 
         if request.method == 'POST':
-            form = Maintlogform(request.POST)
+            form = Maintlogform_v1(request.POST)
             if form.is_valid():
                 cd = form.cleaned_data
                 date = cd['date']
