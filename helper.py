@@ -9,7 +9,8 @@ from django.core.files.storage import default_storage
 from django.conf import settings
 import os, math, re
 
-metar_url = "https://aviationweather.gov/cgi-bin/data/metar.php"
+#metar_url = "https://aviationweather.gov/cgi-bin/data/metar.php"
+metar_url = "https://aviationweather.gov/api/data/metar"
 fe_url = "https://aviationweather.gov/api/data/airport"
 
 #?ids=KMCI&format=json&taf=false&hours=8"
