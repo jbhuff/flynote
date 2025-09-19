@@ -388,7 +388,7 @@ def update_flight_values(request, ptr):
                 except:
                     continue
         params = urlencode({'msg':'test'})
-        url_str = reverse('show_ac', aircraft.id) + '?' + params
+        url_str = reverse('show_ac') + '/' + str(aircraft.id) + '?' + params
         return redirect(url_str)
                 
 
