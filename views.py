@@ -387,6 +387,7 @@ def update_flight_values(request, ptr):
                 getstr = "fli-{}-tach".format(fli.id)
                 try:
                     t = request.POST.get(getstr)
+                    msg = "{} t {}".format(msg, t)
                     if t:
                         msg = "{} checking {}".format(msg, fli.id)
                         old_t = fli.tach
