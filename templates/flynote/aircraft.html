@@ -3,6 +3,9 @@
 {% block content %}	
 
 <h2>{{ ac.name }}</h2><br>
+{% if msg %}
+{{ msg }}<br>
+{% endif %}
 <p><h3>Aircraft Info:</h3></p>
 <table class="table">
 	<tr>
