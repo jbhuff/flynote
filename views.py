@@ -1,5 +1,7 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, FileResponse
+from django.urls import reverse
+from urllib.parse import urlencode
 from .models import (Aircraft, User_to_aircraft, Logitem, Flightlogitem, Maintlogitem,
                     Airfield, Airfield_to_uta, wandb_category, wandb_item, Ac_item, 
                     AD, AD_aircraft, Ada_maintitem, File, Maintitem_file, Tach_adjust,
