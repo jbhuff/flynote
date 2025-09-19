@@ -384,7 +384,7 @@ def update_flight_values(request, ptr):
                 flis = flis[:show_number]
             msg = "{} len-flis {}".format(msg, len(flis))
             for fli in flis:
-                getstr = "fli-{}-tach".format(fli.id)
+                getstr = "flt-{}-tach".format(fli.id)
                 try:
                     t = request.POST.get(getstr)
                     msg = "{} t {}".format(msg, t)
