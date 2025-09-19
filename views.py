@@ -400,7 +400,8 @@ def update_flight_values(request, ptr):
                     continue
         params = urlencode({'msg':msg})
         rev = reverse('show_ac', args=[ptr])
-        url_str = rev + '?' + params
+        #url_str = rev + '?' + params
+        url_str = rev
         return redirect(url_str)
                 
 
