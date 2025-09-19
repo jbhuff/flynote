@@ -375,6 +375,7 @@ def update_flight_values(request, ptr):
         uta = aircraft_rs.filter(aircraft=aircraft)[0] #should just be 1
         msg = 'start'
         if request.method == 'POST':
+            msg = "{} POST {}".format(msg, ptr)
             logitems = Logitem.objects.filter(uta__in=all_users_utas)
             nonflights = logitems.exclude(logtype="flight")
             flis = Flightlogitem.objects.filter(logitem__uta__in=all_users_utas).order_by('-logitem__date', '-tach')
