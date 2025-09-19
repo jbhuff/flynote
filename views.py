@@ -390,7 +390,7 @@ def update_flight_values(request, ptr):
                             fli.save()
                 except:
                     continue
-        params = urlencode({'msg':'test'})
+        params = urlencode({'msg':msg})
         rev = reverse('show_ac', args=[ptr])
         url_str = rev + '?' + params
         return redirect(url_str)
