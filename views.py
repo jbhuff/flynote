@@ -367,6 +367,7 @@ def convert_coordinates(request):
 @login_required
 def update_flight_values(request, ptr):
     aircraft_rs = User_to_aircraft.objects.filter(user=request.user)
+    all_users_utas = User_to_aircraft.objects.filter(aircraft=aircraft)
     if ptr in [acr.aircraft.id for acr in aircraft_rs]:
         aircraft = Aircraft.objects.get(pk=ptr)
         uta = aircraft_rs.filter(aircraft=aircraft)[0] #should just be 1
