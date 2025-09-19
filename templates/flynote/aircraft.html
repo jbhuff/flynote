@@ -31,7 +31,7 @@
 	<a href={% url 'show_maint' ac.id %}>Maintenance Logs</a><br><br>
 	<p><a href={% url 'wandb' ac.id %}>Weight and Balance:</a><br>
 	<br><br><h2><a href={% url 'show_flights' ac.id %}>Flights:</a></h2><br>
-	<form action={% url 'update_flight_values' f.fli.id %} method="post">
+	<form action={% url 'update_flight_values' ac.id %} method="post">
 		{% csrf_token %}
 	<table class="table", border="1">
                  <tr>
