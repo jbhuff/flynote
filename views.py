@@ -379,6 +379,7 @@ def update_flight_values(request, ptr):
             logitems = Logitem.objects.filter(uta__in=all_users_utas)
             nonflights = logitems.exclude(logtype="flight")
             flis = Flightlogitem.objects.filter(logitem__uta__in=all_users_utas).order_by('-logitem__date', '-tach')
+            msg = "{} len-flis {}".format(msg, len(flis))
             for fli in flis:
                 try:
                     t = request.POST.get("fli-{}-tach".format(fli.id))
