@@ -379,10 +379,14 @@ def update_flight_values(request, ptr):
             logitems = Logitem.objects.filter(uta__in=all_users_utas)
             nonflights = logitems.exclude(logtype="flight")
             flis = Flightlogitem.objects.filter(logitem__uta__in=all_users_utas).order_by('-logitem__date', '-tach')
+            show_number = get_log_item_num(request.user)
+            if len(flis) > show_number:
+                flis = flis[:show_number]
             msg = "{} len-flis {}".format(msg, len(flis))
             for fli in flis:
+                getstr = "fli-{}-tach".format(fli.id)
                 try:
-                    t = request.POST.get("fli-{}-tach".format(fli.id))
+                    t = request.POST.get(getstr)
                     if t:
                         msg = "{} checking {}".format(msg, fli.id)
                         old_t = fli.tach
@@ -391,6 +395,7 @@ def update_flight_values(request, ptr):
                             fli.tach = t
                             fli.save()
                 except:
+                    msg = "{} continue from {}".format(msg, getstr)
                     continue
         params = urlencode({'msg':msg})
         rev = reverse('show_ac', args=[ptr])
