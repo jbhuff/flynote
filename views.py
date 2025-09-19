@@ -363,7 +363,29 @@ def convert_coordinates(request):
             wp = waypoint(name="noname", lat=lat, lon=lon, input_string=coords, user=request.user)
             wp.save()
     return redirect("dashboard")
-    
+
+@login_required
+def update_flight_values(request, ptr):
+    aircraft_rs = User_to_aircraft.objects.filter(user=request.user)
+    if ptr in [acr.aircraft.id for acr in aircraft_rs]:
+        aircraft = Aircraft.objects.get(pk=ptr)
+        uta = aircraft_rs.filter(aircraft=aircraft)[0] #should just be 1
+        if request.method == 'POST':
+            logitems = Logitem.objects.filter(uta__in=all_users_utas)
+            nonflights = logitems.exclude(logtype="flight")
+            flis = Flightlogitem.objects.filter(logitem__uta__in=all_users_utas).order_by('-logitem__date', '-tach')
+            for fli in flis:
+                try:
+                    t = request.POST.get("fli-{}-tach".format(fli.id))
+                    if t:
+                        old_t = fli.tach
+                        if float(old_t) != float(t):
+                            fli.tach = t
+                            fli.save()
+                except:
+                    continue
+        return redirect('show_ac', aircraft.id)
+                
 
 @login_required
 def show_waypoint(request, wp_id):

@@ -31,6 +31,8 @@
 	<a href={% url 'show_maint' ac.id %}>Maintenance Logs</a><br><br>
 	<p><a href={% url 'wandb' ac.id %}>Weight and Balance:</a><br>
 	<br><br><h2><a href={% url 'show_flights' ac.id %}>Flights:</a></h2><br>
+	<form action={% url 'update_flight_values' f.fli.id %} method="post">
+		{% csrf_token %}
 	<table class="table", border="1">
                  <tr>
 		  <th>Date</th>
@@ -45,7 +47,7 @@
 		<tr>
 		<td>{{ f.li.date }}</td>
 		<td>{{ f.li.uta.user }}</td>
-		<td>{{ f.fli.tach }}</td>
+		<td><input type="text" name="flt-{{ f.fli.id }}-tach" value="{{ f.fli.tach }}"></td>
 		<td>{{ f.fli.hours }}</td>
 		<td><a href={% url 'show_fl' f.fli.id %}>{{ f.fli.note }}</a></td>
 		<td>{{ f.fli.fuel }}</td>
@@ -53,6 +55,8 @@
 		</tr>
 		{% endfor %}
 		</table>
+		<input type="submit" value="Update Values">
+		</form>
          {% if snipped_flis %}
          snipped {{ snipped_flis }} flights...<br>
 	 	{% endif %}

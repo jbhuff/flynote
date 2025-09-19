@@ -4,7 +4,7 @@ from .views import (home, dash, show_ac, wandb, show_fl, add_ad, add_ad_ac, show
                     show_maint_item, show_ada_mli, add_file_maint_item, get_file, 
                     create_ttaf_adjust, update_wandb, add_wandb_image, convert_coordinates,
                     show_waypoint, show_squawk, squawk_quick_add, attach_mlog_to_squawk, delete_squawk,
-                    show_configs, show_ac_items, new_ada, change_na_ads,
+                    show_configs, show_ac_items, new_ada, change_na_ads,update_flight_values, 
         )
 
 
@@ -36,6 +36,7 @@ urlpatterns = [
             path('new_ada/<int:ptr>', new_ada, name='new_ada'),
             path('show_ads/<int:ptr>', show_ads, name='show_ads'),
             path('show_flights/<int:ptr>', show_flights, name='show_flights'),
+            path('update_flight_values/<int:ptr>', update_flight_values, name='update_flight_values'),
             path('add_maint/<int:ptr>', add_maint, name='add_maint'),
             path('update_ad/<int:ad_ptr>/<int:ad_ac_ptr>', update_ad, name='update_ad'),
             path('add_ad_to_ac/<int:ad_ptr>/<int:ac_ptr>', add_ad_to_ac, name='add_ad_to_ac'),
