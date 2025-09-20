@@ -1098,17 +1098,17 @@ def add_fast_log(request, ac_ptr, u_ptr):
     if request.method == 'POST':
         form = Fastlog(request.POST)
         if form.is_valid():
-            if form.fields['note'] is not None:
-                form_note = form.fields['note']
+            if form.cleaned_data['note'] is not None:
+                form_note = form.cleaned_data['note']
             else:
                 form_note = "Fast Flight entry"
-            if form.fields['tach'] is not None:
-                form_tach = form.fields['tach']
+            if form.cleaned_data['tach'] is not None:
+                form_tach = form.cleaned_data['tach']
             else:
                 last_tach_tp = get_latest_tach(ac)  #tuple (last_tach_char, last_date)
                 last_tach = float(last_tach_tp[0]) + 0.5
                 form_tach = str(last_tach)
-            if form.fields['date'] is not None:
+            if form.cleaned_data['date'] is not None:
                 #form_date = form.fields['date']
                 form_date = datetime.date.today()
             else:
