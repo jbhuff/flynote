@@ -1115,7 +1115,7 @@ def add_fast_log(request, ac_ptr, u_ptr):
             day_landings = 1
             night_landings = 0
             hours = "0.1"
-            li = Logitem(uta=uta, logtype="flight", note="Fast Flight Form", date=date)
+            li = Logitem(uta=uta, logtype="flight", note="Fast Flight Form", date=form_date)
             li.save()
             fl = Flightlogitem(note=form_note, tach=form_tach, hours=hours, fuel="not entered", logitem=li, 
                                night_landings=night_landings, day_landings=day_landings)
