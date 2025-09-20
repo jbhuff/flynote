@@ -1083,7 +1083,7 @@ def add_fast_log(request, ac_ptr, u_ptr):
         error = True
     u = User.objects.get(pk=u_ptr)
     dir_u = dir(u)
-    if u.firstname != u_name:
+    if u.username != u_name:
         error = True
     uta = User_to_aircraft.objects.get(aircraft=ac, user=u)
     if uta == None:
