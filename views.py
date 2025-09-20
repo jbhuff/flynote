@@ -753,7 +753,7 @@ def show_ac(request, ptr):
     quick_squawk_form = quicksquawk()
     form = Flightlog()
     ac_ptr = "{}_{}".format(aircraft.name, aircraft.id)
-    u_ptr = "{}_{}".format(request.user.firstname, request.user.id)
+    u_ptr = "{}_{}".format(request.user, request.user.id)
     form.fields['tach'].help_text = "Last Tach: {}".format(last_tach)
     context = {'ac':aircraft, 'logitems':logitems, 'flights':flights, 'ptr':ptr,
                'nonflights':nonflights, 'form':form,
