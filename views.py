@@ -1072,16 +1072,16 @@ def login(request):
 def add_fast_log(request, ac_ptr, u_ptr):
     ac_list = ac_ptr.split('_')
     u_list = u_ptr.split('_')
-    ac_ptr = int(ac_list[1])
+    ac_pk = int(ac_list[1])
     ac_name = ac_list[0]
-    u_ptr = int(u_list[1])
+    u_pk = int(u_list[1])
     u_name = u_list[0]
-    ac = Aircraft.objects.get(pk=ac_ptr)
+    ac = Aircraft.objects.get(pk=ac_pk)
     error = False
     msg = ""
     if ac.name != ac_name:
         error = True
-    u = User.objects.get(pk=u_ptr)
+    u = User.objects.get(pk=u_pk)
     dir_u = dir(u)
     if u.username != u_name:
         error = True
@@ -1092,7 +1092,7 @@ def add_fast_log(request, ac_ptr, u_ptr):
     if error:
         msg += "Invalid"
         params = urlencode({'msg':msg})
-        rev = reverse('show_ac', args=[ac_ptr])
+        rev = reverse('show_ac', args=[ac_pk])
         url_str = rev + '?' + params
         return redirect(url_str)
     if request.method == 'POST':
