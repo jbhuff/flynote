@@ -752,6 +752,8 @@ def show_ac(request, ptr):
     squawks = squawk.objects.filter(aircraft=aircraft).filter(maintenance_log=None)
     quick_squawk_form = quicksquawk()
     form = Flightlog()
+    ac_ptr = "{}_{}".format(aircraft.name, aircraft.id)
+    u_ptr = "{}_{}".format(request.user.firstname, request.user.id)
     form.fields['tach'].help_text = "Last Tach: {}".format(last_tach)
     context = {'ac':aircraft, 'logitems':logitems, 'flights':flights, 'ptr':ptr,
                'nonflights':nonflights, 'form':form,
@@ -760,7 +762,7 @@ def show_ac(request, ptr):
                'days_back':days_back, 'TTE':get_TTE(aircraft), 'ADs':ADs, 'snipped_flis':snipped_flis, 
                'ttaf':round(ttaf, 1), 'squawks':squawks, 'quick_squawk_form':quick_squawk_form, 
                'AD_warning':AD_warning, 'AD_warnings':AD_warnings, 'ac_items':ac_items, 'title':aircraft.name,
-               'msg':request.GET.get('msg'), 'last_tach':last_tach}
+               'msg':request.GET.get('msg'), 'last_tach':last_tach, 'ac_ptr':ac_ptr, 'u_ptr':u_ptr,}
     return render(request, 'flynote/aircraft.html', context)
 
 def squawk_quick_add(request, aircraft_id):
