@@ -714,8 +714,9 @@ def show_ac(request, ptr):
             if mi.annual_finished:
                 if mi.date > last_annual:
                     last_annual = mi.date
-        oil_due = last_oil + int(get_or_put_one_ac_item(aircraft, "oil frequency", 25))
-        ac_items.append(add_color({'name':"Oil Due", 'value':oil_due}))
+        oil_frequency = int(get_or_put_one_ac_item(aircraft, "oil frequency", 25)
+        oil_due = last_oil + oil_frequency)
+        ac_items.append(add_color({'name':"Oil Due (due every {} hrs)".format(oil_frequency), 'value':oil_due}))
 
         hours_remaining = round(oil_due - last_tach, 1)
         c = get_oil_color(hours_remaining, request.user)
