@@ -92,6 +92,7 @@
 	<br>
 	
 	<h3>Add Flight Log</h3>
+	<a href={% url 'fast_flight' ac_ptr u_ptr %}>Fast Flight entry</a><br>
 	<form action={% url 'show_ac' ac.id %} method="post">
 		        {% csrf_token %}
 				<table>
