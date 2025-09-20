@@ -1099,7 +1099,7 @@ def add_fast_log(request, ac_ptr, u_ptr):
         form = Fastlog(request.POST)
         if form.is_valid():
             if form.cleaned_data['note'] is not None:
-                form_note = form.cleaned_data['note']
+                form_note = form.cleaned_data['note'] + " FF"
             else:
                 form_note = "Fast Flight entry"
             if form.cleaned_data['tach'] is not None:
