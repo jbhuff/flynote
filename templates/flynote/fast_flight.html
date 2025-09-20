@@ -15,7 +15,7 @@
 </table>
 {% endif %}
 <h3>{{ ac }} {{ u.firstname }} Fast Flight:<br></h3>
-	<form action={% url 'add_fast_log' ac.id u.id %} method="post">
+	<form action={% url 'add_fast_log' ac_ptr u_ptr %} method="post">
            {% csrf_token %}
            <table class="table table-bordered">
             {{ form.as_table }}

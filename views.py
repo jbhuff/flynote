@@ -1121,10 +1121,10 @@ def add_fast_log(request, ac_ptr, u_ptr):
                                night_landings=night_landings, day_landings=day_landings)
             fl.save()
             context = {"hours":hours, "date":date, "note":form_note, "tach":form_tach, "msg":msg, "form":Fastlog(),
-                       "ac":ac, "u":u}
+                       "ac":ac, "u":u, "ac_ptr":ac_ptr, "u_ptr":u_ptr}
             return render(request, 'flynote/fast_flight.html', context)
 
     else:
         form = Fastlog()
-        context = {'form':form, "ac":ac, "u":u}
+        context = {'form':form, "ac":ac, "u":u, "ac_ptr":ac_ptr, "u_ptr":u_ptr }
         return render(request, 'flynote/fast_flight.html', context)
