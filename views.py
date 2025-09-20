@@ -26,9 +26,12 @@ from .helper import ( get_metars, get_wandb, get_gross_weight, get_max_aft_cg,
         get_metar_hours_back, get_da_color, get_log_item_num, get_oil_color, get_freezing_level, 
         get_td, get_or_put_one_ac_item, get_bfr_deadline, get_or_create_user_item, get_or_create_min_obj,
         add_cal_months, )
+from django.contrib.auth import get_user_model
+
 
 # Create your views here.
 #comment test
+User = get_user_model()
 
 
 def home(request):
@@ -1073,7 +1076,7 @@ def add_fast_log(request, ac_ptr, u_ptr):
     ac_name = ac_list[0]
     u_ptr = int(u_list[1])
     u_name = u_list[0]
-    ac = aircraft.objects.get(pk=ac_ptr)
+    ac = Aircraft.objects.get(pk=ac_ptr)
     error = False
     msg = ""
     if ac.name != ac_name:
