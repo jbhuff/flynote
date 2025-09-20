@@ -15,7 +15,7 @@ from .forms import (Quicklog, Flightlog, Ad_form, ad_aircraft_form,
                    ad_aircraft_mform, ad_mform, Maintlogform, Maintlogform_v1, ad_quickpick,
                    Ada_maint_form, UploadFileForm, tach_adjust_form, Crosswind_form,
                    LoginForm, Airfield_form, gps_form, waypointForm, gps_from_noregex,
-                   quicksquawk, squawkform, squawklistform, mins_form)
+                   quicksquawk, squawkform, squawklistform, mins_form, Fastlog)
 import datetime
 import json, re
 from .helper import ( get_metars, get_wandb, get_gross_weight, get_max_aft_cg, 
@@ -1063,3 +1063,62 @@ def login(request):
             'next_page':n,
             }
     return render(request, 'flynote/login.html', context)
+
+def add_fast_log(request, ac_ptr, u_ptr):
+    ac_list = ac_ptr.split('_')
+    u_list = u_ptr.split('_')
+    ac_ptr = int(ac_list[1])
+    ac_name = ac_list[0]
+    u_ptr = int(u_list[1])
+    u_name = u_list[0]
+    ac = aircraft.objects.get(pk=ac_ptr)
+    error = False
+    msg = ""
+    if ac.name != ac_name:
+        error = True
+    u = User.objects.get(pk=u_ptr)
+    if u.firstname != u_name:
+        error = True
+    uta = User_to_aircraft.objects.get(aircraft=ac, user=u)
+    if uta == None:
+        error = True
+        msg += "UTA "
+    if error:
+        msg += "Invalid"
+        params = urlencode({'msg':msg})
+        rev = reverse('show_ac', args=[ac_ptr])
+        url_str = rev + '?' + params
+        return redirect(url_str)
+    if request.method == 'POST':
+        form = Fastlog(request.POST)
+        if form.is_valid():
+            if form.fields['note'] is not None:
+                form_note = form.fields['note']
+            else:
+                form_note = "Fast Flight entry"
+            if form.fields['tach'] is not None:
+                form_tach = form.fields['tach']
+            else:
+                last_tach_tp = get_latest_tach(ac)  #tuple (last_tach_char, last_date)
+                last_tach = float(last_tach_tp[0]) + 0.5
+                form_tach = str(last_tach)
+            if form.fields['date'] is not None:
+                form_date = form.fields['date']
+            else:
+                form_date = datetime.date.today()
+            day_landings = 1
+            night_landings = 0
+            hours = "0.1"
+            li = Logitem(uta=uta, logtype="flight", note="Fast Flight Form", date=date)
+            li.save()
+            fl = Flightlogitem(note=form_note, tach=form_tach, hours=hours, fuel="not entered", logitem=li, 
+                               night_landings=night_landings, day_landings=day_landings)
+            fl.save()
+            context = {"hours":hours, "date":date, "note":form_note, "tach":form_tach, "msg":msg, "form":Fastlog(),
+                       "ac":ac, "u":u}
+            return render(request, 'flynote/fast_flight.html', context)
+
+    else:
+        form = Fastlog()
+        context = {'form':form, "ac":ac, "u":u}
+        return render(request, 'flynote/fast_flight.html', context)

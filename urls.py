@@ -5,6 +5,7 @@ from .views import (home, dash, show_ac, wandb, show_fl, add_ad, add_ad_ac, show
                     create_ttaf_adjust, update_wandb, add_wandb_image, convert_coordinates,
                     show_waypoint, show_squawk, squawk_quick_add, attach_mlog_to_squawk, delete_squawk,
                     show_configs, show_ac_items, new_ada, change_na_ads, update_flight_values, 
+                    add_fast_log, 
         )
 
 
@@ -43,5 +44,6 @@ urlpatterns = [
             path('attach_mlog_to_squawk/<int:mlog_id>', attach_mlog_to_squawk, name='attach_mlog_to_squawk'),
             path('delete_squawk/<int:sq_ptr>', delete_squawk, name='delete_squawk'),
             path('change_na_ads/<int:show_nons>/<int:ptr_ac>', change_na_ads, name='change_na_ads'),
+            path('afl/<str:ac_ptr>/<str:u_ptr>', add_fast_log, 'add_fast_log'),
             
             ]

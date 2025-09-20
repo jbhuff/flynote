@@ -1,0 +1,29 @@
+{% extends "flynotebase.htm" %}
+
+{% block content %}
+{% if note %}
+<h4>Added Flight!</h4>
+<table>
+    <tr><th>Item</th>
+        <th>Value</th>
+    </tr>
+    <tr><td>Note</td><td>{{ note }}</td>
+    </tr>
+    <tr><td>Date</td><td>{{ date }}</td></tr>
+    <tr><td>Tach</td><td>{{ tach }}</td></tr>
+    <tr><td>Hours</td><td>{{ hours }}</td></tr>
+</table>
+{% endif %}
+<h3>{{ ac }} {{ u.firstname }} Fast Flight:<br></h3>
+	<form action={% url 'add_fast_log' ac.id u.id %} method="post">
+           {% csrf_token %}
+           <table class="table table-bordered">
+            {{ form.as_table }}
+           </table>
+           
+            <input type="submit" value="Add Flight">
+	</form>
+<br>
+<a href={% url 'show_ac' ac.id %}><----Back to {{ ac }}</a>
+{% endblock %}
+

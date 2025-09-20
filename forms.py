@@ -7,6 +7,11 @@ from django import forms
 class Quicklog(forms.Form):
     note = forms.CharField(max_length=2000)
 
+class Fastlog(forms.Form):
+    note = forms.CharField(max_length=200, required=False)
+    tach = forms.FloatField(required=False)
+    date = forms.DateField(required=False)
+
 class Flightlog(forms.Form):
     date = forms.DateField()
     note = forms.CharField(max_length=2000)
