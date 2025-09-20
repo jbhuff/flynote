@@ -99,7 +99,7 @@
 				</table>
 	    <input type="submit" value="Submit">
 	</form><br>
-	<a href={% url 'fast_flight' ac_ptr u_ptr %}>Fast Flight entry</a><br>
+	{% comment %}<a href={% url 'fast_flight' ac_ptr u_ptr %}>Fast Flight entry</a><br>{% endcomment %}
 	<p>Days Back: {{ days_back }}</p>	
 	<div>
 	<canvas id="myChart" style="width:50%"></canvas>
