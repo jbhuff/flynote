@@ -1109,13 +1109,14 @@ def add_fast_log(request, ac_ptr, u_ptr):
                 last_tach = float(last_tach_tp[0]) + 0.5
                 form_tach = str(last_tach)
             if form.fields['date'] is not None:
-                form_date = form.fields['date']
+                #form_date = form.fields['date']
+                form_date = datetime.date.today()
             else:
                 form_date = datetime.date.today()
             day_landings = 1
             night_landings = 0
             hours = "0.1"
-            li = Logitem(uta=uta, logtype="flight", note="Fast Flight Form", date=str(form_date))
+            li = Logitem(uta=uta, logtype="flight", note="Fast Flight Form", date=form_date)
             li.save()
             fl = Flightlogitem(note=form_note, tach=form_tach, hours=hours, fuel="not entered", logitem=li, 
                                night_landings=night_landings, day_landings=day_landings)
