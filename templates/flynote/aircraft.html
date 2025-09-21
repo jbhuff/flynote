@@ -26,7 +26,7 @@
 	<p>AD(s) DUE:</p>
     <ul>
 	{% for ad in AD_warnings %}
-		<li><a href={% url 'show_ad_ac' ad.id %}>{{ ad }} {{ ad.ad.description }}</a></li>
+		<li><a href={% url 'show_ad_ac' ad.id %}>{{ ad }}</a> {{ ad.note }}</li>
 	{% endfor %}
 	</ul>
 	{% endif %}
