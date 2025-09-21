@@ -30,6 +30,8 @@
 	{% endfor %}
 	</ul>
 	{% endif %}
+	<h3><a href={% url 'show_ads' ac.id %}>Show ADs (and reset warnings)</a><br></h3>
+
 	
 	<a href={% url 'show_maint' ac.id %}>Maintenance Logs</a><br><br>
 	<p><a href={% url 'wandb' ac.id %}>Weight and Balance:</a><br>
@@ -121,5 +123,4 @@
 	});
 	</script>
 	<br>
-	<h3><a href={% url 'show_ads' ac.id %}>Show ADs</a><br></h3>
 {% endblock %}
