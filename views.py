@@ -707,6 +707,9 @@ def show_ac(request, ptr):
         last_annual = datetime.date(1900, 1, 1) 
         last_txpndr = datetime.date(1900, 1, 1)
         last_pitot = datetime.date(1900, 1, 1)
+        last_pitot_id = -1
+        last_annual_id = -1
+        last_txpndr_id = -1
         for mi in maint_items:
             if mi.oil_changed:
                 this_ttaf = get_latest_ttaf(aircraft, mi.logitem.date)
@@ -715,12 +718,15 @@ def show_ac(request, ptr):
             if mi.transponder_certified:
                 if mi.date > last_txpndr:
                     last_txpndr = mi.date
+                    last_txpndr_id = mi.id
             if mi.annual_finished:
                 if mi.date > last_annual:
                     last_annual = mi.date
+                    last_annual_id = mi.id
             if mi.pitot_static_certified:
                 if mi.date > last_pitot:
                     last_pitot = mi.date
+                    last_pitot_id = mi.id
         oil_frequency = int(get_or_put_one_ac_item(aircraft, "oil frequency", 25))
         oil_due = last_oil + oil_frequency
         ac_items.append(add_color({'name':"Oil Due (every {} hrs)".format(oil_frequency), 'value':oil_due}))
@@ -731,7 +737,7 @@ def show_ac(request, ptr):
 
         annual_due = datetime.date(last_annual.year + 1, last_annual.month + 1, 1)
         days_remaining = (annual_due - datetime.date.today()).days
-        ac_items.append(add_color({'name':"Annual Due", 'value':annual_due}))
+        ac_items.append(add_color({'name':"Annual Due", 'value':annual_due, 'mi_id':last_annual_id}))
         ac_items.append(add_color({'name':"Days Remaining before annual", 'value':days_remaining}))
 
         txpndr_due = datetime.date(last_txpndr.year + 2, last_txpndr.month + 1, 1)
@@ -742,7 +748,7 @@ def show_ac(request, ptr):
             txpndr_color = 2
         if days_remaining < 0:
             txpndr_color = 1
-        ac_items.append(add_color({'name':"Transponder Cert Due", 'value':txpndr_due}, txpndr_color))
+        ac_items.append(add_color({'name':"Transponder Cert Due", 'value':txpndr_due, 'mi_id':last_txpndr_id}, txpndr_color))
         ac_items.append(add_color({'name':"Days Remaining before Transponder Due", 'value':days_remaining}, txpndr_color))
 
         pitot_due = datetime.date(last_pitot.year + 2, last_pitot.month + 1, 1)
@@ -753,7 +759,7 @@ def show_ac(request, ptr):
             pitot_color = 2
         if days_remaining < 0:
             pitot_color = 1
-        ac_items.append(add_color({'name':"Pitot/Static Cert Due", 'value':pitot_due}, pitot_color))
+        ac_items.append(add_color({'name':"Pitot/Static Cert Due", 'value':pitot_due, 'mi_id':last_pitot_id}, pitot_color))
         ac_items.append(add_color({'name':"Days remaining before Pitot/Static Due", 'value':days_remaining}, pitot_color))
         
         tach_log = get_tach_log(aircraft,request.GET.get('days_back',30))

@@ -14,7 +14,7 @@
 	</tr>
 	{% for i in ac_items %}
 	<tr class="{{ i.color }}">
-		<td>{{ i.name }}</td>
+		<td>{% if i.url %}<a href="{% url i.url %}">{{ i.name }}</a>{% else %}{{ i.name }}{% endif %}</td>
 		<td>{{ i.value }}</td>
 	</tr>
 	{% endfor %}
