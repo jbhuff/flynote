@@ -60,6 +60,7 @@ class Maintlogitem(models.Model):
     date = models.DateField()
     annual_finished = models.BooleanField(default=False)
     transponder_certified = models.BooleanField(default=False)
+    pitot_static_certified = models.BooleanField(default=False)
 
     def __str__(self):
         return str(self.date) + ' ' + self.tach 

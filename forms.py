@@ -34,7 +34,8 @@ class Maintlogform_v1(logform):
 class Maintlogform(forms.ModelForm):
     class Meta:
         model = Maintlogitem
-        fields = [ 'tach', 'logitem', 'oil_changed', 'date', 'annual_finished', 'transponder_certified' ]
+        #fields = [ 'tach', 'logitem', 'oil_changed', 'date', 'annual_finished', 'transponder_certified' ]
+        fields = "__all__"
 
 class Ad_form_v1(forms.Form):
     number = forms.CharField()
