@@ -706,6 +706,7 @@ def show_ac(request, ptr):
         last_oil = 0.0
         last_annual = datetime.date(1900, 1, 1) 
         last_txpndr = datetime.date(1900, 1, 1)
+        last_pitot = datetime.date(1900, 1, 1)
         for mi in maint_items:
             if mi.oil_changed:
                 this_ttaf = get_latest_ttaf(aircraft, mi.logitem.date)
@@ -717,6 +718,9 @@ def show_ac(request, ptr):
             if mi.annual_finished:
                 if mi.date > last_annual:
                     last_annual = mi.date
+            if mi.pitot_static_certified:
+                if mi.date > last_pitot:
+                    last_pitot = mi.date
         oil_frequency = int(get_or_put_one_ac_item(aircraft, "oil frequency", 25))
         oil_due = last_oil + oil_frequency
         ac_items.append(add_color({'name':"Oil Due (every {} hrs)".format(oil_frequency), 'value':oil_due}))
@@ -741,6 +745,17 @@ def show_ac(request, ptr):
         ac_items.append(add_color({'name':"Transponder Cert Due", 'value':txpndr_due}, txpndr_color))
         ac_items.append(add_color({'name':"Days Remaining before Transponder Due", 'value':days_remaining}, txpndr_color))
 
+        pitot_due = datetime.date(last_pitot.year + 2, last_pitot.month + 1, 1)
+        days_remaining = (pitot_due - datetime.date.today()).days
+        pitot_warning = int(get_or_put_one_ac_item(aircraft, "pitot_warn", 30))
+        pitot_color = 3
+        if days_remaining < pitot_warning:
+            pitot_color = 2
+        if days_remaining < 0:
+            pitot_color = 1
+        ac_items.append(add_color({'name':"Pitot/Static Cert Due", 'value':pitot_due}, pitot_color))
+        ac_items.append(add_color({'name':"Days remaining before Pitot/Static Due", 'value':days_remaining}, pitot_color))
+        
         tach_log = get_tach_log(aircraft,request.GET.get('days_back',30))
         days_back = len(tach_log)
         ADs = AD_aircraft.objects.filter(aircraft=aircraft).order_by('ad__number')
