@@ -92,7 +92,7 @@ class Runway(models.Model):
     heading = models.IntegerField()
 
     def __str__(self):
-        return self.airfield + ": " + str(self.heading)
+        return str(self.airfield) + ": " + str(self.heading)
 
 class wandb_category(models.Model):
     name = models.CharField(max_length=40)
