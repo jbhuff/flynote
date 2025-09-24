@@ -130,8 +130,8 @@ def dash(request):
         for this_rw_dict in rws:
             rwp = this_rw_dict['id']
             rwp_list = rwp.split('/')
-            for this_rw in rwp_list:
-                this_rw = Runway(airfield=afo, heading=int(rw))
+            for rwh in rwp_list:
+                this_rw = Runway(airfield=afo, heading=int(rwh))
                 this_rw.save()
     else:
         afo = afqs[0]
