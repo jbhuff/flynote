@@ -25,7 +25,7 @@ from .helper import ( get_metars, get_wandb, get_gross_weight, get_max_aft_cg,
         get_field_elevation, get_garmin_string, get_gps_regex, add_color, get_med_item, 
         get_metar_hours_back, get_da_color, get_log_item_num, get_oil_color, get_freezing_level, 
         get_td, get_or_put_one_ac_item, get_bfr_deadline, get_or_create_user_item, get_or_create_min_obj,
-        add_cal_months, get_distance_tp)
+        add_cal_months, get_distance_tp, get_airport_item)
 from django.contrib.auth import get_user_model
 
 
