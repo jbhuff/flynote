@@ -88,7 +88,7 @@ def dash(request):
     get_airfield = request.GET.get('airfield', None)    
     last_metar = None
     last_airfield = None
-    for ai in Afu_inquiry.objects.filter(user=request.user).order_by(ts):
+    for ai in Afu_inquiry.objects.filter(user=request.user).order_by('ts'):
         #k_id = aftu.airfield.k_id
         #ms = get_metars(k_id, hours=4)
         #metars.append({'k_id':k_id, 'metar_list':ms})
