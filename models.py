@@ -87,6 +87,9 @@ class Afu_inquiry(models.Model):
     ts = models.DateTimeField(auto_now_add=True)
     metar = models.CharField(max_length=400, null=True, blank=True)
 
+    def __str__(self):
+        return "{}: {} - {}".format(self.user, self.ts, self.af)
+
 class Runway(models.Model):
     airfield = models.ForeignKey(Airfield, on_delete=models.CASCADE)
     heading = models.IntegerField()
