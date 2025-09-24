@@ -127,10 +127,12 @@ def dash(request):
         afo = Airfield(k_id=af, name=af, field_elevation=fe, pattern_altitude=fe+1000)
         afo.save()
         rws = get_airport_item(afo.k_id, 'runways')
-        rws_list = rws.split('/')
-        for rw in rws_list:
-            this_rw = Runway(airfield=afo, heading=int(rw))
-            this_rw.save()
+        for this_rw_dict in rws:
+            rwp = this_rw_dict['id']
+            rwp_list = rwp.split('/')
+            for this_rw in rwp_list:
+                this_rw = Runway(airfield=afo, heading=int(rw))
+                this_rw.save()
     else:
         afo = afqs[0]
     last_airfield = afo        
