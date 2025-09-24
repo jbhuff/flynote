@@ -95,7 +95,7 @@ def dash(request):
         #last_metar = ms[0]
         #last_airfield = aftu.airfield
         last_airfield = ai.af
-
+    
     hours_back = get_metar_hours_back(request.user)
     if get_airfield == None:
         if last_airfield == None:
@@ -119,6 +119,16 @@ def dash(request):
         last_metar = None
     ai = Afu_inquiry(af=af, metar=last_metar, user=request.user)
     ai.save()
+    #aqs = Airfield_to_uta.objects.filter(airfield__k_id=af)
+    #if len(aqs) < 1:
+    afqs = Airfield.objects.filter(k_id=af)
+    if len(afqs) < 1:
+        fe = get_field_elevation(af)
+        afo = Airfield(k_id=af, name=af, field_elevation=fe, pattern_altitude=fe+1000)
+        afo.save()
+    else:
+        afo = afqs[0]
+    last_airfield = afo        
     xwform = Crosswind_form()
     xw = None
     aform = Airfield_form(initial={'airfield':af})
