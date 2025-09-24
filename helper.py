@@ -678,7 +678,7 @@ def get_freezing_level(fe, t):
     ths = (int(t) / 2) * 1000
     return round(round(int(fe) + ths, -2))
 
-def get_td(metar_timestamp):
+def get_td(metar_timestamp):  #returns timedelta between now and the metar timestamp
     now = datetime.now(timezone.utc)
     
     # Parse METAR timestamp
