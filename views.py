@@ -101,7 +101,7 @@ def dash(request):
         if last_airfield == None:
             af = 'KCEU'
         else:
-            af = last_airfield.k_id
+            af = last_airfield
         ms = get_metars(af, hours=hours_back)
         #metars.append({'k_id':af, 'metar_list':ms})
         if len(ms) > 0:
