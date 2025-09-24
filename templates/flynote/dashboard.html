@@ -21,11 +21,11 @@
 		{{ airfield_form }}
 	<input type="submit" value="Change">
     </form>
-	<p>Distance/heading to:</p>
+	Distance/heading to:
 	<form action="{% url 'dashboard' %}" method="get">
 		{% csrf_token %}
 		{{ next_aform }}
-	<input type="submit" value="Change">
+	<input type="submit" value="Check">
     </form>
     <table class="table">
 		<tr>
