@@ -6,7 +6,7 @@ from .models import (Aircraft, User_to_aircraft, Logitem, Flightlogitem, Maintlo
                     Airfield, Airfield_to_uta, wandb_category, wandb_item, Ac_item, 
                     AD, AD_aircraft, Ada_maintitem, File, Maintitem_file, Tach_adjust,
                     Ac_file, Ac_category, Minimums, Runway, waypoint, config, squawk,
-                    user_config, Ac_value)
+                    user_config, Ac_value, Afu_inquiry)
 from django.contrib.auth import authenticate
 from django.contrib.auth import login as djlogin
 from django.contrib.auth import logout as djlogout
@@ -88,12 +88,13 @@ def dash(request):
     get_airfield = request.GET.get('airfield', None)    
     last_metar = None
     last_airfield = None
-    for aftu in airfield_to_utas:
+    for ai in Afu_inquiry.objects.filter(user=request.user).order_by(ts):
         #k_id = aftu.airfield.k_id
         #ms = get_metars(k_id, hours=4)
         #metars.append({'k_id':k_id, 'metar_list':ms})
         #last_metar = ms[0]
-        last_airfield = aftu.airfield
+        #last_airfield = aftu.airfield
+        last_airfield = ai.af
 
     hours_back = get_metar_hours_back(request.user)
     if get_airfield == None:
@@ -116,6 +117,8 @@ def dash(request):
         last_metar = ms[0]
     else:
         last_metar = None
+    ai = Afu_inquiry(af=af, metar=last_metar, user=request.user)
+    ai.save()
     xwform = Crosswind_form()
     xw = None
     aform = Airfield_form(initial={'airfield':af})

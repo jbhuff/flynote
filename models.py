@@ -80,6 +80,13 @@ class Airfield_to_uta(models.Model):
     airfield = models.ForeignKey(Airfield, on_delete=models.CASCADE)
     uta = models.ForeignKey(User_to_aircraft, null=True, on_delete=models.CASCADE)
 
+class Afu_inquiry(models.Model):
+    #atu = models.ForeignKey(Airfield_to_uta, on_delete=models.CASCADE)
+    af = models.CharField(max_length=4)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    ts = models.DateTimeField(auto_now_add=True)
+    metar = models.CharField(max_length=400, null=True, blank=True)
+
 class Runway(models.Model):
     airfield = models.ForeignKey(Airfield, on_delete=models.CASCADE)
     heading = models.IntegerField()
