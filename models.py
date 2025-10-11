@@ -53,6 +53,11 @@ class Flightlogitem(models.Model):
     def __str__(self):
         return str(self.logitem.date) + ' ' + str(self.note)
 
+class Flightlogextra(models.Model):
+    fli = models.ForeignKey(Flightlogitem)
+    name = models.CharField(max_length=50)
+    hours = models.IntegerField(null=True)
+
 class Maintlogitem(models.Model):
     tach = models.CharField(max_length=10)
     logitem = models.ForeignKey(Logitem, on_delete=models.CASCADE)
