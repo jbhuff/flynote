@@ -53,9 +53,12 @@ class Flightlogitem(models.Model):
     def __str__(self):
         return str(self.logitem.date) + ' ' + str(self.note)
 
-class Flightlogextra(models.Model):
-    fli = models.ForeignKey(Flightlogitem)
+class Flightlogextra(models.Model):   #so you can add up XC hours or IMC hours easily
     name = models.CharField(max_length=50)
+
+class Extratoflight(models.Model):
+    fli = models.ForeignKey(Flightlogitem)
+    extra = models.ForeignKey(Flightlogextra)
     hours = models.IntegerField(null=True)
 
 class Maintlogitem(models.Model):
