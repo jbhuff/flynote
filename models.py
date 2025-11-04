@@ -58,7 +58,7 @@ class Flightlogextra(models.Model):   #so you can add up XC hours or IMC hours e
 
 class Extratoflight(models.Model):
     fli = models.ForeignKey(Flightlogitem)
-    extra = models.ForeignKey(Flightlogextra)
+    extra = models.ForeignKey(Flightlogextra, on_delete=models.CASCADE)
     hours = models.IntegerField(null=True)
 
 class Maintlogitem(models.Model):
