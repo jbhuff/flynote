@@ -601,7 +601,7 @@ def get_or_create_user_item(item_name, default_value, user):
     except user_config.DoesNotExist:
         obj = user_config(name=item_name, value=default_value, user=user)
         obj.save()
-    w = int(obj.value)
+    w = int(float(obj.value))
     return w
 
 def get_or_create_min_obj(user):
