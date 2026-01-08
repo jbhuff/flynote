@@ -25,7 +25,7 @@ from .helper import ( get_metars, get_wandb, get_gross_weight, get_max_aft_cg,
         get_field_elevation, get_garmin_string, get_gps_regex, add_color, get_med_item, 
         get_metar_hours_back, get_da_color, get_log_item_num, get_oil_color, get_freezing_level, 
         get_td, get_or_put_one_ac_item, get_bfr_deadline, get_or_create_user_item, get_or_create_min_obj,
-        add_cal_months, get_distance_tp, get_airport_item)
+        add_cal_months, get_distance_tp, get_airport_item, get_pilot_hours_in_last_days)
 from django.contrib.auth import get_user_model
 
 
@@ -177,6 +177,18 @@ def dash(request):
     elif days_remaining < get_or_create_user_item("BFR Warning", 20, request.user):
         color = 2
     pilot_items.append(add_color({'name':"Biannual Flight Review Deadline", 'value':bfr_deadline}, color))
+    
+    tt = get_or_create_user_item("Pilot Total Time", 50, request.user)
+    recent_hours = get_pilot_hours_in_last_days()
+    remaining = 1500 - int(tt)
+    if remaining > 0:
+        per_day = recent_hours / 30
+        remaining_days = remaining / per_day
+        completion_date = datetime.date.today() + timedelta(int(remaining_days))
+        ret_string = "{} ({} in last 30 days)".format(completion_date, recent_hours))
+    else:
+        ret_string = "YOU DID IT"
+    pilot_items.append(add_color({'name':"Estimated Date to 1500", 'value':ret_string}, 4))
 
     min_alerts = {}
     if request.method == 'POST':

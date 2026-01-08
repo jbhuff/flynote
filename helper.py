@@ -733,3 +733,11 @@ def add_cal_months(start_date, months):
     years = months/12
     return_date = date(start_date.year + int(years), start_date.month + 1, 1)
     return return_date
+
+def get_pilot_hours_in_last_days(user, days=30):
+    start_date = datetime.date - timedelta(days=days)
+    flights = Flightlogitem.objects.filter(logitem__uta__user=user).filter(logitem__date__gte=days)
+    recent_hours = flights.aggregate(Sum("hours"))
+    return recent_hours
+
+
