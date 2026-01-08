@@ -184,7 +184,7 @@ def dash(request):
     if remaining > 0:
         per_day = recent_hours['hours__sum'] / 30
         remaining_days = remaining / per_day
-        completion_date = datetime.date.today() + timedelta(int(remaining_days))
+        completion_date = datetime.date.today() + datetime.timedelta(int(remaining_days))
         ret_string = "{} ({} in last 30 days)".format(completion_date, recent_hours)
     else:
         ret_string = "YOU DID IT"
