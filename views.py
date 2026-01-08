@@ -186,10 +186,11 @@ def dash(request):
         per_day = recent_hours['hours__sum'] / 30
         remaining_days = remaining / per_day
         completion_date = datetime.date.today() + datetime.timedelta(int(remaining_days))
-        ret_string = "{} ({} in last {} days)".format(completion_date, round(recent_hours['hours__sum'], 1), days)
+        ret_string = "{}".format(completion_date)
+        ret_notes = "{} in last {} days".format(round(recent_hours['hours__sum'], 1), days)
     else:
         ret_string = "YOU DID IT"
-    pilot_items.append(add_color({'name':"Estimated Date to 1500", 'value':ret_string}, 4))
+    pilot_items.append(add_color({'name':"Estimated Date to 1500", 'value':ret_string, 'notes':ret_notes}, 4))
 
     min_alerts = {}
     if request.method == 'POST':
