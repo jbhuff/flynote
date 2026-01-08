@@ -179,7 +179,7 @@ def dash(request):
     pilot_items.append(add_color({'name':"Biannual Flight Review Deadline", 'value':bfr_deadline}, color))
     
     tt = get_or_create_user_item("Pilot Total Time", 50, request.user)
-    recent_hours = get_pilot_hours_in_last_days()
+    recent_hours = get_pilot_hours_in_last_days(request.user)
     remaining = 1500 - int(tt)
     if remaining > 0:
         per_day = recent_hours / 30
