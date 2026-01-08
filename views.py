@@ -182,7 +182,7 @@ def dash(request):
     recent_hours = get_pilot_hours_in_last_days(request.user)
     remaining = 1500 - int(tt)
     if remaining > 0:
-        per_day = recent_hours / 30
+        per_day = recent_hours['hours__sum'] / 30
         remaining_days = remaining / per_day
         completion_date = datetime.date.today() + timedelta(int(remaining_days))
         ret_string = "{} ({} in last 30 days)".format(completion_date, recent_hours)
