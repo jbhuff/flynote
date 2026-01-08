@@ -185,7 +185,7 @@ def dash(request):
         per_day = recent_hours / 30
         remaining_days = remaining / per_day
         completion_date = datetime.date.today() + timedelta(int(remaining_days))
-        ret_string = "{} ({} in last 30 days)".format(completion_date, recent_hours))
+        ret_string = "{} ({} in last 30 days)".format(completion_date, recent_hours)
     else:
         ret_string = "YOU DID IT"
     pilot_items.append(add_color({'name':"Estimated Date to 1500", 'value':ret_string}, 4))
