@@ -20,7 +20,8 @@ class Flightlog(forms.Form):
     fuel = forms.FloatField(required=False)
     day_landings = forms.IntegerField()
     night_landings = forms.IntegerField(required=False)
-
+    bfr_complete = forms.BooleanField(required=False)
+    
 class logform(forms.Form):
     date = forms.DateField()
     note = forms.CharField(widget=forms.Textarea)

@@ -692,6 +692,7 @@ def show_ac(request, ptr):
                 hours = form.cleaned_data['hours']
                 night_landings = form.cleaned_data['night_landings']
                 day_landings = form.cleaned_data['day_landings']
+                bfr_complete = form.cleaned_data['bfr_complete']
                 fu = form.cleaned_data['fuel']
                 if night_landings == None:
                     night_landings = 0
@@ -704,7 +705,8 @@ def show_ac(request, ptr):
                 li = Logitem(uta=uta, logtype="flight", note=note, date=date)
                 li.save()
                 fl = Flightlogitem(note=note, tach=str(f), hours=str(h), fuel=str(fu),
-                                   logitem=li, night_landings=night_landings, day_landings=day_landings)
+                                   logitem=li, night_landings=night_landings, day_landings=day_landings,
+                                   bfr_complete=bfr_complete)
                 fl.save()
         logitems = Logitem.objects.filter(uta__in=all_users_utas)
         nonflights = logitems.exclude(logtype="flight")
@@ -1044,6 +1046,7 @@ def show_fl(request, ptr):
             fuel = form.cleaned_data['fuel']
             day_landings = form.cleaned_data['day_landings']
             night_landings = form.cleaned_data['night_landings']
+            bfr_complete = form.cleaned_data['bfr_complete']
             if night_landings == None:
                 night_landings = 0
             fl.logitem.date = date
@@ -1054,6 +1057,7 @@ def show_fl(request, ptr):
             fl.fuel = fuel
             fl.night_landings = night_landings
             fl.day_landings = day_landings
+            fl.bfr_complete = bfr_complete
             fl.save()
             
     else:
