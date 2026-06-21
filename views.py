@@ -1062,7 +1062,8 @@ def show_fl(request, ptr):
             
     else:
         pass
-    initial = {'date':fl.logitem.date, 'note':fl.note, 'tach':fl.tach, 'hours':fl.hours, 'fuel':fl.fuel, 'night_landings':fl.night_landings, 'day_landings':fl.day_landings}
+    initial = {'date':fl.logitem.date, 'note':fl.note, 'tach':fl.tach, 'hours':fl.hours, 'fuel':fl.fuel, 'night_landings':fl.night_landings, 
+                'day_landings':fl.day_landings, 'bfr_complete':fl.bfr_complete}
     form = Flightlog(initial=initial)
     context = {"flightlogitem":fl, "form":form}
     return render(request, "flynote/show_fl.html", context)
