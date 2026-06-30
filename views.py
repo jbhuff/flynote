@@ -112,7 +112,10 @@ def dash(request):
         af = get_airfield
         ms = get_metars(af, hours=hours_back)
         #metars.append({'k_id':af, 'metar_list':ms})
-        metar_d = decode_metar(ms[0], ret='dict')
+        if len(ms) > 0:
+            metar_d = decode_metar(ms[0], ret='dict')
+        else:
+            metar_d = {}
     if len(ms) > 0:
         last_metar = ms[0]
     else:
