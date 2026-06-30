@@ -26,11 +26,14 @@ def get_metars(k_id, hours=1):
         with request.urlopen(metar_url + '?ids=' + k_id + '&format=json&taf=false&hours=' + str(hours), timeout=10) as resp:
             return json.load(resp)
     except error.HTTPError as e:
-        db_logger.warning(f"METAR HTTP error {e.code} for {k_id}")
+        #db_logger.warning(f"METAR HTTP error {e.code} for {k_id}")
+        print(f"METAR HTTP error {e.code} for {k_id}")
     except error.URLError as e:
-        db_logger.warning(f"METAR connection error for {k_id}: {e.reason}")
+        #db_logger.warning(f"METAR connection error for {k_id}: {e.reason}")
+        print(f"METAR connection error for {k_id}: {e.reason}")
     except (json.JSONDecodeError, TimeoutError) as e:
-        db_logger.warning(f"METAR parse/timeout error for {k_id}: {e}")
+        #db_logger.warning(f"METAR parse/timeout error for {k_id}: {e}")
+        print(f"METAR parse/timeout error for {k_id}: {e}")
     #resp = request.urlopen(metar_url + '?ids=' + k_id + '&format=json&taf=false&hours=' + str(hours))
     #j = json.load(resp)
     resplist = []
