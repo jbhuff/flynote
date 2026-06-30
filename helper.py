@@ -22,9 +22,12 @@ def get_metars(k_id, hours=1):
         k_id = 'k' + k_id
     else:
         return None
+    j = json.loads("{}")
+
     try:
         with request.urlopen(metar_url + '?ids=' + k_id + '&format=json&taf=false&hours=' + str(hours), timeout=10) as resp:
-            return json.load(resp)
+            #return json.load(resp)
+            j = json.load(resp)
     except error.HTTPError as e:
         #db_logger.warning(f"METAR HTTP error {e.code} for {k_id}")
         print(f"METAR HTTP error {e.code} for {k_id}")
