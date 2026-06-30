@@ -1,5 +1,5 @@
 import json
-from urllib import request
+from urllib import request, error
 from .models import ( Aircraft, wandb_item, wandb_category, Ac_item, Ac_value, Flightlogitem,
                     File, Tach_adjust, Maintlogitem, wandb_box_segment, config, user_config,
                     Ac_category, Minimums, )
